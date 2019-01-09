@@ -11,10 +11,12 @@ import java.util.Set;
 public class CheckingAlgorithmTest {
     Graph G1;
     Graph G2;
+    Graph G3;
     Circle c1G1;
     Circle c2G1;
     Circle c1G2;
     Circle c2G2;
+    Circle c1G3;
 
     @Before
     public void setUp() {
@@ -25,6 +27,7 @@ public class CheckingAlgorithmTest {
         c2G2=new Circle(3, 10, 3);
         makeG1();
         makeG2();
+        makeG3();
     }
 
 
@@ -103,6 +106,28 @@ public class CheckingAlgorithmTest {
         G2=new Graph(vertex1, edges);
     }
 
+    public void makeG3(){
+        Set<Vertex> vertex1=new HashSet<Vertex>();
+        Vertex v1=new Vertex(3, 0);
+        Vertex v2=new Vertex(0, 3);
+        Vertex v3=new Vertex(6, 3);
+        Vertex v4=new Vertex(3, 6);
+
+        vertex1.add(v1);
+        vertex1.add(v2);
+        vertex1.add(v3);
+        vertex1.add(v4);
+
+        Set<Edge> edges =new HashSet<Edge>();
+        edges.add(new Edge(c1G3, v2,  v1));
+        edges.add(new Edge(c1G3, v1,  v3));
+        edges.add(new Edge(c1G3, v2,  v4));
+        edges.add(new Edge(c1G3, v4,  v3));
+
+        G3=new Graph(vertex1, edges);
+
+    }
+
     /*@Test
     public void createGraphTest() {
         List<Shape> shapes=new LinkedList<>();
@@ -144,5 +169,22 @@ public class CheckingAlgorithmTest {
         Pair<Set<List<Edge>>,Set<List<Edge>>> ans=CheckingAlgorithm.checkAlgorithem(G1,G2);
         Assert.assertNotNull(ans);
 
+    }
+
+    @Test
+    public void checkAlgorithemNOTTest() {
+        Pair<Set<List<Edge>>,Set<List<Edge>>> ans=CheckingAlgorithm.checkAlgorithem(G3,G2);
+        Assert.assertNull(ans);
+
+    }
+
+    @Test
+    public void createGraphTest() {
+        List<Shape> shapes = new LinkedList<>();
+        shapes.add(c1G1);
+        shapes.add(c2G1);
+        Graph g = CheckingAlgorithm.createGraph(shapes);
+        Assert.assertTrue(g.getVertex().size()>0);
+        Assert.assertTrue(g.getEdges().size()>0);
     }
 }

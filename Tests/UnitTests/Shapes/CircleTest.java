@@ -1,26 +1,75 @@
 package Shapes;
-
-import org.junit.Assert;
+import Graph.*;
+import org.junit.*;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.awt.geom.Point2D;
 import java.util.*;
 
-import static org.junit.Assert.*;
 
 public class CircleTest {
     Shape c1;
     Shape c2;
     Shape l;
+    List<Shape> allShapes;
 
     @Before
     public void SetUp(){
         c1 = new Circle(3,3,3);
         c2 = new Circle(3,8,3);
         l = new Line(0,3,6,3);
+        allShapes = new LinkedList<Shape>();
+        allShapes.add(c1);
+        allShapes.add(c2);
+        allShapes.add(l);
     }
 
+    @Test
+    public void createShapeGraphTest() {
+        Set<Vertex> vertex=new HashSet<Vertex>();
+        Set<Edge> edges =new HashSet<Edge>();
+        Graph g = new Graph(vertex,edges);
+        int vertexSize = g.getVertex().size();
+        int edgeSize = g.getEdges().size();
+        c1.createShapeGraph(allShapes,g);
+        //Graph G1 = makeG1();
+        Assert.assertTrue(g.getVertex().size() >= vertexSize);
+        Assert.assertTrue(g.getEdges().size() > edgeSize);
+
+        vertexSize = g.getVertex().size();
+        edgeSize = g.getEdges().size();
+        c2.createShapeGraph(allShapes,g);
+        Assert.assertTrue(g.getVertex().size() >= vertexSize);
+        Assert.assertTrue(g.getEdges().size() > edgeSize);
+    }
+
+    public Graph makeG1() {
+        Set<Vertex> vertex1=new HashSet<Vertex>();
+        Vertex v1=new Vertex(3, 0);
+        Vertex v2=new Vertex(0, 3);
+        Vertex v3=new Vertex(6, 3);
+        Vertex v4=new Vertex(3, 6);
+
+        Vertex v9=new Vertex(4.6583123951777, 5.5);
+        Vertex v10=new Vertex(1.3416876048223, 5.5);
+
+        vertex1.add(v1);
+        vertex1.add(v2);
+        vertex1.add(v3);
+        vertex1.add(v4);
+        vertex1.add(v9);
+        vertex1.add(v10);
+        Set<Edge> edges =new HashSet<Edge>();
+        edges.add(new Edge(c1, v2,  v1));
+        edges.add(new Edge(c1, v1,  v3));
+        edges.add(new Edge(c1, v2,  v10));
+        edges.add(new Edge(c1, v9,  v3));
+        edges.add(new Edge(c1, v10,  v4));
+        edges.add(new Edge(c1, v4,  v9));
+
+        Graph G1=new Graph(vertex1, edges);
+        return G1;
+    }
     @Test
     public void towCirclesIntersectionsTest() {
         List<Point2D.Double> intersections = new LinkedList<>();
