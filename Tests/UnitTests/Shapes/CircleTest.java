@@ -32,7 +32,6 @@ public class CircleTest {
         int vertexSize = g.getVertex().size();
         int edgeSize = g.getEdges().size();
         c1.createShapeGraph(allShapes,g);
-        //Graph G1 = makeG1();
         Assert.assertTrue(g.getVertex().size() >= vertexSize);
         Assert.assertTrue(g.getEdges().size() > edgeSize);
 
@@ -71,7 +70,7 @@ public class CircleTest {
         return G1;
     }
     @Test
-    public void towCirclesIntersectionsTest() {
+    public void twoCirclesIntersectionsTest() {
         List<Point2D.Double> intersections = new LinkedList<>();
         Point2D.Double p1 = new Point2D.Double(4.6583123951777, 5.5);
         Point2D.Double p2 = new Point2D.Double(1.3416876048223, 5.5);
@@ -97,7 +96,7 @@ public class CircleTest {
     }
 
     @Test
-    public void oneIntersectionsTowCirclesTest() {
+    public void twoCircleTangentsTest() {
         List<Point2D.Double> intersections = new LinkedList<>();
         Point2D.Double p = new Point2D.Double(3, 6);
         intersections.add(p);

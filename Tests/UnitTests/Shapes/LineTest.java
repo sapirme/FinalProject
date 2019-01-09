@@ -20,7 +20,7 @@ public class LineTest {
         l2 = new Line(0,2,2,0);
     }
     @Test
-    public void towLinesIntersectionsTest() {
+    public void twoLinesIntersectionsTest() {
         List<Point2D.Double> intersections = new LinkedList<>();
         Point2D.Double p = new Point2D.Double(1, 1);
         intersections.add(p);
