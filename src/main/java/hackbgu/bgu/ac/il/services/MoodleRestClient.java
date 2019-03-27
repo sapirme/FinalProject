@@ -14,7 +14,7 @@ public class MoodleRestClient {
      * Do a REST call to Moodle. Result are displayed in the console log.
      * @param args the command line arguments
      */
-	
+
 	private final String Token = "99f30beba89fa6fa280f33c971465746";
     private final String DomainName = "http://bpcoders.elyasaf.net";
 	

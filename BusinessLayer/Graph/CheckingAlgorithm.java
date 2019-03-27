@@ -57,40 +57,55 @@ public class CheckingAlgorithm {
             Double x = entry1.getKey();
             List<Vertex> list1 = entry1.getValue();
             List<Vertex> list2 = map2.get(x);
-            if(list2!=null && list1.size()!=list2.size()) {
-                if (list2!=null) {
-                    for (Vertex v1 : list1) {
-                        double min = Math.abs(v1.getY()-list2.get(0).getY());
-                        Vertex matchV=list2.get(0);
-                        for (Vertex v2 : list2) {
-                            double abs = Math.abs(v1.getY()-v2.getY());
-                            if (abs<min) {
-                                min = Math.abs(v1.getY()-v2.getY());
-                                matchV = v2;
-                            }
-                        }
-                        ans.add(new Pair<Vertex,Vertex> (v1,matchV));
+            if (list2!=null){
+                findMatchInLists(list1,list2,ans);
+            }
+            else{
+                list2=new LinkedList<Vertex>();
+                Set<Double> keys= map2.keySet();
+                for (Double key : keys ){
+                    if (Math.abs(key-x) < 1){
+                        list2.addAll(map2.get(key));
                     }
                 }
-            }
-            else if(list2!=null){
-                Vertex[] l1 = new Vertex[list1.size()];
-                list1.toArray(l1); // fill the array
-                Vertex[] l2 = new Vertex[list1.size()];
-                list2.toArray(l2); // fill the array
-                bubbleSort(l1);
-                //for (int i=0; i<l1.length; i++)System.out.println(l1[i]);
-                bubbleSort(l2);
-                //for (int i=0; i<l2.length; i++)System.out.println(l2[i]);
-                for (int i=0; i<l1.length ; i++) {
-                    ans.add(new Pair<Vertex,Vertex> (l1[i],l2[i]));
-                }
+                if (list2.size()>0)
+                    findMatchInLists(list1,list2,ans);
             }
 
         }
         System.out.println("match:");
         System.out.println(ans);
         return ans;
+    }
+
+    private static void findMatchInLists(List<Vertex> list1,List<Vertex> list2,List<Pair<Vertex,Vertex>> ans){
+        if(list1.size()!=list2.size()) {
+            for (Vertex v1 : list1) {
+                double min = Math.abs(v1.getY() - list2.get(0).getY());
+                Vertex matchV = list2.get(0);
+                for (Vertex v2 : list2) {
+                    double abs = Math.abs(v1.getY() - v2.getY());
+                    if (abs < min) {
+                        min = Math.abs(v1.getY() - v2.getY());
+                        matchV = v2;
+                    }
+                }
+                ans.add(new Pair<Vertex, Vertex>(v1, matchV));
+            }
+        }
+        else {
+            Vertex[] l1 = new Vertex[list1.size()];
+            list1.toArray(l1); // fill the array
+            Vertex[] l2 = new Vertex[list1.size()];
+            list2.toArray(l2); // fill the array
+            bubbleSort(l1);
+            //for (int i=0; i<l1.length; i++)System.out.println(l1[i]);
+            bubbleSort(l2);
+            //for (int i=0; i<l2.length; i++)System.out.println(l2[i]);
+            for (int i=0; i<l1.length ; i++) {
+                ans.add(new Pair<Vertex,Vertex> (l1[i],l2[i]));
+            }
+        }
     }
 
     public static void bubbleSort(Vertex[] array) {
@@ -121,13 +136,21 @@ public class CheckingAlgorithm {
         for (int i=0; i<p1.length-1; i++) {
             for (int j=0; j<p2.length-1; j++) {
                 if (p1[i].getTo().equals(p2[j].getTo())) {
+                    if (Math.abs(p1[i].getFrom().getY() - p2[j].getFrom().getY())<1 ||
+                            Math.abs(p1[i+1].getTo().getY() - p2[j+1].getTo().getY())<1)
+                        continue;
                     if ((p1[i].getFrom().getY() > p2[j].getFrom().getY()) &&
                             (p1[i+1].getTo().getY() < p2[j+1].getTo().getY()) )
+                    {
+                        //System.out.println("hey 1");
                         return true;
+                    }
                     else {
                         if (p1[i].getFrom().getY() < p2[j].getFrom().getY() &&
-                                p1[i+1].getTo().getY() < p2[j+1].getTo().getY())
+                                p1[i+1].getTo().getY() < p2[j+1].getTo().getY()) {
+                            //System.out.println("hey 2");
                             return true;
+                        }
                     }
                 }
 
@@ -149,7 +172,7 @@ public class CheckingAlgorithm {
         if (matchVertex.isEmpty()) return null;
         Set<List<Edge>> pathsListG1=new HashSet<List<Edge>> ();
         Set<List<Edge>> pathsListG2=new HashSet<List<Edge>> ();
-        System.out.println("here!");
+        //System.out.println("here!");
         if (checkAlgorithem(g1, g2, matchVertex, pathsListG1, pathsListG2)) {
             return new Pair<Set<List<Edge>>,Set<List<Edge>>>(pathsListG1,pathsListG2);
         }
@@ -159,20 +182,29 @@ public class CheckingAlgorithm {
     public static boolean checkAlgorithem(Graph g1,Graph g2,List<Pair<Vertex,Vertex>> matchVertex,
                                            Set<List<Edge>> pathsListG1,Set<List<Edge>> pathsListG2) {
         if (g1.getEdges().isEmpty() && g2.getEdges().isEmpty()) return true;
-        if (g1.getEdges().isEmpty() || g2.getEdges().isEmpty()) return false;
+        if (g1.getEdges().isEmpty() || g2.getEdges().isEmpty()){
+            //System.out.println("whayyy??");
+            return false;
+        }
         //System.out.println("g1: "+g1.getEdges().size()+" g2: "+g2.getEdges().size());
         for (Pair<Vertex,Vertex> p1 : matchVertex) {
             for (Pair<Vertex,Vertex> p2 : matchVertex) {
                 if (p1.equals(p2)) continue;
                 Set<List<Edge>> paths1 = g1.allPaths(p1.getFirst(),p2.getFirst());
+                //System.out.println("all path1: "+paths1.size()+" between: "+p1.getFirst()+" and "+p2.getFirst());
                 Set<List<Edge>> paths2 = g2.allPaths(p1.getSecond(),p2.getSecond());
+                //System.out.println("all path2: "+paths2.size()+" between: "+p1.getSecond()+" and "+p2.getSecond());
                 for (List<Edge> path1 : paths1) {
+                    //System.out.println("path 1");
+                    //System.out.println(path1);
                     if (isPathsIntersect(pathsListG1,path1)) {
                         continue;
                     }
                     g1.removeEdges(path1);
                     pathsListG1.add(path1);
                     for (List<Edge> path2 : paths2) {
+                        //System.out.println("path 2");
+                        //System.out.println(path2);
                         if (isPathsIntersect(pathsListG2,path2)) {
                             continue;
                         }
@@ -181,6 +213,7 @@ public class CheckingAlgorithm {
                         if (checkAlgorithem(g1,g2,matchVertex,pathsListG1,pathsListG2)) {
                             return true;
                         }
+                        //System.out.println("not good paths");
                         pathsListG2.remove(path2);
                         g2.addEdges(path2);
                     }
@@ -189,7 +222,7 @@ public class CheckingAlgorithm {
                 }
             }
         }
-
+        //System.out.println("///////////////////////////////////////////////////////////////////");
         return false;
     }
 

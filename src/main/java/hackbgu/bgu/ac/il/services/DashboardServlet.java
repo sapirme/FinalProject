@@ -14,9 +14,9 @@ import org.eclipse.jetty.util.log.Logger;
 
 public class DashboardServlet extends HttpServlet {
 	private static final Logger LOG = Log.getLogger(DashboardServlet.class);
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -1598336877581962216L;
 

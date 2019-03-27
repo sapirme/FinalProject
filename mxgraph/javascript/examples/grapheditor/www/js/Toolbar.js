@@ -118,6 +118,7 @@ Toolbar.prototype.init = function()
 	if (sw >= 550)
 	{
 		//this.addItems(['-', 'toFront', 'toBack']);
+
 	}
 
 	if (sw >= 740)

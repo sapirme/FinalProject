@@ -109,8 +109,10 @@ public class SVGParser {
         Graph g2 = CheckingAlgorithm.createGraph(shapes.getSecond());
         System.out.println("Graph 1:");
         System.out.println(g1);
+        System.out.println();
         System.out.println("Graph 2:");
         System.out.println(g2);
+        System.out.println();
         Pair<Set<List<Edge>>,Set<List<Edge>>> p =CheckingAlgorithm.checkAlgorithem(g1, g2);
         System.out.println("ans :");
         System.out.println(p);

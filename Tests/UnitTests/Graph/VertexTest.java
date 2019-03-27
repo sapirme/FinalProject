@@ -76,4 +76,12 @@ public class VertexTest {
         Assert.assertEquals(false, v2.isBetween(v3,v4));
     }
 
+    @Test
+    public void isBetweenTest2() {
+        Vertex ver1 = new Vertex(40,40);
+        Vertex ver2 = new Vertex(80,80);
+        Vertex ver3 = new Vertex(80,40);
+        Assert.assertEquals(false, ver3.isBetween(ver1,ver2));
+    }
+
 }
