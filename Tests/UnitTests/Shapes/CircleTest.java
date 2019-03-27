@@ -90,6 +90,18 @@ public class CircleTest {
     }
 
     @Test
+    public void circleAndLineIntersectionsTest2() {
+        Shape c_1 = new Circle(80,40,40);
+        Shape c_2 = new Circle(40,80,40);
+        List<Point2D.Double> intersections = new LinkedList<>();
+        Point2D.Double p1 = new Point2D.Double(40, 40);
+        Point2D.Double p2 = new Point2D.Double(80, 80);
+        intersections.add(p1);
+        intersections.add(p2);
+        Assert.assertEquals(intersections, c_1.getIntersections_accept(c_2));
+    }
+
+    @Test
     public void noIntersectionsTowCirclesTest() {
         List<Point2D.Double> intersections = new LinkedList<>();
         Assert.assertEquals(intersections, c1.getIntersections_accept(new Circle(3,10,3)));

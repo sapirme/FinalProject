@@ -45,10 +45,28 @@ public class Circle extends Shape{
         y1=y;y2=s.getY();
         r1=r;r2=s.getR();
 
+        double d = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)); //distance between centers
+        if (d > r1+r2 || d < Math.abs(r1-r2) || (d==0 && r1==r2)) return intesection;
+
+        double a = (r1*r1-r2*r2+d*d)/(2*d);
+        double doubleH = r1*r1-a*a;
+        double h = Math.sqrt(doubleH);
+
+        Point2D.Double temp=new Point2D.Double((x2-x1)*(a/d)+x1,(y2-y1)*(a/d)+y1);
+
+        Point2D.Double p1 = new Point2D.Double(temp.x+h*(y2-y1)/d,temp.y-h*(x2-x1)/d);
+        Point2D.Double p2 = new Point2D.Double(temp.x-h*(y2-y1)/d,temp.y+h*(x2-x1)/d);
+        intesection.add(p1);
+        if(!p1.equals(p2)) {
+            intesection.add(p2);
+        }
+
+
+        /*
         boolean isIntersects = Math.hypot(x1-x2, y1-y2) <= (r1 + r2);
         if (!isIntersects) return intesection;
 
-        R=Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+        R=Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)); //distance between centers
         double part1x=0.5*(x1+x2)+((r1*r1-r2*r2)/(2*R*R))*(x2-x1) ;
         double part1y=0.5*(y1+y2)+((r1*r1-r2*r2)/(2*R*R))*(y2-y1) ;
 
@@ -61,6 +79,7 @@ public class Circle extends Shape{
         if(!p1.equals(p2)) {
             intesection.add(p2);
         }
+        */
         return intesection;
     }
 
@@ -77,6 +96,7 @@ public class Circle extends Shape{
         Vertex left=new Vertex(x-r,y);
         Vertex up=new Vertex(x,y+r);
         Vertex down=new Vertex(x,y-r);
+
         Vertex v=g.isVertexExist(right);
         if (v==null) g.addVertex(right);
         else right=v;
@@ -89,6 +109,8 @@ public class Circle extends Shape{
         v=g.isVertexExist(down);
         if (v==null) g.addVertex(down);
         else down=v;
+
+        System.out.println("vertex:"+g.getVertex());
 
         g.addEdge(new Edge(this,left,up));
         g.addEdge(new Edge(this,left,down));

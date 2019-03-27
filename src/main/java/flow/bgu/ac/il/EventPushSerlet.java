@@ -23,8 +23,8 @@ public class EventPushSerlet extends HttpServlet {
 
 		BufferedReader br = request.getReader();
 		String name = IOUtils.toString(br);
-		if(RunServlet.bprog != null)
-			RunServlet.bprog.enqueueExternalEvent(new BEvent(name));
+		if(CreateLllusionServlet.bprog != null)
+			CreateLllusionServlet.bprog.enqueueExternalEvent(new BEvent(name));
 		else
 			LOG.warn("Event " + name + " is ignored because there is no active deployment");
 

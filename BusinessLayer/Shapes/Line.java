@@ -17,10 +17,19 @@ public class Line  extends Shape {
     private double yEnd;
 
     public Line (double xStart, double yStart, double xEnd, double yEnd) {
-        this.xStart=xStart;
-        this.yStart=yStart;
-        this.xEnd=xEnd;
-        this.yEnd=yEnd;
+        if (xStart>xEnd){
+            this.xStart=xEnd;
+            this.yStart=yEnd;
+            this.xEnd=xStart;
+            this.yEnd=xEnd;
+        }
+        else{
+            this.xStart=xStart;
+            this.yStart=yStart;
+            this.xEnd=xEnd;
+            this.yEnd=yEnd;
+        }
+
     }
 
     public double getXStart() {
@@ -51,8 +60,10 @@ public class Line  extends Shape {
     public void createShapeGraph(List<Shape> shapes, Graph g) {
         Set<Double> points=new HashSet<Double>();
         for (Shape s : shapes) {
-            if (s!=this)
-                points.addAll(this.getIntersections_accept(s));
+            if (s!=this) {
+                this.mergeIfNotIn(points,this.getIntersections_accept(s));
+                //points.addAll(this.getIntersections_accept(s));
+            }
         }
 
         Vertex start=new Vertex(xStart,yStart);

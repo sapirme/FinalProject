@@ -17,6 +17,20 @@ public abstract class Shape {
 
     public abstract void createShapeGraph(List<Shape> shapes,Graph g);
 
+    public void mergeIfNotIn(Set<Point2D.Double> points,List<Point2D.Double> intersects){
+        for (Point2D.Double p1 : intersects){
+            boolean exists=false;
+            for (Point2D.Double p2 : points){
+                if (Math.abs(p1.x-p2.x)<1 && Math.abs(p1.y-p2.y)<1){
+                    exists=true;
+                    break;
+                }
+            }
+            if (!exists)
+                points.add(p1);
+        }
+    }
+
     public void splitEdges(Graph g,Set<Point2D.Double> points) {
         Vertex v;
         for (Point2D.Double p : points) {
@@ -24,6 +38,7 @@ public abstract class Shape {
             v=g.isVertexExist(v1);
             if (v==null) {
                 v=v1;
+                System.out.println("add vertex: "+v);
                 g.addVertex(v);
             }
 

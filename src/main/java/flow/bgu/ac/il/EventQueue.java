@@ -34,8 +34,8 @@ public class EventQueue extends Endpoint implements MessageHandler.Whole<String>
 		session.addMessageHandler(this);
 
 		// Start reporting BP events
-		if (RunServlet.rnr != null) {
-			RunServlet.rnr.addListener(new BProgramRunnerListenerAdapter() {
+		if (CreateLllusionServlet.rnr != null) {
+			CreateLllusionServlet.rnr.addListener(new BProgramRunnerListenerAdapter() {
 				public void eventSelected(BProgram bp, BEvent event) {
 					if (remote != null) {
 						LOG.info("Sending:" + event.name);
@@ -51,8 +51,8 @@ public class EventQueue extends Endpoint implements MessageHandler.Whole<String>
 	public void onMessage(String message) {
 		LOG.info("Enquing external event {}", message);
 
-		if (RunServlet.bprog != null) {
-			RunServlet.bprog.enqueueExternalEvent(new BEvent(message));
+		if (CreateLllusionServlet.bprog != null) {
+			CreateLllusionServlet.bprog.enqueueExternalEvent(new BEvent(message));
 
 		}
 	}
