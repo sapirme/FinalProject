@@ -73,7 +73,7 @@ public class CircleTest {
     public void twoCirclesIntersectionsTest() {
         List<Point2D.Double> intersections = new LinkedList<>();
         Point2D.Double p1 = new Point2D.Double(4.6583123951777, 5.5);
-        Point2D.Double p2 = new Point2D.Double(1.3416876048223, 5.5);
+        Point2D.Double p2 = new Point2D.Double(1.3416876048223003, 5.5);
         intersections.add(p2);
         intersections.add(p1);
         Assert.assertEquals(intersections, c1.getIntersections_accept(c2));
