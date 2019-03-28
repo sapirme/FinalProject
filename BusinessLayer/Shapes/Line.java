@@ -17,6 +17,7 @@ public class Line  extends Shape {
     private double yEnd;
 
     public Line (double xStart, double yStart, double xEnd, double yEnd) {
+
         if (xStart>xEnd){
             this.xStart=xEnd;
             this.yStart=yEnd;
