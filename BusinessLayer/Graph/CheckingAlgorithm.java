@@ -191,13 +191,13 @@ public class CheckingAlgorithm {
             for (Pair<Vertex,Vertex> p2 : matchVertex) {
                 if (p1.equals(p2)) continue;
                 Set<List<Edge>> paths1 = g1.allPaths(p1.getFirst(),p2.getFirst());
-                System.out.println("all path1: "+paths1.size()+" between: "+p1.getFirst()+" and "+p2.getFirst());
+                //System.out.println("all path1: "+paths1.size()+" between: "+p1.getFirst()+" and "+p2.getFirst());
                 Set<List<Edge>> paths2 = g2.allPaths(p1.getSecond(),p2.getSecond());
-                System.out.println("all path2: "+paths2.size()+" between: "+p1.getSecond()+" and "+p2.getSecond());
+                //System.out.println("all path2: "+paths2.size()+" between: "+p1.getSecond()+" and "+p2.getSecond());
                 if (paths1.size()==0 || paths2.size()==0) continue;
                 for (List<Edge> path1 : paths1) {
-                    System.out.println("path 1");
-                    System.out.println(path1);
+                    //System.out.println("path 1");
+                    //System.out.println(path1);
                     if (isPathsIntersect(pathsListG1,path1)) {
                         continue;
                     }
