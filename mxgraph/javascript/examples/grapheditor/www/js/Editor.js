@@ -224,7 +224,7 @@ Editor.prototype.transparentImage = (mxClient.IS_SVG) ? 'data:image/gif;base64,R
 /**
  * Specifies if the canvas should be extended in all directions. Default is true.
  */
-Editor.prototype.extendCanvas = true;
+Editor.prototype.extendCanvas = false;
 
 /**
  * Specifies if the app should run in chromeless mode. Default is false.
@@ -1847,7 +1847,7 @@ PageSetupDialog.getFormats = function()
 		var gridColor = (color != null && this.gridColor != color.toLowerCase()) ? this.gridColor : '#ffffff';
 		var image = 'none';
 		var position = '';
-		
+
 		if (graph.isGridEnabled())
 		{
 			var phase = 10;
@@ -1883,7 +1883,7 @@ PageSetupDialog.getFormats = function()
 		}
 		
 		var canvas = graph.view.canvas;
-		
+
 		if (canvas.ownerSVGElement != null)
 		{
 			canvas = canvas.ownerSVGElement;
@@ -1935,7 +1935,14 @@ PageSetupDialog.getFormats = function()
 		    '<defs><pattern id="grid" width="' + tmp2 + '" height="' + tmp2 + '" patternUnits="userSpaceOnUse">' +
 		    '<path d="' + d.join(' ') + '" fill="none" stroke="' + color + '" opacity="0.2" stroke-width="1"/>' +
 		    '<path d="M ' + tmp2 + ' 0 L 0 0 0 ' + tmp2 + '" fill="none" stroke="' + color + '" stroke-width="1"/>' +
-		    '</pattern></defs><rect width="100%" height="100%" fill="url(#grid)"/></svg>';
+		    '</pattern></defs><rect width="100%" height="100%" fill="url(#grid)"/>' +
+            //'<path d="M 500 600 L 300 600" fill="none" stroke="#000000" stroke-miterlimit="10" transform="translate(10 10)" pointer-events="none"/>'+
+			//' <g>\n' +
+            //'<path d="M 500 600 L 300 600" fill="none" stroke="#000000" stroke-miterlimit="10" transform="translate(10 10)" pointer-events="none"/>'+
+            //'  <path id="svg_4" stroke-miterlimit="10" stroke="#000000" fill="none" d="m510,610l-200,0"/>\n' +
+            //'  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_5" y2="15.201415" x2="27.812997" y1="15.306457" x1="0.081961" stroke-width="1.5" stroke="#000" fill="none"/>\n' +
+            //' </g>'+
+			'</svg>';
 
 		return svg;
 	};
@@ -2035,8 +2042,8 @@ PageSetupDialog.getFormats = function()
 			}
 		});
 			
-		drawPageBreaks(this.horizontalPageBreaks);
-		drawPageBreaks(this.verticalPageBreaks);
+		//drawPageBreaks(this.horizontalPageBreaks);
+		//drawPageBreaks(this.verticalPageBreaks);
 	};
 	
 	// Disables removing relative children from parents
