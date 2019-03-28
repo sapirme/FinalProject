@@ -189,7 +189,7 @@ public class Graph {
     }
 
     /**
-     * find all paths between two vertex in recursive function
+     * find all paths between 2 vertex in recursive function
      * @param from
      * @param to
      * @param visited

@@ -108,12 +108,16 @@ Toolbar.prototype.init = function()
 	var elts = this.addItems(['-', 'undo', 'redo']);
 	elts[1].setAttribute('title', mxResources.get('undo') + ' (' + this.editorUi.actions.get('undo').shortcut + ')');
 	elts[2].setAttribute('title', mxResources.get('redo') + ' (' + this.editorUi.actions.get('redo').shortcut + ')');
+
+
 	
 	if (sw >= 320)
 	{
 		var elts = this.addItems(['-', 'delete']);
 		elts[1].setAttribute('title', mxResources.get('delete') + ' (' + this.editorUi.actions.get('delete').shortcut + ')');
+
 	}
+
 	
 	if (sw >= 550)
 	{
@@ -132,6 +136,7 @@ Toolbar.prototype.init = function()
 			if (sw >= 820)
 			{
 				//this.addItems(['shadow']);
+
 			}
 		}
 	}
