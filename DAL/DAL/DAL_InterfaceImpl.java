@@ -2,6 +2,8 @@ package DAL;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Set;
 
 import Graph.*;
@@ -78,5 +80,47 @@ public class DAL_InterfaceImpl implements DAL_Interface {
         Objects.insert(document);
 
         return true;
+    }
+
+    public Map<String,List<Shape>> getAllViewPoints() { // return map of vp's id and vp's shapes
+        Map<String,List<Shape>> allViewPoints = new HashMap<String,List<Shape>>();
+        BasicDBObject searchQuery = new BasicDBObject();
+        DBCursor cursor = ViewPoints.find();
+        while (cursor.hasNext()) {
+            DBObject obj = cursor.next();
+            String objId = obj.get("ObjectId").toString();
+            System.out.println(objId);
+            List<Shape> shapes = gson.fromJson(obj.get("Shapes").toString(),List.class);
+            System.out.println(shapes.toString());
+            allViewPoints.put(objId,shapes);
+        }
+        return allViewPoints;
+    }
+
+    public String getObjIDByViewPointID(String vpID){
+        String objId = "";
+        ObjectId toSearch = new ObjectId(vpID);
+        BasicDBObject searchQuery = new BasicDBObject().append("ViewPointID1", toSearch);
+        //searchQuery.put("ViewPointID1", "5c9c873403dfe0b563a3b82f");
+        DBCursor cursor = Objects.find(searchQuery);
+        if (cursor.hasNext()) {
+            while (cursor.hasNext()) {
+                DBObject obj = cursor.next();
+                objId = obj.get("ObjectId").toString();
+                //System.out.println(objId);
+            }
+        }
+        else{
+            searchQuery = new BasicDBObject().append("ViewPointID2", toSearch);
+            cursor = Objects.find(searchQuery);
+            if (cursor.hasNext()) {
+                while (cursor.hasNext()) {
+                    DBObject obj = cursor.next();
+                    objId = obj.get("ObjectId").toString();
+                    //System.out.println(objId);
+                }
+            }
+        }
+        return objId;
     }
 }
