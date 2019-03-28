@@ -74,7 +74,7 @@ public class GraphTest {
         v.add(v111);
         Assert.assertEquals(null, g.isVertexExist(v111));
     }
-
+    /*
     @Test
     public void allAdjacentsTest() {
         Map<Vertex,Set<Vertex>> allAdjacentsTrue = new HashMap<Vertex,Set<Vertex>>();
@@ -138,7 +138,7 @@ public class GraphTest {
         vertexs.add(v3);
         allPathsVertexs.add(vertexs);
         Assert.assertEquals(allPathsEdgesTrue, g.edgesFromVertex(allPathsVertexs));
-    }
+    }*/
 
     @Test
     public void allPathsTest() {
