@@ -1,12 +1,10 @@
 package Graph;
 
 
-import java.util.Set;
 import java.util.HashSet;
-import java.util.List;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class Graph {
 
@@ -64,6 +62,10 @@ public class Graph {
         return this.edges;
     }
 
+    /*
+
+
+    //////////////////////////////
     public Map<Vertex,Set<Vertex>> allAdjacents(){
         Map<Vertex,Set<Vertex>> allAdjacents = new HashMap<Vertex,Set<Vertex>>();
         for (Vertex v : vertex){
@@ -76,7 +78,7 @@ public class Graph {
             allAdjacents.put(v, adjacents);
         }
         return allAdjacents;
-    }
+    }*/
 
 	/*private Set<List<Edge>> edgesFromVertex(Set<List<Vertex>> vertexPaths){
 		for (List<Vertex> p : vertexPaths){
@@ -122,7 +124,7 @@ public class Graph {
 		}
 		return edgesPaths;
 	}*/
-
+    /*
     public Set<List<Edge>> edgesFromVertex(Set<List<Vertex>> vertexPaths){
         Set<List<Edge>> edgesPaths = new HashSet<List<Edge>>();
         for(List<Vertex> vertexPath : vertexPaths){
@@ -169,7 +171,68 @@ public class Graph {
         }
         visited.remove(from);
         return paths;
+    }*/
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * finde all the edges that start from vertex v
+     * @param v
+     * @return
+     */
+    public Set<Edge> allEdegsFromV(Vertex v){
+        Set<Edge> ans = new HashSet<Edge>();
+        for(Edge e : edges){
+            if(e.getFrom().equals(v)){
+                ans.add(e);
+            }
+        }
+        return ans;
     }
+
+    /**
+     * find all paths between 2 vertex in recursive function
+     * @param from
+     * @param to
+     * @param visited
+     * @param path
+     * @param paths
+     */
+    private void allPathsRecurs(Vertex from, Vertex to, Set<Vertex> visited, List<Edge> path, Set<List<Edge>> paths){
+        Set<Edge> allEdegsFrom = allEdegsFromV(from);
+        visited.add(from);
+        List<Edge> localPath = new LinkedList<Edge>();
+        for (Edge e : path)
+            localPath.add(e);
+        if(from.equals(to)){
+            paths.add(localPath);
+            visited.remove(from);
+            return;
+        }
+        for(Edge e : allEdegsFrom){
+            if(!visited.contains(e.getTo())){
+                localPath.add(e);
+                allPathsRecurs(e.getTo(),to,visited,localPath,paths);
+                localPath.remove(e);
+            }
+        }
+        visited.remove(from);
+    }
+
+    /**
+     * find all paths between 2 vertex
+     * @param from
+     * @param to
+     * @return
+     */
+    public Set<List<Edge>> allPaths(Vertex from, Vertex to){
+        Set<List<Edge>> paths = new HashSet<List<Edge>>();
+        List<Edge> path = new LinkedList<Edge>();
+        Set<Vertex> visited = new HashSet<Vertex>();
+        allPathsRecurs(from,to,visited,path,paths);
+        return paths;
+    }
+
+
 
     public void removeEdges(List<Edge> path) {
         edges.removeAll(path);

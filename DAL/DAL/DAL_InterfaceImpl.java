@@ -1,17 +1,16 @@
 package DAL;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Set;
-
-import Graph.*;
+import Graph.Edge;
+import Graph.Graph;
+import Shapes.Shape;
+import com.google.gson.Gson;
+import com.mongodb.*;
 import org.bson.types.ObjectId;
 
-import Shapes.Shape;
-import com.mongodb.*;
-import com.google.gson.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 
@@ -46,7 +45,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             Objects = db.getCollection("Objects");
             ViewPoints = db.getCollection("ViewPoints");
             return true;
-        }catch(IOException ie) {
+        }catch(Exception ie) {
             ie.printStackTrace();
         }
         return false;
