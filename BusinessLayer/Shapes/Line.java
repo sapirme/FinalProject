@@ -21,7 +21,7 @@ public class Line  extends Shape {
             this.xStart=xEnd;
             this.yStart=yEnd;
             this.xEnd=xStart;
-            this.yEnd=xEnd;
+            this.yEnd=yStart;
         }
         else{
             this.xStart=xStart;
@@ -157,6 +157,11 @@ public class Line  extends Shape {
     public void moveXbyH(double h){
         this.xStart = this.xStart - h;
         this.xEnd = this.xEnd - h;
+    }
+
+    @Override
+    public String toString() {
+        return "xStart: " + this.xStart + " yStart: "+ this.yStart + " xEnd: " + this.xEnd + " yEnd: "+ this.yEnd;
     }
 }
 

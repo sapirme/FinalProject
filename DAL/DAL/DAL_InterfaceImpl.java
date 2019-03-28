@@ -77,7 +77,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
         document.put("ViewPointID1", id1);
         document.put("ViewPointID2", id2);
         document.put("Email", email);
-        Objects.insert(document);
+        Objects.insert(document); // socket.send(document)
 
         return true;
     }

@@ -80,18 +80,37 @@ public class SVGParser {
                     if(shape_name.equals("path")) {
                         String d = line.substring(line.indexOf("d=\"")+3,line.indexOf("\"",line.indexOf("d=\"")+3));
                         String[] vals = d.split(" ");
-                        double xStart = Double.parseDouble(vals[1]);
-                        double yStart = Double.parseDouble(vals[2]);
-                        double xEnd = Double.parseDouble(vals[4]);
-                        double yEnd = Double.parseDouble(vals[5]);
-                        Line l = new Line(xStart, yStart, xEnd, yEnd);
-                        System.out.println(l.toString());
-                        if(yStart<middle)
-                            shapes1.add(l);
-                        else {
-                            if(yStart!=middle)
-                                shapes2.add(l);
+                        int j ;
+                        for(j=1; j < vals.length-4; j=j+3){
+                            double xStart = Double.parseDouble(vals[j]);
+                            double yStart = Double.parseDouble(vals[j+1]);
+                            double xEnd = Double.parseDouble(vals[j+3]);
+                            double yEnd = Double.parseDouble(vals[j+4]);
+                            Line l = new Line(xStart, yStart, xEnd, yEnd);
+                            System.out.println(l.toString());
+                            if(yStart<middle)
+                                shapes1.add(l);
+                            else {
+                                if(yStart!=middle)
+                                    shapes2.add(l);
+                            }
                         }
+                        if (vals[vals.length-1].equals("Z")){
+                            double xStart  = Double.parseDouble(vals[vals.length-3]);
+                            double yStart  = Double.parseDouble(vals[vals.length-2]);
+                            double xEnd  = Double.parseDouble(vals[1]);
+                            double yEnd  = Double.parseDouble(vals[2]);
+                            Line l = new Line(xStart, yStart, xEnd, yEnd);
+                            System.out.println(l.toString());
+                            if(yStart<middle)
+                                shapes1.add(l);
+                            else {
+                                if(yStart!=middle)
+                                    shapes2.add(l);
+                            }
+                        }
+
+
                     }
                 }
             }
