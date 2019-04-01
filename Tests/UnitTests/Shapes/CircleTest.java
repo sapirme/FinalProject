@@ -50,7 +50,7 @@ public class CircleTest {
         Vertex v4=new Vertex(3, 6);
 
         Vertex v9=new Vertex(4.6583123951777, 5.5);
-        Vertex v10=new Vertex(1.3416876048223, 5.5);
+        Vertex v10=new Vertex(1.3416876048223003, 5.5);
 
         vertex1.add(v1);
         vertex1.add(v2);

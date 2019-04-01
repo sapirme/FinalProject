@@ -1,12 +1,10 @@
 package Graph;
 
 
-import java.util.Set;
 import java.util.HashSet;
-import java.util.List;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class Graph {
 
@@ -65,6 +63,9 @@ public class Graph {
     }
 
     /*
+
+
+    //////////////////////////////
     public Map<Vertex,Set<Vertex>> allAdjacents(){
         Map<Vertex,Set<Vertex>> allAdjacents = new HashMap<Vertex,Set<Vertex>>();
         for (Vertex v : vertex){

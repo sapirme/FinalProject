@@ -9,8 +9,6 @@ import java.util.Set;
 
 public abstract class Shape {
 
-
-
     abstract List<Point2D.Double> getIntersections_accept(Shape s);//accept function
 
     abstract List<Point2D.Double> getIntersections_visit(Circle s);//visit function
@@ -18,7 +16,6 @@ public abstract class Shape {
     abstract List<Point2D.Double> getIntersections_visit(Line s);//visit function
 
     public abstract void createShapeGraph(List<Shape> shapes,Graph g);
-
 
     public void mergeIfNotIn(Set<Point2D.Double> points,List<Point2D.Double> intersects){
         for (Point2D.Double p1 : intersects){
