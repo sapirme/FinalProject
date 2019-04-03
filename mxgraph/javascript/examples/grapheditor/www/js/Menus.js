@@ -446,6 +446,7 @@ Menus.prototype.init = function()
         this.addMenuItems(menu, ['createIllusion','allObjects','similarObjects'], parent);
     })));
 
+
 	// Two special dropdowns that are only used in the toolbar
 	this.put('viewPanels', new Menu(mxUtils.bind(this, function(menu, parent)
 	{
