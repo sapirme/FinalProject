@@ -6038,7 +6038,6 @@ if (typeof mxVertexHandler != 'undefined')
 			return result || (mxUtils.getValue(style, mxConstants.STYLE_RESIZABLE, '1') != '0' &&
 				style[mxConstants.STYLE_WHITE_SPACE] == 'wrap');
 		};
-		
 		/**
 		 * Function: distributeCells
 		 * 

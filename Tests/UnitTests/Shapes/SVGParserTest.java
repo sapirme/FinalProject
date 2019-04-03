@@ -1,7 +1,10 @@
 package Shapes;
 
+import Graph.Pair;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.*;
 
 public class SVGParserTest {
 
@@ -24,5 +27,40 @@ public class SVGParserTest {
         Assert.assertFalse(SVGParser.decide(SVG1_No));
         String SVG2_No = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" width=\"850px\" height=\"543px\" viewBox=\"-0.5 -0.5 850 543\" style=\"background-color: rgb(255, 255, 255);\"><defs/><path d=\"M 0 200 L 847 200\" fill=\"none\" stroke=\"#000000\" stroke-miterlimit=\"10\" pointer-events=\"none\"/><ellipse cx=\"400\" cy=\"40\" rx=\"40\" ry=\"40\" fill=\"none\" stroke=\"#000000\" pointer-events=\"none\"/><ellipse cx=\"400\" cy=\"480\" rx=\"40\" ry=\"40\" fill=\"none\" stroke=\"#000000\" pointer-events=\"none\"/><path d=\"M 460 540 L 340 540\" fill=\"none\" stroke=\"#000000\" stroke-miterlimit=\"10\" pointer-events=\"none\"/><path d=\"M 460 420 L 340 420\" fill=\"none\" stroke=\"#000000\" stroke-miterlimit=\"10\" pointer-events=\"none\"/><path d=\"M 460 39.5 L 340 39.5\" fill=\"none\" stroke=\"#000000\" stroke-miterlimit=\"10\" pointer-events=\"none\"/></svg>";
         Assert.assertFalse(SVGParser.decide(SVG2_No));
+    }
+
+    @Test
+    public void fileToShapesTest(){// vp1: 2 Diamonds. vp2: 2 Circles
+
+        Pair<List<Shape>,List<Shape>> listFunc = SVGParser.fileToShapes("\n" +
+                "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"\n" +
+                " width=\"853px\" height=\"471px\" viewBox=\"-0.5 -0.5 853 471\"\n" +
+                " content=\"&lt;mxfile modified=&quot;2019-04-01T07:17:24.287Z&quot; host=&quot;www.draw.io&quot; agent=&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36&quot; etag=&quot;z_o4AgivgArDZ9QG6erw&quot; version=&quot;10.5.9&quot;&gt;&lt;diagram id=&quot;FsE6tZwa8OK-xMxhy6Oq&quot; name=&quot;Page-1&quot;&gt;1ZXfb8IgEMf/mj4uqa129VGdP16WLDHLkr1hOQuOloairfvrRweVMreoWYzbU+HL3XH3OQpeOMnquUAFeeQYmBf4uPbCBy8IeoHvq0+j7LUS9SMtpIJiY2SFJX0HIxq/dEsxlI6h5JxJWrhiwvMcEuloSAheuWZrztxdC5TCkbBMEDtWXyiWRKtxcG/1BdCUtDv3oqFeyVBrbCopCcK86kjh1AsngnOpR1k9AdbAa7lov9kPq4fEBOTyHAcy38zr1WhE4gV5nSXh9HnzdhfoKDvEtqZgk6zctwQgx6MGpJrlPFfimMiMqVlPDbU14COINqveoVZ1SIBnIMVemVSW5sAQIh2QrSaAIUl3bnhkmpoewh12eOJUbRz45rgFse+6lHwrEjBWXVqtozm5cZvAT4EkEinIo0Bq0CnTSp/NuKAx4enGCMKz1ValM64IlbAsUNKsVOpHdJu0poxNOOPCttBEByGh/kXn4m869xVUt0kOpUuR9P8ukvZyM6XfitDgjL+ZMXV1wmlCqCz0fbqmNeCrIQv7N2YW/UNmw6sxU1P7Ium7zL7r4fQD&lt;/diagram&gt;&lt;/mxfile&gt;\"\n" +
+                " style=\"background-color: rgb(255, 255, 255);\"><defs/>\n" +
+                " <g>\n" +
+                " <path d=\"M 0 280 L 850 280\" fill=\"none\" stroke=\"#000000\" stroke-miterlimit=\"10\" pointer-events=\"none\"/>\n" +
+                " <path d=\"M 40 0 L 80 40 L 40 80 L 0 40 Z\" fill=\"none\" stroke=\"#000000\" stroke-miterlimit=\"10\" pointer-events=\"none\"/>\n" +
+                " <path d=\"M 40 60 L 80 100 L 40 140 L 0 100 Z\" fill=\"none\" stroke=\"#000000\" stroke-miterlimit=\"10\" pointer-events=\"none\"/>\n" +
+                " <ellipse cx=\"40\" cy=\"380\" rx=\"40\" ry=\"40\" fill=\"none\" stroke=\"#000000\" pointer-events=\"none\"/>\n" +
+                " <ellipse cx=\"40\" cy=\"430\" rx=\"40\" ry=\"40\" fill=\"none\" stroke=\"#000000\" pointer-events=\"none\"/></g></svg>");
+
+
+        List<Shape> ls1 = new LinkedList<>();
+        ls1.add(new Line(40,0,80,40));
+        ls1.add(new Line(40,80,80,40));
+        ls1.add(new Line(0,40,40,80));
+        ls1.add(new Line(0,40,40,0));
+        ls1.add(new Line(40,60,80,100));
+        ls1.add(new Line(40,140,80,100));
+        ls1.add(new Line(0,100,40,140));
+        ls1.add(new Line(0,100,40,60));
+
+        Assert.assertEquals(ls1, listFunc.getFirst());
+
+        List<Shape> ls2 = new LinkedList<>();
+        ls2.add(new Circle(40,40,40));
+        ls2.add(new Circle(40,90,40));
+
+        Assert.assertEquals(ls2, listFunc.getSecond());
     }
 }

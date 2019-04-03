@@ -203,6 +203,11 @@ public class Circle extends Shape{
         else return false;
     }
 
+    @Override
+    public String toString(){
+        return "center: ("+x+","+y+") radius: "+r;
+    }
+
     public double getMinY(){
         return this.y - this.r;
     }
