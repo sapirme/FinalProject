@@ -6,12 +6,16 @@ import java.util.*;
 
 public class GraphTest {
 
-    Graph g;
+    Graph g1;
     Vertex v1,v2,v3,v4,v5,v6,v7,v8,v9,v10;
     Edge e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12,e13;
 
+    Graph g2;
+    Vertex v21,v22,v23;
+    Edge e21,e22,e23,e24;
+
     @Before
-    public void SetUp(){
+    public void SetUp1(){
         Set<Vertex> vertex=new HashSet<Vertex>();
         v1=new Vertex(0, 2);
         v2=new Vertex(1, 2);
@@ -33,6 +37,7 @@ public class GraphTest {
         vertex.add(v8);
         vertex.add(v9);
         vertex.add(v10);
+
         Set<Edge> edges =new HashSet<Edge>();
 
         e1 = new Edge(null, v1,  v2);
@@ -63,81 +68,41 @@ public class GraphTest {
         edges.add(e12);
         edges.add(e13);
 
-        g=new Graph(vertex, edges);
+        g1=new Graph(vertex, edges);
+    }
+
+    @Before
+    public void SetUp2(){
+        Set<Vertex> vertex=new HashSet<Vertex>();
+        v21=new Vertex(0, 0);
+        v22=new Vertex(2, 0);
+        v23=new Vertex(4, 0);
+        vertex.add(v21);
+        vertex.add(v22);
+        vertex.add(v23);
+
+        Set<Edge> edges =new HashSet<Edge>();
+
+        e21 = new Edge(null, v21,  v22);
+        e22 = new Edge(null, v21,  v22);
+        e23 = new Edge(null, v22,  v23);
+        e24 = new Edge(null, v22,  v23);
+
+        edges.add(e21);
+        edges.add(e22);
+        edges.add(e23);
+        edges.add(e24);
+
+        g2=new Graph(vertex, edges);
     }
 
     @Test
     public void isVertexExistTest() {
-        Assert.assertEquals(v1, g.isVertexExist(v1));
+        Assert.assertEquals(v1, g1.isVertexExist(v1));
         Set<Vertex> v=new HashSet<Vertex>();
         Vertex v111=new Vertex(55, 11);
         v.add(v111);
-        Assert.assertEquals(null, g.isVertexExist(v111));
-    }
-
-    @Test
-    public void allAdjacentsTest() {
-        Map<Vertex,Set<Vertex>> allAdjacentsTrue = new HashMap<Vertex,Set<Vertex>>();
-        Set<Vertex> sv1 = new HashSet<Vertex>();
-        sv1.add(v2);
-        allAdjacentsTrue.put(v1, sv1);
-
-        Set<Vertex> sv2 = new HashSet<Vertex>();
-        sv2.add(v7);
-        sv2.add(v3);
-        sv2.add(v10);
-        allAdjacentsTrue.put(v2, sv2);
-
-        Set<Vertex> sv3 = new HashSet<Vertex>();
-        sv3.add(v8);
-        sv3.add(v4);
-        sv3.add(v9);
-        allAdjacentsTrue.put(v3, sv3);
-
-        Set<Vertex> sv4 = new HashSet<Vertex>();
-        sv4.add(v5);
-        allAdjacentsTrue.put(v4, sv4);
-
-        Set<Vertex> sv5 = new HashSet<Vertex>();
-        sv5.add(v6);
-        allAdjacentsTrue.put(v5, sv5);
-
-        Set<Vertex> sv6 = new HashSet<Vertex>();
-        allAdjacentsTrue.put(v6, sv6);
-
-        Set<Vertex> sv7 = new HashSet<Vertex>();
-        sv7.add(v5);
-        allAdjacentsTrue.put(v7, sv7);
-
-        Set<Vertex> sv8 = new HashSet<Vertex>();
-        sv8.add(v4);
-        allAdjacentsTrue.put(v8, sv8);
-
-        Set<Vertex> sv9 = new HashSet<Vertex>();
-        sv9.add(v4);
-        allAdjacentsTrue.put(v9, sv9);
-
-        Set<Vertex> sv10 = new HashSet<Vertex>();
-        sv10.add(v5);
-        allAdjacentsTrue.put(v10, sv10);
-
-       // Assert.assertEquals(allAdjacentsTrue, g.allAdjacents());
-    }
-
-    @Test
-    public void edgesFromVertexTest() {
-        Set<List<Edge>> allPathsEdgesTrue = new HashSet<List<Edge>>();
-        List<Edge> edgesTrue = new LinkedList<Edge>();
-        edgesTrue.add(e1);
-        edgesTrue.add(e2);
-        allPathsEdgesTrue.add(edgesTrue);
-        Set<List<Vertex>> allPathsVertexs = new HashSet<List<Vertex>>();
-        List<Vertex> vertexs = new LinkedList<Vertex>();
-        vertexs.add(v1);
-        vertexs.add(v2);
-        vertexs.add(v3);
-        allPathsVertexs.add(vertexs);
-        //Assert.assertEquals(allPathsEdgesTrue, g.edgesFromVertex(allPathsVertexs));
+        Assert.assertEquals(null, g1.isVertexExist(v111));
     }
 
     @Test
@@ -178,7 +143,31 @@ public class GraphTest {
         path5.add(e4);
         path5.add(e5);
         allPathsTrue.add(path5);
-        Set<List<Edge>> allPaths = g.allPaths(v1, v6);
+        Set<List<Edge>> allPaths = g1.allPaths(v1, v6);
+        Assert.assertEquals(allPathsTrue, allPaths);
+    }
+
+
+    @Test
+    public void allPaths2Test(){ // more then 1 path between vertexs
+        Set<List<Edge>> allPathsTrue = new HashSet<List<Edge>>();
+        List<Edge> path1 = new LinkedList<Edge>();
+        path1.add(e21);
+        path1.add(e23);
+        allPathsTrue.add(path1);
+        List<Edge> path2 = new LinkedList<Edge>();
+        path2.add(e21);
+        path2.add(e24);
+        allPathsTrue.add(path2);
+        List<Edge> path3 = new LinkedList<Edge>();
+        path3.add(e22);
+        path3.add(e23);
+        allPathsTrue.add(path3);
+        List<Edge> path4 = new LinkedList<Edge>();
+        path4.add(e22);
+        path4.add(e24);
+        allPathsTrue.add(path4);
+        Set<List<Edge>> allPaths = g2.allPaths(v21, v23);
         Assert.assertEquals(allPathsTrue, allPaths);
     }
 }
