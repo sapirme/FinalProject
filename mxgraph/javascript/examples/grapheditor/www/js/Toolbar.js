@@ -734,7 +734,7 @@ Toolbar.prototype.addItems = function(keys, c, ignoreDisabled)
 		}*/
 		else
 		{
-			console.log(key.toLowerCase());
+			//console.log(key.toLowerCase());
 			items.push(this.addItem('geSprite-' + key.toLowerCase(), key, c, ignoreDisabled));
 		}
 	}
@@ -870,7 +870,7 @@ Toolbar.prototype.createButton = function(classname)
 	if (classname != null)
 	{
 		//sapir!!
-        console.log(classname);
+        //console.log(classname);
         switch (classname) {
             case 'geSprite-createillusion':
                 inner.className = 'geIllusion ' ;

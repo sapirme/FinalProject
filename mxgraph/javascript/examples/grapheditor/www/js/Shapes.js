@@ -385,6 +385,7 @@
 	};
 	DocumentShape.prototype.redrawPath = function(c, x, y, w, h)
 	{
+
 		var dy = h * Math.max(0, Math.min(1, parseFloat(mxUtils.getValue(this.style, 'size', this.size))));
 		var fy = 1.4;
 		
