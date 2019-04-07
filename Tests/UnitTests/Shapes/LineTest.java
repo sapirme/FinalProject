@@ -32,5 +32,10 @@ public class LineTest {
         Assert.assertEquals(intersections, l1.getIntersections_accept(new Line(1,0,3,2)));
     }
 
+    @Test
+    public void getYbyXTest() {
+        Assert.assertEquals(1, l1.getYbyX(1,0,0),0);
+        Assert.assertEquals(0.5, l1.getYbyX(0.5,0,0),0);
+    }
 
 }

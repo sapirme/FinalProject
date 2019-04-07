@@ -83,6 +83,15 @@ public class Circle extends Shape{
         return intesection;
     }
 
+    @Override
+    public double getYbyX(double x,double yFrom, double yTo) {//
+        //if (yNext != 1 && yNext != 2)
+        //    throw new ArithmeticException("part != 1 && part != 2");
+        if ((yTo > yFrom && y < yTo) || (yFrom > yTo && y < yFrom) )
+            return getY() + Math.sqrt(getR()*getR() - (getX() - x)*(getX() - x)); //top
+        else return getY() - Math.sqrt(getR()*getR() - (getX() - x)*(getX() - x));//down
+
+    }
 
     @Override
     public void createShapeGraph(List<Shape> shapes,Graph g) {

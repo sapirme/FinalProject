@@ -137,4 +137,19 @@ public class CircleTest {
         Assert.assertEquals(intersections, c1.getIntersections_accept(new Line(2,3,4,3)));
     }
 
+    @Test
+    public void getYbyXTest() {
+        Assert.assertEquals(6, c1.getYbyX(3,6,3),0);
+        Assert.assertEquals(0, c1.getYbyX(3,0,3),0);
+
+        Assert.assertEquals(3, c1.getYbyX(0,6,3),0);
+        Assert.assertEquals(3, c1.getYbyX(6,0,3),0);
+
+        Assert.assertEquals(5.828427125, c1.getYbyX(2,3,6),0.0000001);
+        Assert.assertEquals(0.1715728753, c1.getYbyX(2,3,0),0.0000001);
+
+        Assert.assertEquals(5.828427125, c1.getYbyX(4,6,3),0.0000001);
+        Assert.assertEquals(0.1715728753, c1.getYbyX(4,0,3),0.0000001);
+    }
+
 }
