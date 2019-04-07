@@ -485,11 +485,27 @@ div.mxWindow .geButton {
 	height:21px;
 }
 .geIllusion {
-
-	background-image:url('illusion.png') ;
+	background-image:url('illusion.png');
+	background-size:cover;
 	width:21px;
 	height:21px
 }
+
+.geSimilar {
+	background-image:url('similar.png') ;
+	background-size:cover;
+	width:21px;
+	height:21px
+}
+
+.geObjectPool {
+	background-image:url('gallery.png') ;
+	background-size:cover;
+	width:21px;
+	height:21px
+}
+
+
 .geBaseButton {
 	padding:10px;
 	border-radius:6px;

@@ -123,16 +123,18 @@ Toolbar.prototype.init = function()
 
 	if (sw >= 740)
 	{
+		//sapir!!
 		//this.addItems(['-', 'fillColor']);
 		this.addItems(['-', 'createIllusion']);
 		
 		if (sw >= 780)
 		{
 			//this.addItems(['strokeColor']);
-			
+            this.addItems(['-', 'allObjects']);
 			if (sw >= 820)
 			{
 				//this.addItems(['shadow']);
+                this.addItems(['-', 'similarObjects']);
 			}
 		}
 	}
@@ -867,13 +869,38 @@ Toolbar.prototype.createButton = function(classname)
 	
 	if (classname != null)
 	{
+		//sapir!!
+        console.log(classname);
+        switch (classname) {
+            case 'geSprite-createillusion':
+                inner.className = 'geIllusion ' ;
+                break;
+            case 'geSprite-allobjects':
+                inner.className = 'geObjectPool ' ;
+                break;
+            case 'geSprite-similarobjects':
+                inner.className = 'geSimilar ';
+                break;
+            default:
+                inner.className = 'geSprite ' + classname;
+        }
+		/*
 		console.log(classname);
 		if (classname == 'geSprite-createillusion'){
-			inner.className = 'geIllusion ' + classname;
+			inner.className = 'geIllusion ' ;//+ classname;
 			//inner.textContent = 'create illusion';
 		}
+        else if (classname == 'geSprite-allObjects'){
+            inner.className = 'geObjectPool ' + classname;
+            //inner.textContent = 'create illusion';
+        }
+        else if (classname == 'geSprite-similarObjects'){
+            inner.className = 'geSimilar ' + classname;
+            //inner.textContent = 'create illusion';
+        }
 		else
 			inner.className = 'geSprite ' + classname;
+		*/
 	}
 	
 	elt.appendChild(inner);
