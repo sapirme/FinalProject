@@ -108,26 +108,23 @@ Toolbar.prototype.init = function()
 	var elts = this.addItems(['-', 'undo', 'redo']);
 	elts[1].setAttribute('title', mxResources.get('undo') + ' (' + this.editorUi.actions.get('undo').shortcut + ')');
 	elts[2].setAttribute('title', mxResources.get('redo') + ' (' + this.editorUi.actions.get('redo').shortcut + ')');
-
-
 	
 	if (sw >= 320)
 	{
 		var elts = this.addItems(['-', 'delete']);
 		elts[1].setAttribute('title', mxResources.get('delete') + ' (' + this.editorUi.actions.get('delete').shortcut + ')');
-
 	}
-
 	
 	if (sw >= 550)
 	{
-		//this.addItems(['-', 'toFront', 'toBack']);
+		this.addItems(['-', 'toFront', 'toBack']);
 
 	}
 
 	if (sw >= 740)
 	{
 		//this.addItems(['-', 'fillColor']);
+		this.addItems(['-', 'createIllusion']);
 		
 		if (sw >= 780)
 		{
@@ -136,7 +133,6 @@ Toolbar.prototype.init = function()
 			if (sw >= 820)
 			{
 				//this.addItems(['shadow']);
-
 			}
 		}
 	}
@@ -169,7 +165,7 @@ Toolbar.prototype.init = function()
 			this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_EDGE, mxConstants.STYLE_CURVED, mxConstants.STYLE_NOEDGESTYLE], ['orthogonalEdgeStyle', '1', null], 'geIcon geSprite geSprite-curved', null, true).setAttribute('title', mxResources.get('curved'));
 			this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_EDGE, mxConstants.STYLE_CURVED, mxConstants.STYLE_NOEDGESTYLE], ['entityRelationEdgeStyle', null, null], 'geIcon geSprite geSprite-entity', null, true).setAttribute('title', mxResources.get('entityRelation'));
 		}));
-		
+
 		this.addDropDownArrow(this.edgeStyleMenu, 'geSprite-orthogonal', 44, 50, 0, 0, 22, -4);
 	*/
 	}
@@ -730,8 +726,13 @@ Toolbar.prototype.addItems = function(keys, c, ignoreDisabled)
 		{
 			items.push(this.addSeparator(c));
 		}
+		/*else if (key.toLowerCase() == 'createillusion')
+		{
+			items.push(this.addItem('geIllusion ' + key.toLowerCase(), key, c, ignoreDisabled));
+		}*/
 		else
 		{
+			console.log(key.toLowerCase());
 			items.push(this.addItem('geSprite-' + key.toLowerCase(), key, c, ignoreDisabled));
 		}
 	}
@@ -866,7 +867,13 @@ Toolbar.prototype.createButton = function(classname)
 	
 	if (classname != null)
 	{
-		inner.className = 'geSprite ' + classname;
+		console.log(classname);
+		if (classname == 'geSprite-createillusion'){
+			inner.className = 'geIllusion ' + classname;
+			//inner.textContent = 'create illusion';
+		}
+		else
+			inner.className = 'geSprite ' + classname;
 	}
 	
 	elt.appendChild(inner);

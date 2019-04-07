@@ -446,6 +446,7 @@ Menus.prototype.init = function()
         this.addMenuItems(menu, ['createIllusion','allObjects','similarObjects'], parent);
     })));
 
+
 	// Two special dropdowns that are only used in the toolbar
 	this.put('viewPanels', new Menu(mxUtils.bind(this, function(menu, parent)
 	{
@@ -1034,7 +1035,7 @@ Menus.prototype.createPopupMenu = function(menu, cell, evt)
 		if (state != null)
 		{
 			var hasWaypoints = false;
-			this.addMenuItems(menu, ['toFront', 'toBack', '-'], null, evt);
+			//this.addMenuItems(menu, ['toFront', 'toBack', '-'], null, evt);
 
 			if (graph.getModel().isEdge(cell) && mxUtils.getValue(state.style, mxConstants.STYLE_EDGE, null) != 'entityRelationEdgeStyle' &&
 				mxUtils.getValue(state.style, mxConstants.STYLE_SHAPE, null) != 'arrow')

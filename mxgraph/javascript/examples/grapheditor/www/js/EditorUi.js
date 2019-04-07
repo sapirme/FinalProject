@@ -2798,7 +2798,7 @@ EditorUi.prototype.updateActionStates = function()
 	// Updates action states
 	var actions = ['cut', 'copy', 'bold', 'italic', 'underline', 'delete', 'duplicate',
 	               'editStyle', 'editTooltip',/* 'editLink', */'backgroundColor', 'borderColor',
-	               'edit', 'toFront', 'toBack', 'lockUnlock', 'solid', 'dashed', 'pasteSize',
+	               'edit',/* 'toFront', 'toBack',*/ 'lockUnlock', 'solid', 'dashed', 'pasteSize',
 	               'dotted', 'fillColor', 'gradientColor', 'shadow', 'fontColor',
 	               'formattedText', 'rounded', 'toggleRounded', 'sharp', 'strokeColor'];
 	
@@ -4095,8 +4095,8 @@ EditorUi.prototype.createKeyHandler = function(editor)
 		//keyHandler.bindAction(69, true, 'selectEdges', true); // Ctrl+Shift+E
 		//keyHandler.bindAction(69, true, 'editStyle'); // Ctrl+E
 		//keyHandler.bindAction(66, true, 'bold'); // Ctrl+B
-		keyHandler.bindAction(66, true, 'toBack', true); // Ctrl+Shift+B
-		keyHandler.bindAction(70, true, 'toFront', true); // Ctrl+Shift+F
+		//keyHandler.bindAction(66, true, 'toBack', true); // Ctrl+Shift+B
+		//keyHandler.bindAction(70, true, 'toFront', true); // Ctrl+Shift+F
 		keyHandler.bindAction(68, true, 'duplicate'); // Ctrl+D
 		//keyHandler.bindAction(68, true, 'setAsDefaultStyle', true); // Ctrl+Shift+D
 		keyHandler.bindAction(90, true, 'undo'); // Ctrl+Z

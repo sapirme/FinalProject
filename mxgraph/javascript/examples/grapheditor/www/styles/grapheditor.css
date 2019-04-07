@@ -484,6 +484,12 @@ div.mxWindow .geButton {
 	width:21px;
 	height:21px;
 }
+.geIllusion {
+
+	background-image:url('illusion.png') ;
+	width:21px;
+	height:21px
+}
 .geBaseButton {
 	padding:10px;
 	border-radius:6px;
@@ -651,6 +657,7 @@ div.mxWindow .geButton {
 .geSprite-horizontalelbow { background-position: 0 -5903px; }
 .geSprite-horizontalisometric { background-position: 0 -5949px; }
 .geSprite-verticalisometric { background-position: 0 -5995px; }
+
 html div.mxRubberband {
 	border-color:#0000DD;
 	background:#99ccff;

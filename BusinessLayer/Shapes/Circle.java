@@ -62,7 +62,7 @@ public class Circle extends Shape{
         }
 
 
-/*
+        /*
         boolean isIntersects = Math.hypot(x1-x2, y1-y2) <= (r1 + r2);
         if (!isIntersects) return intesection;
 
@@ -201,6 +201,11 @@ public class Circle extends Shape{
         Circle other = (Circle) o;
         if(this.x==other.getX() && this.y==other.getY() && this.r==other.getR()) return true;
         else return false;
+    }
+
+    @Override
+    public String toString(){
+        return "center: ("+x+","+y+") radius: "+r;
     }
 
     public double getMinY(){
