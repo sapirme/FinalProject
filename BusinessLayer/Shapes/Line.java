@@ -1,6 +1,8 @@
 package Shapes;
 
 import Graph.*;
+//import com.sun.deploy.security.ruleset.ExceptionRule;
+
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.util.HashSet;
@@ -54,6 +56,13 @@ public class Line  extends Shape {
 
     public double getB() {
         return yStart-xStart*getM();
+    }
+
+    @Override
+    public double getYbyX(double x, double yFrom, double yTo) {
+        if (x < xStart || x > xEnd)
+            throw new ArithmeticException("x not in range");
+        return getM()*x + getB();
     }
 
     @Override
