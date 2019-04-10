@@ -1,16 +1,19 @@
 package Algorithms;
 
-import Graph.Edge;
-import Graph.Graph;
-import Graph.Vertex;
-import Shapes.Circle;
-import Shapes.Line;
+import Graph.*;
+import Shapes.*;
 import javafx.geometry.Point3D;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class CreationAlgorithmTest {
@@ -91,14 +94,44 @@ public class CreationAlgorithmTest {
     }
 
     @Test
-    public void createOBJTest() {
+    public void createOBJTest1() {
         //System.out.println(ca.createOBJ(g1,g2));// 2 lines
-        System.out.println(ca.createOBJ(g3,g4));// Diamond and circle
+        //System.out.println(ca.createOBJ(g3,g4));// Diamond and circle
         //System.out.println(ca.createOBJ(g4,g4));// 2 circle
         //System.out.println(ca.createOBJ(g3,g3));// 2 Diamond
         //ca.createOBJ(g4,g4);
 
        // Assert.assertEquals("12", ca.createOBJ(g1,g2));
+
+    }
+
+    @Test
+    public void createOBJTest2() {
+        List<Shape> l1 = new LinkedList<>();
+        l1.add(new Circle(20,20,20));
+        l1.add(new Circle(20,50,20));
+        List<Shape> l2 = new LinkedList<>();
+        l2.add(new Circle(20,20,20));
+        l2.add(new Circle(20,70,20));
+
+        String text = ca.createOBJ(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2));//"Hello world";
+        BufferedWriter output = null;
+
+        try {
+            File file = new File("C:\\Users\\טליה\\Desktop\\example2.obj");
+            output = new BufferedWriter(new FileWriter(file));
+            output.write(text);
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        } finally {
+            if ( output != null ) {
+                try {
+                    output.close();
+                } catch ( IOException e ) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
     }
 
