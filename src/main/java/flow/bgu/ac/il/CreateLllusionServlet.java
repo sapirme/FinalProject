@@ -1,9 +1,10 @@
 package flow.bgu.ac.il;
 
+import Object3D.Obj3DFile;
 import Shapes.*;
 import SystemObj.*;
-import java.io.BufferedReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,12 +47,35 @@ public class CreateLllusionServlet extends HttpServlet {
 		BufferedReader br = request.getReader();
 		String xml = IOUtils.toString(br);
 
-		SvgObj svgobj = new SvgObj();
-		String svgStr = svgobj.xml2svg(xml);
-		boolean ans=SVGParser.decide(svgStr);
-
-		if (ans)
+		//SvgObj svgobj = new SvgObj();
+		//String svgStr = svgobj.xml2svg(xml);
+		boolean ans = BPServer.illusionObj.Decide(xml);
+		//System.out.println("1: "+BPServer.illusionObj.getViewPoint1());
+		//System.out.println("1: "+BPServer.illusionObj.getViewPoint2());
+		if (ans) {
+			System.out.println("first : 1");
 			response.setStatus(HttpServletResponse.SC_OK);
+			String text = BPServer.illusionObj.createObject();
+
+			BufferedWriter output = null;
+
+			try {
+                System.out.println("hey 222222222222222222222");
+				File file = new File("C:\\Users\\sapir\\Desktop\\example2.obj");
+				output = new BufferedWriter(new FileWriter(file));
+				output.write(text);
+			} catch ( IOException e ) {
+				e.printStackTrace();
+			} finally {
+				if ( output != null ) {
+					try {
+						output.close();
+					} catch ( IOException e ) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 		else
 			response.setStatus(10);
 	}

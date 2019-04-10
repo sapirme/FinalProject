@@ -19,6 +19,11 @@ public class SvgObj {
     private mxStylesheet stylesheet = new mxStylesheet();
     private mxGraph graph;
 
+    private String xml;
+    private String svg;
+
+    public String getSvg() {return svg;}
+
     private String[] shapes = new String[] {
             mxConstants.SHAPE_RECTANGLE,
             mxConstants.SHAPE_ELLIPSE,
@@ -71,6 +76,7 @@ public class SvgObj {
     }
 
     public String xml2svg(String xml){
+        this.xml=xml;
         Document doc = mxXmlUtils.parseXml(xml);
         mxCodec codec = new mxCodec(doc);
         codec.decode(doc.getDocumentElement(), graph.getModel());
@@ -83,7 +89,8 @@ public class SvgObj {
                                 .createSvgDocument(width, height));
                     }
                 });
-        return mxXmlUtils.getXml(canvas.getDocument());
+        this.svg =  mxXmlUtils.getXml(canvas.getDocument());
+        return this.svg;
     }
 
 

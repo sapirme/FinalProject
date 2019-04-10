@@ -3,6 +3,7 @@ package Algorithms;
 import Graph.Edge;
 import Graph.Graph;
 import Graph.Vertex;
+import Object3D.Obj3DFile;
 import Shapes.Circle;
 import Shapes.Line;
 import javafx.geometry.Point3D;
@@ -96,7 +97,7 @@ public class CreationAlgorithmTest {
 
     @Test
     public void createOBJTest() {
-        String text = ca.createOBJ(g3,g4);//"Hello world";
+        String text = ca.createOBJ(g3,g4,new Obj3DFile());//"Hello world";
         BufferedWriter output = null;
 
         try {

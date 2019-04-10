@@ -9,6 +9,11 @@ public class Vertex {
         this.y = y;
     }
 
+    public Vertex (Vertex v){
+        this.x = v.getX();
+        this.y = v.getY();
+    }
+
     public void setX(int x){
         this.x = x;
     }

@@ -1,6 +1,8 @@
 package SystemObj;
 
+import Algorithms.CreationAlgorithm;
 import Shapes.*;
+import Object3D.*;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -11,12 +13,38 @@ public class IllusionObj {
 
     private  ViewPoint v1;
     private  ViewPoint v2;
+    private SvgObj svgObj;
+    private ObjectInteface model3D;
+
+    public IllusionObj(){
+        v1 = new ViewPoint();
+        v2 = new ViewPoint();
+        svgObj = new SvgObj();
+        model3D = new Obj3DFile();
+    }
+
+
 
     public ViewPoint getViewPoint1(){return v1;}
 
     public ViewPoint getViewPoint2(){return v2;}
 
-    //public Boolean Decide(String svg)
+    public Boolean Decide(String xml){
+        String svg = svgObj.xml2svg(xml);
+
+        return SVGParser.decide(svg,v1,v2);
+    }
+
+    public String createObject (){
+        //System.out.println("second : 2");
+        if (v1.hasPaths() && v2.hasPaths()){
+            //System.out.println("third : 3, has paths");
+            String m = CreationAlgorithm.createOBJ(v1.getGraph(),v2.getGraph(),model3D);
+            return m;
+        }
+        else
+            return null;
+    }
 
     public List<String> similarObj(){//return list of ID of the similar objects
         List<String> TopIDs = new LinkedList<>();
