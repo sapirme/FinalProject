@@ -12,6 +12,12 @@ public class IllusionObj {
     private  ViewPoint v1;
     private  ViewPoint v2;
 
+    public ViewPoint getViewPoint1(){return v1;}
+
+    public ViewPoint getViewPoint2(){return v2;}
+
+    //public Boolean Decide(String svg)
+
     public List<String> similarObj(){//return list of ID of the similar objects
         List<String> TopIDs = new LinkedList<>();
         Map <String, Double> allVPimaginationPercentage = new HashMap<>();

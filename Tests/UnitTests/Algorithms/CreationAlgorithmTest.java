@@ -94,7 +94,25 @@ public class CreationAlgorithmTest {
     }
 
     @Test
-    public void createOBJTest1() {
+    public void createOBJTest() {
+        String text = ca.createOBJ(g3,g4);//"Hello world";
+        BufferedWriter output = null;
+
+        try {
+            File file = new File("C:\\Users\\sapir\\Desktop\\example2.obj");
+            output = new BufferedWriter(new FileWriter(file));
+            output.write(text);
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        } finally {
+            if ( output != null ) {
+                try {
+                    output.close();
+                } catch ( IOException e ) {
+                    e.printStackTrace();
+                }
+            }
+        }
         //System.out.println(ca.createOBJ(g1,g2));// 2 lines
         //System.out.println(ca.createOBJ(g3,g4));// Diamond and circle
         //System.out.println(ca.createOBJ(g4,g4));// 2 circle
