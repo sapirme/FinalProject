@@ -1,6 +1,8 @@
 package Shapes;
 
 import Graph.*;
+import SystemObj.ViewPoint;
+
 import java.io.File;
 import java.util.Set;
 import java.io.FileNotFoundException;
@@ -122,26 +124,60 @@ public class SVGParser {
         return p;
     }
 
-    public static Boolean decide(String path1) {
-        Pair<List<Shape>,List<Shape>> shapes = fileToShapes(path1);
+    public static Boolean decide(String svgStr, ViewPoint v1, ViewPoint v2) {
+        Pair<List<Shape>,List<Shape>> shapes = fileToShapes(svgStr);
+
+        //v1.setSapes(shapes.getFirst());
+        //v2.setSapes(shapes.getSecond());
+
         Graph g1 = CheckingAlgorithm.createGraph(shapes.getFirst());
         Graph g2 = CheckingAlgorithm.createGraph(shapes.getSecond());
+
+        //v1.setGraph(g1);
+        //v2.setGraph(g2);
+        if (v1!=null){
+            v1.setSapes(shapes.getFirst());
+            v1.setGraph(new Graph(g1));
+            System.out.println("update g1");
+        }
+        if (v2!=null){
+            v2.setSapes(shapes.getSecond());
+            v2.setGraph(new Graph(g2));
+            System.out.println("update g2");
+        }
+
         System.out.println("Graph 1:");
         System.out.println(g1);
         System.out.println();
         System.out.println("Graph 2:");
         System.out.println(g2);
         System.out.println();
+
         Pair<Set<List<Edge>>,Set<List<Edge>>> p =CheckingAlgorithm.checkAlgorithem(g1, g2);
+
         System.out.println("ans :");
         System.out.println(p);
         if(p!=null){
+            if (v1!=null){
+                v1.setPaths(p.getFirst());
+            }
+            if (v2!=null){
+                v2.setPaths(p.getSecond());
+            }
             return true;
         }
-        else
+        else {
+            if (v1!=null) {
+                v1.setPaths(null);
+            }
+            if (v2!=null) {
+                v2.setPaths(null);
+            }
             return false;
+        }
     }
 
+    /*
     public static void main(String[] args) throws FileNotFoundException
     {
         //String path1_No = "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n" +
@@ -157,5 +193,5 @@ public class SVGParser {
             System.out.println("yes!!!!");
         else
             System.out.println("no");
-    }
+    }*/
 }

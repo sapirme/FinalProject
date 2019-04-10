@@ -1,5 +1,5 @@
 package Algorithms;
-
+import Object3D.Obj3DFile;
 import Graph.*;
 import Shapes.*;
 import javafx.geometry.Point3D;
@@ -95,7 +95,7 @@ public class CreationAlgorithmTest {
 
     @Test
     public void createOBJTest() {
-        String text = ca.createOBJ(g3,g4);//"Hello world";
+        String text = ca.createOBJ(g3,g4,new Obj3DFile());//"Hello world";
         BufferedWriter output = null;
 
         try {
@@ -132,7 +132,7 @@ public class CreationAlgorithmTest {
         l2.add(new Circle(20,20,20));
         l2.add(new Circle(20,70,20));
 
-        String text = ca.createOBJ(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2));//"Hello world";
+        String text = ca.createOBJ(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2),new Obj3DFile());//"Hello world";
         BufferedWriter output = null;
 
         try {

@@ -2,6 +2,7 @@ package flow.bgu.ac.il;
 
 import javax.websocket.server.ServerEndpointConfig;
 
+import SystemObj.IllusionObj;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -15,6 +16,8 @@ import hackbgu.bgu.ac.il.services.DashboardServlet;
 
 public class BPServer {
 	private Server server;
+
+	public static IllusionObj illusionObj = new IllusionObj();
 
 	public void init(String[] arguments) throws Exception {
 		int port = 8090;

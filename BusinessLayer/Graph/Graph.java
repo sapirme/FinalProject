@@ -16,6 +16,17 @@ public class Graph {
         this.edges = new HashSet<Edge>(edges);
     }
 
+    public Graph (Graph g){
+        this.vertex = new HashSet<Vertex>();
+        for (Vertex v : g.getVertex()){
+            vertex.add(new Vertex(v));
+        }
+        this.edges = new HashSet<Edge>();
+        for (Edge e : g.getEdges()){
+            edges.add(new Edge(e));
+        }
+    }
+
     public Vertex isVertexExist(Vertex v) {
         for (Vertex v1 :  vertex) {
             if (v1.equals(v)) return v1;
