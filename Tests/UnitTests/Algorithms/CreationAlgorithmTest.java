@@ -76,18 +76,18 @@ public class CreationAlgorithmTest {
 
         Set<Vertex> vertex2=new HashSet<Vertex>();
         Set<Edge> edges2 =new HashSet<Edge>();
-        v14=new Vertex(0, 2);
-        v24=new Vertex(2, 4);
-        v34=new Vertex(4, 2);
-        v44=new Vertex(2, 0);
+        v14=new Vertex(0, 20);
+        v24=new Vertex(20, 40);
+        v34=new Vertex(40, 20);
+        v44=new Vertex(20, 0);
         vertex2.add(v14);
         vertex2.add(v24);
         vertex2.add(v34);
         vertex2.add(v44);
-        e14 = new Edge(new Circle(2,2,2), v14,  v24);
-        e24 = new Edge(new Circle(2,2,2), v14,  v44);
-        e34 = new Edge(new Circle(2,2,2), v24,  v34);
-        e44 = new Edge(new Circle(2,2,2), v44,  v34);
+        e14 = new Edge(new Circle(20,20,20), v14,  v24);
+        e24 = new Edge(new Circle(20,20,20), v14,  v44);
+        e34 = new Edge(new Circle(20,20,20), v24,  v34);
+        e44 = new Edge(new Circle(20,20,20), v44,  v34);
         edges2.add(e14);
         edges2.add(e24);
         edges2.add(e34);
@@ -97,11 +97,11 @@ public class CreationAlgorithmTest {
 
     @Test
     public void createOBJTest() {
-        String text = ca.createOBJ(g3,g4,new Obj3DFile());//"Hello world";
+        String text = ca.createOBJ(g4,g4,new Obj3DFile());//"Hello world";
         BufferedWriter output = null;
 
         try {
-            File file = new File("C:\\Users\\sapir\\Desktop\\example2.obj");
+            File file = new File("C:\\Users\\sapir\\Desktop\\example22.obj");
             output = new BufferedWriter(new FileWriter(file));
             output.write(text);
         } catch ( IOException e ) {
