@@ -1,6 +1,7 @@
 package Algorithms;
 import Object3D.Obj3DFile;
 import Graph.*;
+import Object3D.Stl3DFile;
 import Shapes.*;
 import javafx.geometry.Point3D;
 import org.junit.Assert;
@@ -151,7 +152,38 @@ public class CreationAlgorithmTest {
             }
         }
 
+    }@Test
+    public void createSTLTest() {
+        List<Shape> l1 = new LinkedList<>();
+        l1.add(new Circle(20,20,20));
+        l1.add(new Circle(20,50,20));
+        List<Shape> l2 = new LinkedList<>();
+        l2.add(new Circle(20,20,20));
+        l2.add(new Circle(20,70,20));
+
+        String text = ca.createOBJ(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2),new Stl3DFile());//"Hello world";
+        BufferedWriter output = null;
+
+        try {
+            File file = new File("C:\\Users\\טליה\\Desktop\\example3.stl");
+            output = new BufferedWriter(new FileWriter(file));
+            output.write(text);
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        } finally {
+            if ( output != null ) {
+                try {
+                    output.close();
+                } catch ( IOException e ) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
+
+
+
 
     @Test
     public void cuttingPointTest() {
