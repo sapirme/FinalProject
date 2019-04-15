@@ -583,6 +583,7 @@ mxShape.prototype.redrawShape = function()
  */
 mxShape.prototype.createCanvas = function()
 {
+
 	var canvas = null;
 	
 	// LATER: Check if reusing existing DOM nodes improves performance
