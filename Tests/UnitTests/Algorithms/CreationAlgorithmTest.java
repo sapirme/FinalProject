@@ -1,11 +1,8 @@
 package Algorithms;
-
-import Graph.Edge;
-import Graph.Graph;
-import Graph.Vertex;
 import Object3D.Obj3DFile;
-import Shapes.Circle;
-import Shapes.Line;
+import Graph.*;
+import Object3D.Stl3DFile;
+import Shapes.*;
 import javafx.geometry.Point3D;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,6 +13,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class CreationAlgorithmTest {
@@ -101,7 +100,7 @@ public class CreationAlgorithmTest {
         BufferedWriter output = null;
 
         try {
-            File file = new File("C:\\Users\\sapir\\Desktop\\example2.obj");
+            File file = new File("C:\\Users\\טליה\\Desktop\\example2.obj");
             output = new BufferedWriter(new FileWriter(file));
             output.write(text);
         } catch ( IOException e ) {
@@ -122,6 +121,64 @@ public class CreationAlgorithmTest {
         //ca.createOBJ(g4,g4);
 
        // Assert.assertEquals("12", ca.createOBJ(g1,g2));
+
+    }
+
+    @Test
+    public void createOBJTest2() {
+        List<Shape> l1 = new LinkedList<>();
+        l1.add(new Circle(20,20,20));
+        l1.add(new Circle(20,50,20));
+        List<Shape> l2 = new LinkedList<>();
+        l2.add(new Circle(20,20,20));
+        l2.add(new Circle(20,70,20));
+
+        String text = ca.createOBJ(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2),new Obj3DFile());//"Hello world";
+        BufferedWriter output = null;
+
+        try {
+            File file = new File("C:\\Users\\טליה\\Desktop\\exampleOBJ.obj");
+            output = new BufferedWriter(new FileWriter(file));
+            output.write(text);
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        } finally {
+            if ( output != null ) {
+                try {
+                    output.close();
+                } catch ( IOException e ) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }@Test
+    public void createSTLTest() {
+        List<Shape> l1 = new LinkedList<>();
+        l1.add(new Circle(20,20,20));
+        l1.add(new Circle(20,50,20));
+        List<Shape> l2 = new LinkedList<>();
+        l2.add(new Circle(20,20,20));
+        l2.add(new Circle(20,70,20));
+
+        String text = ca.createOBJ(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2),new Stl3DFile());//"Hello world";
+        BufferedWriter output = null;
+
+        try {
+            File file = new File("C:\\Users\\טליה\\Desktop\\exampleSTL.stl");
+            output = new BufferedWriter(new FileWriter(file));
+            output.write(text);
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        } finally {
+            if ( output != null ) {
+                try {
+                    output.close();
+                } catch ( IOException e ) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
     }
 
