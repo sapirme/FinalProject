@@ -1,15 +1,17 @@
 package SystemObj;
 
 public class UserObj {
-    private String email;
-    private static UserObj INSTANCE = null;
+    private String name = "";
 
-    private UserObj(){}
+    public UserObj(){
 
-    public UserObj getUser(){
-        if (INSTANCE == null){
-            INSTANCE = new UserObj();
-        }
-        return INSTANCE;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return this.name;
     }
 }
