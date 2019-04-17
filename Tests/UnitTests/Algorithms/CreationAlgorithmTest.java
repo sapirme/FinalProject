@@ -96,26 +96,35 @@ public class CreationAlgorithmTest {
 
     @Test
     public void createOBJTest() {
-        Pair<Set<List<Edge>>,Set<List<Edge>>> pair = CheckingAlgorithm.checkAlgorithem(g3,g4);
+        List<Shape> l1 = new LinkedList<>();
+        l1.add(new Circle(20,20,20));
+        List<Shape> l2 = new LinkedList<>();
+        l2.add(new Line(0,20,20,40));
+        l2.add(new Line(0,20,20,00));
+        l2.add(new Line(20,40,40,20));
+        l2.add(new Line(20,0,40,20));
+
+
+        Pair<Set<List<Edge>>,Set<List<Edge>>> pair = CheckingAlgorithm.checkAlgorithem(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2));
         System.out.println(pair.getFirst());
         System.out.println(pair.getSecond());
-        String text = ca.createOBJ(pair.getFirst(),pair.getSecond(),new Obj3DFile());//"Hello world";
+        String text = ca.createOBJ(pair.getFirst(),pair.getSecond(),new Stl3DFile());//"Hello world";
         BufferedWriter output = null;
 
         try {
-            File file = new File("C:\\Users\\sapir\\Desktop\\example2.obj");
+            File file = new File("C:\\Users\\sapir\\Desktop\\example.stl");
             output = new BufferedWriter(new FileWriter(file));
             output.write(text);
         } catch ( IOException e ) {
             e.printStackTrace();
         } finally {
-            if ( output != null ) {
+            //if ( output != null ) {
                 try {
                     output.close();
                 } catch ( IOException e ) {
                     e.printStackTrace();
                 }
-            }
+            //}
         }
         //System.out.println(ca.createOBJ(g1,g2));// 2 lines
         //System.out.println(ca.createOBJ(g3,g4));// Diamond and circle
@@ -156,20 +165,29 @@ public class CreationAlgorithmTest {
             }
         }*/
 
-    }@Test
-    public void createSTLTest() {
+    }
+    @Test
+    public void createSTLTest1() {
         List<Shape> l1 = new LinkedList<>();
+        //l1.add(new Line(0,20,20,40));
+        //l1.add(new Line(20,40,40,20));
         l1.add(new Circle(20,20,20));
-        l1.add(new Circle(20,50,20));
+
         List<Shape> l2 = new LinkedList<>();
-        l2.add(new Circle(20,20,20));
-        l2.add(new Circle(20,70,20));
-        /*
-        String text = ca.createOBJ(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2),new Stl3DFile());//"Hello world";
+        l2.add(new Line(0,20,20,40));
+        l2.add(new Line(0,20,20,0));
+        l2.add(new Line(20,0,40,20));
+        l2.add(new Line(20,40,40,20));
+
+        Pair<Set<List<Edge>>,Set<List<Edge>>> pair = CheckingAlgorithm.checkAlgorithem
+                (CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2));
+        //System.out.println(pair.getFirst());
+
+        String text = ca.createOBJ(pair.getFirst(),pair.getSecond(),new Stl3DFile());
         BufferedWriter output = null;
 
         try {
-            File file = new File("C:\\Users\\טליה\\Desktop\\exampleSTL.stl");
+            File file = new File("C:\\Users\\sapir\\Desktop\\diamondAndCircle.stl");
             output = new BufferedWriter(new FileWriter(file));
             output.write(text);
         } catch ( IOException e ) {
@@ -182,7 +200,14 @@ public class CreationAlgorithmTest {
                     e.printStackTrace();
                 }
             }
-        }*/
+        }
+        //System.out.println(ca.createOBJ(g1,g2));// 2 lines
+        //System.out.println(ca.createOBJ(g3,g4));// Diamond and circle
+        //System.out.println(ca.createOBJ(g4,g4));// 2 circle
+        //System.out.println(ca.createOBJ(g3,g3));// 2 Diamond
+        //ca.createOBJ(g4,g4);
+
+        // Assert.assertEquals("12", ca.createOBJ(g1,g2));
 
     }
 

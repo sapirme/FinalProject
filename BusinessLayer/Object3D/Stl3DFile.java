@@ -96,8 +96,9 @@ public class Stl3DFile implements ObjectInteface {
         Point3D N = getNormal(d1, d2, d3);
         ans = ans + "facet normal " + N.getX() + " " + N.getY() + " " + N.getZ() + "\n";
         ans = ans + "\touter loop\n";
-        ans = ans + "\t\tvertex " +  d1.getX()+ " " + d1.getY() + " " + d1.getZ() + "\n";
         ans = ans + "\t\tvertex " +  d2.getX()+ " " + d2.getY() + " " + d2.getZ() + "\n";
+        ans = ans + "\t\tvertex " +  d1.getX()+ " " + d1.getY() + " " + d1.getZ() + "\n";
+
         ans = ans + "\t\tvertex " +  d3.getX()+ " " + d3.getY() + " " + d3.getZ() + "\n";
         ans = ans + "\tendloop\n";
         ans = ans + "endfacet\n";

@@ -11,8 +11,8 @@ import java.util.*;
 
 public class CreationAlgorithm {
 
-    private static double Alpha = (45 * Math.PI) /180;
-    private static int Height = 20;
+    private static double Alpha = (90-45) * (Math.PI/180);
+    private static int Height = 50;
 
     public static Point3D cuttingPoint(Point3D p1, Point3D p2){
         double cosA = round( Math.cos(Alpha), 14);
@@ -118,17 +118,18 @@ public class CreationAlgorithm {
         System.out.println(pathsG1.size());
         System.out.println(pathsG2.size());
         for (int i=0; i<pathsG1.size(); i++){
-            Map<Integer,LinkedList<Point3D>> map = new HashMap<Integer,LinkedList<Point3D>> ();
+            Map<Integer,List<LinkedList<Point3D>>> map = new HashMap<Integer,List<LinkedList<Point3D>>> ();
             for (int j=0; j<pathsG2.size(); j++){
                 System.out.println("path1: "+pathsG1.get(i));
                 System.out.println("path2: "+pathsG2.get(j));
                 System.out.println();
-                LinkedList<Point3D> inter2Paths=new LinkedList<Point3D>();
+                List<LinkedList<Point3D>> inter2Paths=new LinkedList<LinkedList<Point3D>>();
                 for (Edge e1 : pathsG1.get(i)){
                     for (Edge e2 : pathsG2.get(j)){
                         LinkedList<Point3D> intersections = inersection2Edges(e1,e2);
                         if (intersections.size()>0){
-                            inter2Paths.addAll(intersections);
+                            //inter2Paths.addAll(intersections);
+                            inter2Paths.add(intersections);
                             double minZInList = findMinZ(intersections);
                             if (first){
                                 min= minZInList;
@@ -148,13 +149,19 @@ public class CreationAlgorithm {
                 System.out.println("remove");
                 for (Integer key : map.keySet()){
                     if (key.intValue()!=i){
-                        allLists.add(map.get(key));
+                        //allLists.add(map.get(key));
+                        for (LinkedList<Point3D> l : map.get(key) ){
+                            allLists.add(l);
+                        }
                     }
                 }
             }
             else {
                 for (Integer key : map.keySet()){
-                    allLists.add(map.get(key));
+                    //allLists.add(map.get(key));
+                    for (LinkedList<Point3D> l : map.get(key) ){
+                        allLists.add(l);
+                    }
                 }
             }
         }
