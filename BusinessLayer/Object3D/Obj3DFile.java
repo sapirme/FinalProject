@@ -52,15 +52,6 @@ public class Obj3DFile implements ObjectInteface {
             ans = ans + addSurface( d1,  d2,  d5,  d8);
             ans = ans + addSurface( d4,  d3,  d6,  d7);
             ans = ans + addSurface( d5,  d6,  d7,  d8);
-            /*p1 = list.get(i);
-            p2 = list.get(i+1);
-            ans = ans + "v " +  p1.getX()+ " " + p1.getY() + " " + p1.getZ() + "\n";
-            ans = ans + "v " +  p2.getX()+ " " + p2.getY() + " " + p2.getZ() + "\n";
-
-            ans = ans + "v " +  p2.getX()+ " " + p2.getY() + " " + (minZ - Height) + "\n";
-            ans = ans + "v " +  p1.getX()+ " " + p1.getY() + " " + (minZ - Height) + "\n";
-
-            ans = ans + "f -1 -2 -3 -4 \n";*/
 
         }
         return ans;
