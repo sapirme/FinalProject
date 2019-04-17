@@ -391,7 +391,6 @@ public class CreationAlgorithm {
 
 
         }
-        
         for (LinkedList<Point3D> l : allLists){
             //System.out.println("hey");
             ans = ans +"\n" + modle3D.listToText(l,min,Height);
