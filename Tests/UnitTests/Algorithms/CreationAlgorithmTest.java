@@ -103,7 +103,7 @@ public class CreationAlgorithmTest {
         BufferedWriter output = null;
 
         try {
-            File file = new File("C:\\Users\\sapir\\Desktop\\example22.obj");
+            File file = new File("C:\\Users\\sapir\\Desktop\\example2.obj");
             output = new BufferedWriter(new FileWriter(file));
             output.write(text);
         } catch ( IOException e ) {
@@ -141,7 +141,7 @@ public class CreationAlgorithmTest {
         BufferedWriter output = null;
 
         try {
-            File file = new File("C:\\Users\\טליה\\Desktop\\example2.obj");
+            File file = new File("C:\\Users\\טליה\\Desktop\\exampleOBJ.obj");
             output = new BufferedWriter(new FileWriter(file));
             output.write(text);
         } catch ( IOException e ) {
@@ -169,7 +169,7 @@ public class CreationAlgorithmTest {
         BufferedWriter output = null;
 
         try {
-            File file = new File("C:\\Users\\טליה\\Desktop\\example3.stl");
+            File file = new File("C:\\Users\\טליה\\Desktop\\exampleSTL.stl");
             output = new BufferedWriter(new FileWriter(file));
             output.write(text);
         } catch ( IOException e ) {
@@ -185,9 +185,6 @@ public class CreationAlgorithmTest {
         }*/
 
     }
-
-
-
 
     @Test
     public void cuttingPointTest() {
