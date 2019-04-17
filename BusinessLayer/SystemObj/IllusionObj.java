@@ -20,7 +20,7 @@ public class IllusionObj {
         v1 = new ViewPoint();
         v2 = new ViewPoint();
         svgObj = new SvgObj();
-        model3D = new Obj3DFile();
+        model3D = new Stl3DFile();//Obj3DFile();
     }
 
 
@@ -39,7 +39,8 @@ public class IllusionObj {
         //System.out.println("second : 2");
         if (v1.hasPaths() && v2.hasPaths()){
             //System.out.println("third : 3, has paths");
-            String m = CreationAlgorithm.createOBJ(v1.getGraph(),v2.getGraph(),model3D);
+            //String m = CreationAlgorithm.createOBJ(v1.getGraph(),v2.getGraph(),model3D);
+            String m = CreationAlgorithm.createOBJ(v1.getPaths(),v2.getPaths(),model3D);
             return m;
         }
         else

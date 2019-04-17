@@ -55,18 +55,18 @@ public class CreationAlgorithmTest {
     public void SetUp2(){
         Set<Vertex> vertex1=new HashSet<Vertex>();
         Set<Edge> edges1 =new HashSet<Edge>();
-        v13=new Vertex(0, 2);
-        v23=new Vertex(2, 4);
-        v33=new Vertex(4, 2);
-        v43=new Vertex(2, 0);
+        v13=new Vertex(0, 20);
+        v23=new Vertex(20, 40);
+        v33=new Vertex(40, 20);
+        v43=new Vertex(20, 0);
         vertex1.add(v13);
         vertex1.add(v23);
         vertex1.add(v33);
         vertex1.add(v43);
-        e13 = new Edge(new Line(0,2,2,4), v13,  v23);
-        e23 = new Edge(new Line(0,2,2,0), v13,  v43);
-        e33 = new Edge(new Line(2,4,4,2), v23,  v33);
-        e43 = new Edge(new Line(2,0,4,2), v43,  v33);
+        e13 = new Edge(new Line(0,20,20,40), v13,  v23);
+        e23 = new Edge(new Line(0,20,20,00), v13,  v43);
+        e33 = new Edge(new Line(20,40,40,20), v23,  v33);
+        e43 = new Edge(new Line(20,0,40,20), v43,  v33);
         edges1.add(e13);
         edges1.add(e23);
         edges1.add(e33);
@@ -96,7 +96,10 @@ public class CreationAlgorithmTest {
 
     @Test
     public void createOBJTest() {
-        String text = ca.createOBJ(g4,g4,new Obj3DFile());//"Hello world";
+        Pair<Set<List<Edge>>,Set<List<Edge>>> pair = CheckingAlgorithm.checkAlgorithem(g3,g4);
+        System.out.println(pair.getFirst());
+        System.out.println(pair.getSecond());
+        String text = ca.createOBJ(pair.getFirst(),pair.getSecond(),new Obj3DFile());//"Hello world";
         BufferedWriter output = null;
 
         try {
@@ -126,6 +129,7 @@ public class CreationAlgorithmTest {
 
     @Test
     public void createOBJTest2() {
+        /*
         List<Shape> l1 = new LinkedList<>();
         l1.add(new Circle(20,20,20));
         l1.add(new Circle(20,50,20));
@@ -150,7 +154,7 @@ public class CreationAlgorithmTest {
                     e.printStackTrace();
                 }
             }
-        }
+        }*/
 
     }@Test
     public void createSTLTest() {
@@ -160,7 +164,7 @@ public class CreationAlgorithmTest {
         List<Shape> l2 = new LinkedList<>();
         l2.add(new Circle(20,20,20));
         l2.add(new Circle(20,70,20));
-
+        /*
         String text = ca.createOBJ(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2),new Stl3DFile());//"Hello world";
         BufferedWriter output = null;
 
@@ -178,7 +182,7 @@ public class CreationAlgorithmTest {
                     e.printStackTrace();
                 }
             }
-        }
+        }*/
 
     }
 

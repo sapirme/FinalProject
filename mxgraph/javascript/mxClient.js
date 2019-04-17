@@ -53816,7 +53816,7 @@ mxGraphView.prototype.createSvg = function()
 {
 	var container = this.graph.container;
 	this.canvas = document.createElementNS(mxConstants.NS_SVG, 'g');
-	
+
 	// For background image
 	this.backgroundPane = document.createElementNS(mxConstants.NS_SVG, 'g');
 	this.canvas.appendChild(this.backgroundPane);
@@ -53830,8 +53830,9 @@ mxGraphView.prototype.createSvg = function()
 	
 	this.decoratorPane = document.createElementNS(mxConstants.NS_SVG, 'g');
 	this.canvas.appendChild(this.decoratorPane);
-	
-	var root = document.createElementNS(mxConstants.NS_SVG, 'svg');
+
+
+    var root = document.createElementNS(mxConstants.NS_SVG, 'svg');
 	root.style.left = '0px';
 	root.style.top = '0px';
 	root.style.width = '100%';

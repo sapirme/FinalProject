@@ -61,7 +61,7 @@ public class CreateLllusionServlet extends HttpServlet {
 
 			try {
                 System.out.println("hey 222222222222222222222");
-				File file = new File("C:\\Users\\sapir\\Desktop\\example2.obj");
+				File file = new File("C:\\Users\\sapir\\Desktop\\exampleSap.stl");
 				output = new BufferedWriter(new FileWriter(file));
 				output.write(text);
 			} catch ( IOException e ) {

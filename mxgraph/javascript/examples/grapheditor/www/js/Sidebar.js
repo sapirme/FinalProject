@@ -2174,6 +2174,7 @@ Sidebar.prototype.createDropHandler = function(cells, allowSplit, allowCellsInse
  */
 Sidebar.prototype.createDragPreview = function(width, height)
 {
+
 	var elt = document.createElement('div');
 	elt.style.border = this.dragPreviewBorder;
 	elt.style.width = width + 'px';

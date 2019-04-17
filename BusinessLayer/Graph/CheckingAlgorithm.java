@@ -1,12 +1,7 @@
 package Graph;
 
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import Shapes.*;
 public class CheckingAlgorithm {
@@ -170,7 +165,7 @@ public class CheckingAlgorithm {
     public static Pair<Set<List<Edge>>,Set<List<Edge>>> checkAlgorithem(Graph g1,Graph g2) {
         List<Pair<Vertex,Vertex>> matchVertex = findMatch(g1,g2);
         if (matchVertex.isEmpty()) return null;
-        Set<List<Edge>> pathsListG1=new HashSet<List<Edge>> ();
+        Set<List<Edge>> pathsListG1=new HashSet<List<Edge>>();
         Set<List<Edge>> pathsListG2=new HashSet<List<Edge>> ();
         //System.out.println("here!");
         if (checkAlgorithem(g1, g2, matchVertex, pathsListG1, pathsListG2)) {
@@ -180,7 +175,7 @@ public class CheckingAlgorithm {
     }
 
     public static boolean checkAlgorithem(Graph g1,Graph g2,List<Pair<Vertex,Vertex>> matchVertex,
-                                           Set<List<Edge>> pathsListG1,Set<List<Edge>> pathsListG2) {
+                                          Set<List<Edge>> pathsListG1,Set<List<Edge>> pathsListG2) {
         if (g1.getEdges().isEmpty() && g2.getEdges().isEmpty()) return true;
         if (g1.getEdges().isEmpty() || g2.getEdges().isEmpty()){
             //System.out.println("whayyy??");

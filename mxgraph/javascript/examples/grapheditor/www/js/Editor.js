@@ -223,7 +223,7 @@ Editor.prototype.transparentImage = (mxClient.IS_SVG) ? 'data:image/gif;base64,R
 
 /**
  * Specifies if the canvas should be extended in all directions. Default is true.
- */
+ *///sapir
 Editor.prototype.extendCanvas = false;
 
 /**
@@ -1888,7 +1888,7 @@ PageSetupDialog.getFormats = function()
 		{
 			canvas = canvas.ownerSVGElement;
 		}
-		
+
 		if (graph.view.backgroundPageShape != null)
 		{
 			graph.view.backgroundPageShape.node.style.backgroundPosition = position;

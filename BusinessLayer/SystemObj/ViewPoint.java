@@ -26,6 +26,8 @@ public class ViewPoint {
                 graph;
     }
 
+    public Set<List<Edge>> getPaths(){return paths;}
+
     public void setPaths(Set<List<Edge>> paths){
         this.paths = paths;
     }

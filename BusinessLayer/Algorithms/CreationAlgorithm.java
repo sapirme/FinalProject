@@ -6,9 +6,7 @@ import javafx.geometry.Point3D;
 
 import java.math.BigDecimal;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class CreationAlgorithm {
@@ -36,17 +34,229 @@ public class CreationAlgorithm {
         return bigDecimal.doubleValue();
     }
 
+    public static List<List<Edge>> sortToList(Set<List<Edge>> paths){
+        List<List<Edge>> ans= new LinkedList<List<Edge>>();
+        for (List<Edge> path1 : paths){
+            boolean inset = false;
+            for (int i=0 ; i<ans.size(); i++){
+                if (isP1Bigger(path1,ans.get(i))){
+                    ans.add(i,path1);
+                    inset = true;
+                    break;
+                }
+            }
+            if (!inset){
+                ((LinkedList) ans).addLast(path1);
+            }
+        }
+        return ans;
+    }
+
+    public static boolean isP1Bigger(List<Edge> p1,List<Edge>p2){
+        for (Edge e1 : p1 ){
+            double xStartE1 = e1.getFrom().getX();
+            double xEndE1 = e1.getTo().getX();
+            for (Edge e2 :p2){
+                double xStartE2 = e2.getFrom().getX();
+                double xEndE2 = e2.getTo().getX();
+                if (xStartE1 > xStartE2 && xStartE1 < xEndE2){
+                    double x = xStartE1 + (xEndE2 - xStartE1)/2;
+                    double yOnE1 = e1.getF().getYbyX(x,e1.getFrom().getY(),e1.getTo().getY());
+                    double yOnE2 = e2.getF().getYbyX(x,e2.getFrom().getY(),e2.getTo().getY());
+                    if (yOnE1 > yOnE2) return  true;
+                    else return false;
+                }
+                else if ((xStartE1 == xStartE2 && xEndE1 <= xEndE2) ||
+                        (xStartE1 > xStartE2 && xEndE1 <= xEndE2) ){
+                    double x = xStartE1 + (xEndE1 - xStartE1)/2;
+                    double yOnE1 = e1.getF().getYbyX(x,e1.getFrom().getY(),e1.getTo().getY());
+                    double yOnE2 = e2.getF().getYbyX(x,e2.getFrom().getY(),e2.getTo().getY());
+                    if (yOnE1 > yOnE2) return  true;
+                    else return false;
+                }
+                else if (xStartE1 < xStartE2 && xEndE1 > xStartE2){
+                    double x = xStartE2 + (xEndE1 - xStartE2)/2;
+                    double yOnE1 = e1.getF().getYbyX(x,e1.getFrom().getY(),e1.getTo().getY());
+                    double yOnE2 = e2.getF().getYbyX(x,e2.getFrom().getY(),e2.getTo().getY());
+                    if (yOnE1 > yOnE2) return  true;
+                    else return false;
+                }
+                else if ((xStartE1 < xStartE2 && xEndE1 >= xEndE2) ||
+                        (xStartE1 == xStartE2 && xEndE1 > xEndE2) ){
+                    double x = xStartE2 + (xEndE2 - xStartE2)/2;
+                    double yOnE1 = e1.getF().getYbyX(x,e1.getFrom().getY(),e1.getTo().getY());
+                    double yOnE2 = e2.getF().getYbyX(x,e2.getFrom().getY(),e2.getTo().getY());
+                    if (yOnE1 > yOnE2) return  true;
+                    else return false;
+                }
+            }
+        }
+        double xStart = Math.max(p1.get(0).getFrom().getX(),p2.get(0).getFrom().getX());
+        double xEnd = Math.min(p1.get(p1.size()-1).getTo().getX(),p2.get(p2.size()-1).getTo().getX());
+        if (p1.get(0).getFrom().getX() > p2.get(0).getFrom().getX()) return true;
+        else return false;
+    }
+
+    public static String createOBJ(Set<List<Edge>> pathsG1, Set<List<Edge>> pathsG2, ObjectInteface modle3D){
+        //System.out.println("fore : 4");
+        List<List<Edge>> sortedPathsG1 = sortToList(pathsG1);
+        List<List<Edge>> sortedPathsG2 = sortToList(pathsG2);
+        String ans = "";
+        List<LinkedList<Point3D>> allLists= new LinkedList<>();
+        Double min = findPoint(sortedPathsG1,sortedPathsG2,allLists);
+        System.out.println("number of lists: "+allLists.size());
+        for (LinkedList<Point3D> l : allLists){
+            ans = ans +"\n" + modle3D.listToText(l,min,Height);
+        }
+        modle3D.setText(ans);
+        return ans;
+    }
+
+    private static double findPoint(List<List<Edge>> pathsG1, List<List<Edge>> pathsG2,List<LinkedList<Point3D>> allLists){
+        double min = 0;
+        boolean first =true ;
+        System.out.println(pathsG1.size());
+        System.out.println(pathsG2.size());
+        for (int i=0; i<pathsG1.size(); i++){
+            Map<Integer,LinkedList<Point3D>> map = new HashMap<Integer,LinkedList<Point3D>> ();
+            for (int j=0; j<pathsG2.size(); j++){
+                System.out.println("path1: "+pathsG1.get(i));
+                System.out.println("path2: "+pathsG2.get(j));
+                System.out.println();
+                LinkedList<Point3D> inter2Paths=new LinkedList<Point3D>();
+                for (Edge e1 : pathsG1.get(i)){
+                    for (Edge e2 : pathsG2.get(j)){
+                        LinkedList<Point3D> intersections = inersection2Edges(e1,e2);
+                        if (intersections.size()>0){
+                            inter2Paths.addAll(intersections);
+                            double minZInList = findMinZ(intersections);
+                            if (first){
+                                min= minZInList;
+                                first =false;
+                            }
+                            else if (minZInList < min){
+                                min = minZInList;
+                            }
+                        }
+                    }
+                }
+                if (inter2Paths.size()>0){
+                    map.put(j,inter2Paths);
+                }
+            }
+            if (map.size()>1){
+                System.out.println("remove");
+                for (Integer key : map.keySet()){
+                    if (key.intValue()!=i){
+                        allLists.add(map.get(key));
+                    }
+                }
+            }
+            else {
+                for (Integer key : map.keySet()){
+                    allLists.add(map.get(key));
+                }
+            }
+        }
+        return min;
+    }
+
+
+
+
+/*
+    public static String createOBJ(Graph g1, Graph g2, ObjectInteface modle3D){
+        //System.out.println("fore : 4");
+        String ans = "";
+        List<LinkedList<Point3D>> allLists= new LinkedList<>();
+        Double min = findPoint(g1,g2,allLists);
+        System.out.println("number of lists: "+allLists.size());
+        for (LinkedList<Point3D> l : allLists){
+            ans = ans +"\n" + modle3D.listToText(l,min,Height);
+        }
+        modle3D.setText(ans);
+        return ans;
+    }
+
+    private static void removePoints(List<LinkedList<Point3D>> allLists){
+        for (LinkedList<Point3D> lst : allLists){
+            if (!lst.isEmpty()) {
+                //Point3D p = lst.get(lst.size() / 2);
+                //findOnStraight
+            }
+        }
+    }
+
+    private static void findOnStraight(List<LinkedList<Point3D>> allLists,LinkedList<Point3D> lst){
+        List<LinkedList<Point3D>> temp= new LinkedList<>(allLists);
+        for (LinkedList<Point3D> fromAll : temp){
+            if (!fromAll.isEmpty() && lst != fromAll) {
+                double xStartFromAll = fromAll.getFirst().getX();
+                double xEndFromAll = fromAll.getLast().getX();
+                double xStartLst = lst.getFirst().getX();
+                double xEndLst = lst.getLast().getX();
+                if (Math.max(xStartFromAll,xStartLst)<Math.min(xEndFromAll,xEndLst)) {
+                    if (xStartFromAll == xStartLst){
+
+                    }
+                }
+            }
+        }
+    }
+    private static void startEqStart(List<LinkedList<Point3D>> allLists,LinkedList<Point3D> fromAll,LinkedList<Point3D> lst){
+        double xEndFromAll = fromAll.getLast().getX();
+        double xEndLst = lst.getLast().getX();
+        if (xEndFromAll == xEndLst){
+
+        }
+    }
+    private static boolean isOnSameStraight(Point3D N, Point3D p, Point3D toCheck){
+        double temp = toCheck.getX()*N.getX() - p.getX()*N.getX() +
+                   toCheck.getY()*N.getY() - p.getY()*N.getY() +
+                   toCheck.getZ()*N.getZ() - p.getZ()*N.getZ();
+        double t = temp / (N.getX()*N.getX() + N.getY()*N.getY() + N.getZ()*N.getZ());
+        double x = toCheck.getX() - (p.getX() + N.getX()*t);
+        double y = toCheck.getY() - (p.getY() + N.getY()*t);
+        double z = toCheck.getZ() - (p.getZ() + N.getZ()*t);
+        double d = Math.sqrt(x*x + y*y + z*z);
+        if (d <= 1) return true;
+        return false;
+    }
+
+    private static double findPoint(Graph g1, Graph g2,List<LinkedList<Point3D>> allLists){
+        double min = 0;
+        boolean first =true ;
+        for (Edge e1 : g1.getEdges()){
+            for (Edge e2 : g2.getEdges()){
+                LinkedList<Point3D> intersections = inersection2Edges(e1,e2);
+                if (intersections.size()>0){
+                    allLists.add(intersections);
+                    double minZInList = findMinZ(intersections);
+                    if (first){
+                        min= minZInList;
+                        first =false;
+                    }
+                    else if (minZInList < min){
+                        min = minZInList;
+                    }
+                }
+            }
+        }
+        return min;
+    }*/
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
     public static String createOBJ(Graph g1, Graph g2, ObjectInteface modle3D){
         //System.out.println("fore : 4");
         String ans = "";
         List<LinkedList<Point3D>> allListsG1= new LinkedList<>();
         Double minG1 = findPoint(g1,g2,allListsG1,false);
-        List<LinkedList<Point3D>> allListsG2= new LinkedList<>();
-        Double minG2 = findPoint(g2,g1,allListsG2,true);
-        double min= Math.min(minG1,minG2);
+        //List<LinkedList<Point3D>> allListsG2= new LinkedList<>();
+        //Double minG2 = findPoint(g2,g1,allListsG2,true);
+        double min=minG1;// Math.min(minG1,minG2);
         List<LinkedList<Point3D>> allLists= new LinkedList<>();
         allLists.addAll(allListsG1);
-        allLists.addAll(allListsG2);
+        //allLists.addAll(allListsG2);
         for (LinkedList<Point3D> l : allLists){
             //System.out.println(l.getFirst() +" "+l.getLast());
             ans = ans +"\n" + modle3D.listToText(l,min,Height);
@@ -67,6 +277,10 @@ public class CreationAlgorithm {
                     if (!isOff)
                         myAddE1(temp,intersections);//myAddE1(allLists,intersections);
                     else myAddE2(temp,intersections);//myAddE2(allLists,intersections);
+                    System.out.println("e1,e2");
+                    //System.out.println(e1+ " and "+e2+" ");
+                    //System.out.println("intersections: "+ intersections);
+                    System.out.println();
                     double minZInList = findMinZ(intersections);
                     if (first){
                         min= minZInList;
@@ -210,10 +424,30 @@ public class CreationAlgorithm {
             if (Math.max(XLowLst,XLowInter)<Math.min(XHighLst,XHighInter)){
                 if (XLowLst == XLowInter){
                     if (XHighLst == XHighInter){ //no split
-                        if (findMaxY(lst) > findMaxY(inetrsections)){ return; }// take lst
+                        System.out.println("lst: "+lst);
+                        System.out.println("inetrsections: "+inetrsections);
+                        double maxLst=findMaxY(lst);
+                        double maxInter = findMaxY(inetrsections);
+                        if (maxLst > maxInter){
+                            System.out.println("lst");
+                            return; }// take lst
+                        else if (maxLst == maxInter){
+                            if (findMinY(lst)>findMinY(inetrsections)){
+                                System.out.println("lst");
+                                return;
+                            }
+                            else{
+                                System.out.println("inter");
+                                allListsForE1.remove(lst);
+                                allListsForE1.add(inetrsections);
+                                return;
+                            }
+                        }
                         else { // take inetrsections
+                            System.out.println("inter");
                             allListsForE1.remove(lst);
                             allListsForE1.add(inetrsections);
+                            return;
                         }
                     }
                     else if (XHighLst < XHighInter) { // split intersection
@@ -312,8 +546,12 @@ public class CreationAlgorithm {
             }
         }
         System.out.println("!!!!");
+        System.out.println("insert : "+inetrsections);
+        System.out.println("to lst : "+allListsForE1);
+        System.out.println();
         allListsForE1.add(inetrsections);
-    }
+
+    }*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private static double findMaxY(LinkedList<Point3D> lst){
         double max=lst.getFirst().getY();
@@ -361,7 +599,7 @@ public class CreationAlgorithm {
         return new Pair<LinkedList<Point3D>, LinkedList<Point3D>>(lst1,lst2);
     }
 
-    /*
+/*
     public static String createOBJ(Graph g1, Graph g2, ObjectInteface modle3D){
         //System.out.println("fore : 4");
         String ans = "";
