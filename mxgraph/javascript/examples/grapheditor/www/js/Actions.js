@@ -610,7 +610,7 @@ Actions.prototype.init = function()
         //mxUtils.alert('Your model is successfully deployed');
         var code = mxUtils.getPrettyXml(ui.editor.getGraphXml());
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', "https://132.72.23.63:3043/run", true);
+        xhr.open('POST', "/run", true);
         xhr.send(code);
 
         xhr.onreadystatechange = function(e) {
