@@ -1,8 +1,6 @@
 package flow.bgu.ac.il;
 
-import javax.websocket.server.ServerEndpointConfig;
-
-import SystemObj.IllusionObj;
+import hackbgu.bgu.ac.il.services.DashboardServlet;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -12,12 +10,10 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.websocket.jsr356.server.ServerContainer;
 import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
 
-import hackbgu.bgu.ac.il.services.DashboardServlet;
+import javax.websocket.server.ServerEndpointConfig;
 
 public class BPServer {
 	private Server server;
-
-	public static IllusionObj illusionObj = new IllusionObj();
 
 	public void init(String[] arguments) throws Exception {
 		int port = 8090;

@@ -29,6 +29,10 @@ public class IllusionObj {
 
     public ViewPoint getViewPoint2(){return v2;}
 
+    public SvgObj getSvgObj(){return svgObj;}
+
+    public ObjectInteface getObjectInteface(){return model3D;}
+
     public Boolean Decide(String xml){
         String svg = svgObj.xml2svg(xml);
 

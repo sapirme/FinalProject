@@ -12,14 +12,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import java.net.*;
+import java.io.*;
 
 
 public class DAL_InterfaceImpl implements DAL_Interface {
-    private DB db;
-    private DBCollection Objects;
-    private DBCollection ViewPoints;
+    private String myUrl = "http://132.72.23.63:3043/run";
     private static DAL_Interface single_instance = null;
     private Gson gson = new Gson();
+
+    private DBCollection Objects;
+    private DBCollection ViewPoints;
 
     private DAL_InterfaceImpl()
     {
@@ -35,50 +38,61 @@ public class DAL_InterfaceImpl implements DAL_Interface {
         return single_instance ;
     }
 
-    public boolean Connect(){
+    public int Send(String document){
+        String charset = java.nio.charset.StandardCharsets.UTF_8.name();  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
+        int status = -1;
         try {
-            //String connectionString = "mongodb://adar93:Adriel93%21@cluster0-shard-00-00-wy3je.gcp.mongodb.net:27017,cluster0-shard-00-01-wy3je.gcp.mongodb.net:27017,cluster0-shard-00-02-wy3je.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true";
-            String connectionString = "mongodb://localhost:27017";
-            MongoClientURI uri = new MongoClientURI(connectionString);
-            MongoClient mongoClient = new MongoClient(uri);
-            db = mongoClient.getDB("IllusionsDB");
-            Objects = db.getCollection("Objects");
-            ViewPoints = db.getCollection("ViewPoints");
-            return true;
-        }catch(Exception ie) {
-            ie.printStackTrace();
+            URL url = new URL(myUrl);
+            /*String query = String.format("param1=%s",
+                    URLEncoder.encode(document, charset));*/
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true); // Triggers POST.
+            connection.setRequestProperty("Accept-Charset", charset);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+            try (OutputStream output = connection.getOutputStream()) {
+                output.write(document.getBytes(charset));
+            }
+            status = connection.getResponseCode();
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println(status);
+
+            connection.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return false;
+    return status;
+
     }
     public boolean InsertViewPoints(String D3, String SVG, List<Shape> s1, List<Shape> s2, Graph g1, Graph g2, Set<List<Edge>> m1, Set<List<Edge>> m2, String email) {
 
-        BasicDBObject document = new BasicDBObject();
+        BasicDBObject[] document = new BasicDBObject[3];
+        document[0] = new BasicDBObject();
         ObjectId id1 = ObjectId.get();
-        document.put("ObjectId", id1);
-        document.put("Shapes", gson.toJson(s1));
-        document.put("Graph", gson.toJson(g1));
-        document.put("Paths", gson.toJson(m1));
-        ViewPoints.insert(document);
+        document[0].put("ObjectId", id1);
+        document[0].put("Shapes", gson.toJson(s1));
+        document[0].put("Graph", gson.toJson(g1));
+        document[0].put("Paths", gson.toJson(m1));
 
-        document = new BasicDBObject();
+        document[1] = new BasicDBObject();
         ObjectId id2 = ObjectId.get();
-        document.put("ObjectId", id2);
-        document.put("Shapes", gson.toJson(s2));
-        document.put("Graph", gson.toJson(g2));
-        document.put("Paths", gson.toJson(m2));
-        ViewPoints.insert(document);
+        document[1].put("ObjectId", id2);
+        document[1].put("Shapes", gson.toJson(s2));
+        document[1].put("Graph", gson.toJson(g2));
+        document[1].put("Paths", gson.toJson(m2));
 
-        document = new BasicDBObject();
+        document[2] = new BasicDBObject();
         ObjectId id = ObjectId.get();
-        document.put("ObjectId", id);
-        document.put("SVG", SVG);
-        document.put("3D", D3);
-        document.put("ViewPointID1", id1);
-        document.put("ViewPointID2", id2);
-        document.put("Email", email);
-        Objects.insert(document); // socket.send(document)
+        document[2].put("ObjectId", id);
+        document[2].put("SVG", SVG);
+        document[2].put("3D", D3);
+        document[2].put("ViewPointID1", id1);
+        document[2].put("ViewPointID2", id2);
+        document[2].put("Email", email);
 
-        return true;
+        int status = Send(gson.toJson(document));
+        if (status == 200)
+            return true;
+        else return false;
     }
 
     public Map<String,List<Shape>> getAllViewPoints() { // return map of vp's id and vp's shapes

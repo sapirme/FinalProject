@@ -46,6 +46,10 @@ public class ViewPoint {
         return shapes;
     }
 
+    public  Set<List<Edge>> getPaths(){
+        return paths;
+    }
+
 
 }
 
