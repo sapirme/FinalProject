@@ -111,7 +111,7 @@ public class CreationAlgorithmTest {
         BufferedWriter output = null;
 
         try {
-            File file = new File("C:\\Users\\sapir\\Desktop\\example.stl");
+            File file = new File(".\\files\\example.stl");
             output = new BufferedWriter(new FileWriter(file));
             output.write(text);
         } catch ( IOException e ) {
@@ -186,7 +186,7 @@ public class CreationAlgorithmTest {
         BufferedWriter output = null;
 
         try {
-            File file = new File("C:\\Users\\sapir\\Desktop\\diamondAndCircle.stl");
+            File file = new File(".\\files\\diamondAndCircle.stl");
             output = new BufferedWriter(new FileWriter(file));
             output.write(text);
         } catch ( IOException e ) {

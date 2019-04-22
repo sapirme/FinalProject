@@ -12,7 +12,7 @@ import java.util.*;
 public class CreationAlgorithm {
 
     private static double Alpha = (90-45) * (Math.PI/180);
-    private static int Height = 50;
+    private static int Height = 30;
 
     public static Point3D cuttingPoint(Point3D p1, Point3D p2){
         double cosA = round( Math.cos(Alpha), 14);
