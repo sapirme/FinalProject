@@ -1,7 +1,7 @@
-package Shapes;
+package Algorithms;
 
-import Algorithms.CheckingAlgorithm;
 import Graph.*;
+import Shapes.*;
 import SystemObj.ViewPoint;
 
 import java.util.Set;

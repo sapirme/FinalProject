@@ -1,5 +1,6 @@
 package Shapes;
 
+import Algorithms.SVGParser;
 import Graph.Pair;
 import org.junit.Assert;
 import org.junit.Test;

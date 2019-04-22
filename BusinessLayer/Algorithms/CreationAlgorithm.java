@@ -97,7 +97,7 @@ public class CreationAlgorithm {
         else return false;
     }
 
-    public static String createOBJ(Set<List<Edge>> pathsG1, Set<List<Edge>> pathsG2, ObjectInteface modle3D){
+    public static String createObject(Set<List<Edge>> pathsG1, Set<List<Edge>> pathsG2, ObjectInteface modle3D){
         //System.out.println("fore : 4");
         List<List<Edge>> sortedPathsG1 = sortToList(pathsG1);
         List<List<Edge>> sortedPathsG2 = sortToList(pathsG2);
