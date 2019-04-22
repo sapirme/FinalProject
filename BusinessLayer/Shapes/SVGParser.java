@@ -54,7 +54,7 @@ public class SVGParser {
                     double xStart = Double.parseDouble(vals[1]);
                     double yStart = Double.parseDouble(vals[2]);
                     double xEnd = Double.parseDouble(vals[4]);
-                    if(xEnd - xStart > 845){
+                    if(xEnd - xStart > 815){
                         middle = yStart;
                     }
                 }
