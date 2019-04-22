@@ -1,6 +1,6 @@
 package DAL;
 
-import Graph.CheckingAlgorithm;
+import Algorithms.CheckingAlgorithm;
 import Graph.Edge;
 import Graph.Graph;
 import Graph.Pair;

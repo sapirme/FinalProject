@@ -38,7 +38,7 @@ public class BLManagerImpl implements BLManager{
 
             try {
                 System.out.println("hey 222222222222222222222");
-                File file = new File("C:\\Users\\hp\\Desktop\\example2.stl");
+                File file = new File(".\\files\\tempSTL.stl");
                 output = new BufferedWriter(new FileWriter(file));
                 output.write(text);
             } catch ( IOException e ) {

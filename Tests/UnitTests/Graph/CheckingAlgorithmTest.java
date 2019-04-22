@@ -1,4 +1,5 @@
 package Graph;
+import Algorithms.CheckingAlgorithm;
 import org.junit.*;
 import Shapes.*;
 import org.junit.Before;
@@ -161,7 +162,7 @@ public class CheckingAlgorithmTest {
         path2.add(new Edge(c1G1, v9,  v3));
 
         paths.add(path1);
-        Assert.assertEquals(true,CheckingAlgorithm.isPathsIntersect(paths,path2));
+        Assert.assertEquals(true, CheckingAlgorithm.isPathsIntersect(paths,path2));
     }
 
     @Test

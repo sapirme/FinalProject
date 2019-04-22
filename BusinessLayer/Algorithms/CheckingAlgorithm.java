@@ -1,8 +1,9 @@
-package Graph;
+package Algorithms;
 
 
 import java.util.*;
 
+import Graph.*;
 import Shapes.*;
 public class CheckingAlgorithm {
 
@@ -73,7 +74,7 @@ public class CheckingAlgorithm {
         return ans;
     }
 
-    private static void findMatchInLists(List<Vertex> list1,List<Vertex> list2,List<Pair<Vertex,Vertex>> ans){
+    private static void findMatchInLists(List<Vertex> list1, List<Vertex> list2, List<Pair<Vertex,Vertex>> ans){
         if(list1.size()!=list2.size()) {
             for (Vertex v1 : list1) {
                 double min = Math.abs(v1.getY() - list2.get(0).getY());
@@ -98,7 +99,7 @@ public class CheckingAlgorithm {
             bubbleSort(l2);
             //for (int i=0; i<l2.length; i++)System.out.println(l2[i]);
             for (int i=0; i<l1.length ; i++) {
-                ans.add(new Pair<Vertex,Vertex> (l1[i],l2[i]));
+                ans.add(new Pair<Vertex,Vertex>(l1[i],l2[i]));
             }
         }
     }
@@ -122,7 +123,7 @@ public class CheckingAlgorithm {
     }
 
 
-    public static boolean isPathIntersect(List<Edge> path1,List<Edge> path2) {
+    public static boolean isPathIntersect(List<Edge> path1, List<Edge> path2) {
         Edge[] p1 = new Edge[path1.size()];
         path1.toArray(p1); // fill the array
         Edge[] p2 = new Edge[path2.size()];
@@ -162,7 +163,7 @@ public class CheckingAlgorithm {
         return false;
     }
 
-    public static Pair<Set<List<Edge>>,Set<List<Edge>>> checkAlgorithem(Graph g1,Graph g2) {
+    public static Pair<Set<List<Edge>>,Set<List<Edge>>> checkAlgorithem(Graph g1, Graph g2) {
         List<Pair<Vertex,Vertex>> matchVertex = findMatch(g1,g2);
         if (matchVertex.isEmpty()) return null;
         Set<List<Edge>> pathsListG1=new HashSet<List<Edge>>();
@@ -174,8 +175,8 @@ public class CheckingAlgorithm {
         return null;
     }
 
-    public static boolean checkAlgorithem(Graph g1,Graph g2,List<Pair<Vertex,Vertex>> matchVertex,
-                                          Set<List<Edge>> pathsListG1,Set<List<Edge>> pathsListG2) {
+    public static boolean checkAlgorithem(Graph g1, Graph g2, List<Pair<Vertex,Vertex>> matchVertex,
+                                          Set<List<Edge>> pathsListG1, Set<List<Edge>> pathsListG2) {
         if (g1.getEdges().isEmpty() && g2.getEdges().isEmpty()) return true;
         if (g1.getEdges().isEmpty() || g2.getEdges().isEmpty()){
             //System.out.println("whayyy??");

@@ -1,5 +1,4 @@
 package Algorithms;
-import Object3D.Obj3DFile;
 import Graph.*;
 import Object3D.Stl3DFile;
 import Shapes.*;

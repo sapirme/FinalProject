@@ -1,14 +1,12 @@
 package Shapes;
 
+import Algorithms.CheckingAlgorithm;
 import Graph.*;
 import SystemObj.ViewPoint;
 
-import java.io.File;
 import java.util.Set;
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class SVGParser {
