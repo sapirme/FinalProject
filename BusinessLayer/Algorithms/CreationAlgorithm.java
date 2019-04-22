@@ -145,7 +145,7 @@ public class CreationAlgorithm {
                     map.put(j,inter2Paths);
                 }
             }
-            if (map.size()>1){
+            /*if (map.size()>1){
                 System.out.println("remove");
                 for (Integer key : map.keySet()){
                     if (key.intValue()!=i){
@@ -156,14 +156,14 @@ public class CreationAlgorithm {
                     }
                 }
             }
-            else {
+            else {*/
                 for (Integer key : map.keySet()){
                     //allLists.add(map.get(key));
                     for (LinkedList<Point3D> l : map.get(key) ){
                         allLists.add(l);
                     }
                 }
-            }
+            //}
         }
         return min;
     }
