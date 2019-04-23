@@ -616,7 +616,11 @@ Actions.prototype.init = function()
         xhr.onreadystatechange = function(e) {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 mxUtils.alert('can create!!');
-                window.open('3DView.html');
+                //window.open('3DView.html');
+
+                window.open('3DView.html',"_blank",
+					"toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%,width=500,height=550");
+
             }
             else if (xhr.readyState == 4 && xhr.status == 10){
                 mxUtils.alert('can not create');

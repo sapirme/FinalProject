@@ -16,10 +16,26 @@
 
 </head>
 <body>
+    <style>
+        .btn {
+            background-color: #17264f;
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            cursor: pointer;
+            font-size: 20px;
+        }
 
+        /* Darker background on mouse-over */
+        .btn:hover {
+            background-color: #2e3b60;
+        }
+    </style>
+    <canvas class="3dviewer" sourcefiles="../../../../../files/tempSTL.stl" width="500" height="450"></canvas>
 
-
-<canvas class="3dviewer" sourcefiles="../../../../../files/tempSTL.stl" width="500" height="500"></canvas>
+    <a href="../../../../../files/tempSTL.stl" download="myObject.stl">
+        <button class="btn" style="width:100%">Download the Object File</button>
+    </a>
 
 </body>
 </html>
