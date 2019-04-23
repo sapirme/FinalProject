@@ -1,3 +1,24 @@
+import { ServletFactory } from './ServletFactory.js';
+
+function createIllusion (xml,factory) {
+    var servletFactory = new ServletFactory();
+    var xhr = servletFactory.llusionServlet(factory,'POST');
+    xhr.send(xml);
+    xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            mxUtils.alert('can create!!');
+            //window.open('3DView.html');
+
+            window.open('3DView.html',"_blank",
+                "toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%,width=500,height=550");
+
+        }
+        else if (xhr.readyState == 4 && xhr.status == 10){
+            mxUtils.alert('can not create');
+        }
+    };
+}
+
 /**
  * Copyright (c) 2006-2012, JGraph Ltd
  */
@@ -607,28 +628,10 @@ Actions.prototype.init = function()
 	//Illusions actions
 
     this.addAction('createIllusion', function() {
-        //mxUtils.alert('Your model is successfully deployed');
         var code = mxUtils.getPrettyXml(ui.editor.getGraphXml());
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', "/run", true);
-        xhr.send(code);
-
-        xhr.onreadystatechange = function(e) {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                mxUtils.alert('can create!!');
-                //window.open('3DView.html');
-
-                window.open('3DView.html',"_blank",
-					"toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%,width=500,height=550");
-
-            }
-            else if (xhr.readyState == 4 && xhr.status == 10){
-                mxUtils.alert('can not create');
-			}
-        };
-
+        createIllusion(code,true);
     }, null, null);
-    //this.addAction('createIllusion', function() { ui.saveFile(false); }, null, null).isEnabled = isGraphEnabled;
+
     this.addAction('allObjects...', function() { ui.saveFile(true);}, null, null).isEnabled = isGraphEnabled;
     this.addAction('similarObjects...', function(evt) { }, null, null);
 
