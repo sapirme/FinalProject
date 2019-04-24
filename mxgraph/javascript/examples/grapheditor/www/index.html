@@ -54,6 +54,54 @@
 	<script type="text/javascript" src="js/Menus.js"></script>
 	<script type="text/javascript" src="js/Toolbar.js"></script>
 	<script type="text/javascript" src="js/Dialogs.js"></script>
+
+
+
+	<style>
+		/* The Modal (background) */
+		.modalGrey {
+			display: none; /* Hidden by default */
+			position: fixed; /* Stay in place */
+			z-index: 2; /* Sit on top */
+			left: 0;
+			top: 0;
+			width: 100%; /* Full width */
+			height: 100%; /* Full height */
+            align: center;
+			overflow: auto; /* Enable scroll if needed */
+			background-color: rgb(0,0,0); /* Fallback color */
+			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		}
+
+		.loader {
+			display: none;
+			position: fixed; /* Stay in place */
+			z-index: 3; /* Sit on top */
+			border: 16px solid #f3f3f3;
+			border-radius: 50%;
+			border-top: 16px solid #3498db;
+			width: 120px;
+			height: 120px;
+            left: 50%;
+            top: 50%;
+			margin-top: -60px;
+			margin-left: -60px;
+			-webkit-animation: spin 2s linear infinite; /* Safari */
+			animation: spin 2s linear infinite;
+
+		}
+
+		/* Safari */
+		@-webkit-keyframes spin {
+			0% { -webkit-transform: rotate(0deg); }
+			100% { -webkit-transform: rotate(360deg); }
+		}
+
+		@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
+	</style>
 </head>
 <body class="geEditor">
 	<script type="text/javascript">
@@ -61,7 +109,7 @@
 		(function()
 		{
 			var editorUiInit = EditorUi.prototype.init;
-			
+
 			EditorUi.prototype.init = function()
 			{
 				editorUiInit.apply(this, arguments);
@@ -81,7 +129,7 @@
 					}));
 				}
 			};
-			
+
 			// Adds required resources (disables loading of fallback properties, this can only
 			// be used if we know that all keys are defined in the language specific file)
 			mxResources.loadDefaultBundle = false;
@@ -93,11 +141,11 @@
 			{
 				// Adds bundle text to resources
 				mxResources.parse(xhr[0].getText());
-				
+
 				// Configures the default graph theme
 				var themes = new Object();
-				themes[Graph.prototype.defaultThemeName] = xhr[1].getDocumentElement(); 
-				
+				themes[Graph.prototype.defaultThemeName] = xhr[1].getDocumentElement();
+
 				// Main
 				new EditorUi(new Editor(urlParams['chrome'] == '0', themes));
 			}, function()
@@ -106,5 +154,13 @@
 			});
 		})();
 	</script>
+	<div id="myModalGrey" class="modalGrey">
+
+		<div id="myLoader" class="loader"></div>
+
+	</div>
+
+
+
 </body>
 </html>

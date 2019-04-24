@@ -4,7 +4,7 @@ import Algorithms.CheckingAlgorithm;
 import Graph.Edge;
 import Graph.Graph;
 import Graph.Pair;
-import Shapes.SVGParser;
+import Algorithms.SVGParser;
 import Shapes.Shape;
 import org.junit.Before;
 import org.junit.Test;

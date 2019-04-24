@@ -111,7 +111,7 @@ public class CreationAlgorithmTest {
         BufferedWriter output = null;
 
         try {
-            File file = new File("C:\\Users\\sapir\\Desktop\\example.stl");
+            File file = new File(".\\files\\example.stl");
             output = new BufferedWriter(new FileWriter(file));
             output.write(text);
         } catch ( IOException e ) {
@@ -125,10 +125,14 @@ public class CreationAlgorithmTest {
                 }
             //}
         }
-        //System.out.println(ca.createOBJ(g1,g2));// 2 lines
-        //System.out.println(ca.createOBJ(g3,g4));// Diamond and circle
-        //System.out.println(ca.createOBJ(g4,g4));// 2 circle
-        //System.out.println(ca.createOBJ(g3,g3));// 2 Diamond
+        //System.out.println(ca.createObject(g1,g2));// 2 lines
+        //System.out.println(ca.createObject(g3,g4));// Diamond and circle
+        //System.out.println(ca.createObject(g4,g4));// 2 circle
+        //System.out.println(ca.createObject(g3,g3));// 2 Diamond
+        //ca.createObject(g4,g4);
+
+       // Assert.assertEquals("12", ca.createObject(g1,g2));
+
     }
 
     @Test
@@ -141,7 +145,7 @@ public class CreationAlgorithmTest {
         l2.add(new Circle(20,20,20));
         l2.add(new Circle(20,70,20));
 
-        String text = ca.createOBJ(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2),new Obj3DFile());//"Hello world";
+        String text = ca.createObject(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2),new Obj3DFile());//"Hello world";
         BufferedWriter output = null;
 
         try {
@@ -182,7 +186,7 @@ public class CreationAlgorithmTest {
         BufferedWriter output = null;
 
         try {
-            File file = new File("C:\\Users\\sapir\\Desktop\\diamondAndCircle.stl");
+            File file = new File(".\\files\\diamondAndCircle.stl");
             output = new BufferedWriter(new FileWriter(file));
             output.write(text);
         } catch ( IOException e ) {

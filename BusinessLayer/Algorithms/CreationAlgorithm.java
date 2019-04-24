@@ -12,7 +12,7 @@ import java.util.*;
 public class CreationAlgorithm {
 
     private static double Alpha = (90-45) * (Math.PI/180);
-    private static int Height = 20;
+    private static int Height = 30;
 
     public static Point3D cuttingPoint(Point3D p1, Point3D p2){
         double cosA = round( Math.cos(Alpha), 14);
@@ -145,7 +145,7 @@ public class CreationAlgorithm {
                     map.put(j,inter2Paths);
                 }
             }
-            if (map.size()>1){
+            /*if (map.size()>1){
                 System.out.println("remove");
                 for (Integer key : map.keySet()){
                     if (key.intValue()!=i){
@@ -156,14 +156,14 @@ public class CreationAlgorithm {
                     }
                 }
             }
-            else {
+            else {*/
                 for (Integer key : map.keySet()){
                     //allLists.add(map.get(key));
                     for (LinkedList<Point3D> l : map.get(key) ){
                         allLists.add(l);
                     }
                 }
-            }
+            //}
         }
         return min;
     }
