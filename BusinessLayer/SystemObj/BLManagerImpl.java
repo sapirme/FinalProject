@@ -62,7 +62,7 @@ public class BLManagerImpl implements BLManager{
         String D3 = illusionobj.createObject();
         ViewPoint v1 = illusionobj.getViewPoint1();
         ViewPoint v2 = illusionobj.getViewPoint2();
-        mydal.InsertViewPoints(D3,illusionobj.getSvgObj().getSvg(),
+        mydal.InsertObject(D3,illusionobj.getSvgObj().getSvg(),
                                 v1.getShapes(),v2.getShapes(),
                                 v1.getGraph(),v2.getGraph(),
                                 v1.getPaths(),v2.getPaths(),
