@@ -44,7 +44,7 @@ public class IllusionObj {
         if (v1.hasPaths() && v2.hasPaths()){
             //System.out.println("third : 3, has paths");
             //String m = CreationAlgorithm.createOBJ(v1.getGraph(),v2.getGraph(),model3D);
-            String m = CreationAlgorithm.createOBJ(v1.getPaths(),v2.getPaths(),model3D);
+            String m = CreationAlgorithm.createObject(v1.getPaths(),v2.getPaths(),model3D);
             return m;
         }
         else

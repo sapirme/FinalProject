@@ -55,17 +55,23 @@ public class DAL_Tests {
     }
 
     @Test
-    public void getAllViewPointsTest() {
+    public void get50HeadViewPointsTest() {
         Map<String, List<Shape>> AllViewPoints  = dal.getAllViewPoints();
     }
 
     @Test
-    public void getObjIDByViewPointIDTest1() {
+    public void get100HeadViewPointsTest() {
+        Map<String, List<Shape>> AllViewPoints  = dal.getAllViewPoints();
+    }
+
+
+    @Test
+    public void getObjIDByViewPoint1IDTest() {
         assertEquals( "5c9c882e03dfd17ff94d21f7",dal.getObjIDByViewPointID("5c9c882d03dfd17ff94d21f3"));
     }
 
     @Test
-    public void getObjIDByViewPointIDTest2() {
+    public void getObjIDByViewPoint2IDTest() {
         assertEquals( "5c9c87f703dfbbc885fe9f42",dal.getObjIDByViewPointID("5c9c87f703dfbbc885fe9f40"));
     }
 

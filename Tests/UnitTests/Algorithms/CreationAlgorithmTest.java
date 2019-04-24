@@ -107,7 +107,7 @@ public class CreationAlgorithmTest {
         Pair<Set<List<Edge>>,Set<List<Edge>>> pair = CheckingAlgorithm.checkAlgorithem(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2));
         System.out.println(pair.getFirst());
         System.out.println(pair.getSecond());
-        String text = ca.createOBJ(pair.getFirst(),pair.getSecond(),new Stl3DFile());//"Hello world";
+        String text = ca.createObject(pair.getFirst(),pair.getSecond(),new Stl3DFile());//"Hello world";
         BufferedWriter output = null;
 
         try {
@@ -129,10 +129,6 @@ public class CreationAlgorithmTest {
         //System.out.println(ca.createOBJ(g3,g4));// Diamond and circle
         //System.out.println(ca.createOBJ(g4,g4));// 2 circle
         //System.out.println(ca.createOBJ(g3,g3));// 2 Diamond
-        //ca.createOBJ(g4,g4);
-
-       // Assert.assertEquals("12", ca.createOBJ(g1,g2));
-
     }
 
     @Test
@@ -182,7 +178,7 @@ public class CreationAlgorithmTest {
                 (CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2));
         //System.out.println(pair.getFirst());
 
-        String text = ca.createOBJ(pair.getFirst(),pair.getSecond(),new Stl3DFile());
+        String text = ca.createObject(pair.getFirst(),pair.getSecond(),new Stl3DFile());
         BufferedWriter output = null;
 
         try {
