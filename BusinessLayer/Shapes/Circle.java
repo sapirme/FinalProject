@@ -119,7 +119,6 @@ public class Circle extends Shape{
         if (v==null) g.addVertex(down);
         else down=v;
 
-        System.out.println("vertex:"+g.getVertex());
 
         g.addEdge(new Edge(this,left,up));
         g.addEdge(new Edge(this,left,down));

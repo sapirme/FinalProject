@@ -1,6 +1,8 @@
 package SystemObj;
 
+import Algorithms.Enums;
+
 public interface BLManager {
-    public Boolean Decide(String xml);
-    public String CreateObject ();
+    public Enums.checkingAns Decide(String xml);
+    public boolean CreateObject ();
 }

@@ -40,7 +40,6 @@ public abstract class Shape {
             v=g.isVertexExist(v1);
             if (v==null) {
                 v=v1;
-                System.out.println("add vertex: "+v);
                 g.addVertex(v);
             }
 

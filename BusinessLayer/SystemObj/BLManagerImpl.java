@@ -1,5 +1,6 @@
 package SystemObj;
 
+import Algorithms.Enums;
 import DAL.DAL_Interface;
 import DAL.DAL_InterfaceImpl;
 
@@ -28,46 +29,48 @@ public class BLManagerImpl implements BLManager{
     }
 
     @Override
-    public Boolean Decide(String xml){
-        boolean ans = illusionobj.Decide(xml);
-        if (ans) {
-            System.out.println("first : 1");
-            String text = this.CreateObject();
-
-            BufferedWriter output = null;
-
-            try {
-                System.out.println("hey 222222222222222222222");
-                File file = new File(".\\files\\tempSTL.stl");
-                output = new BufferedWriter(new FileWriter(file));
-                output.write(text);
-            } catch ( IOException e ) {
-                e.printStackTrace();
-            } finally {
-                if ( output != null ) {
-                    try {
-                        output.close();
-                    } catch ( IOException e ) {
-                        e.printStackTrace();
-                    }
-                }
+    public Enums.checkingAns Decide(String xml){
+        Enums.checkingAns ans = illusionobj.Decide(xml);
+        if(ans ==  Enums.checkingAns.CAN) {
+            boolean connected = this.CreateObject();
+            if(!connected){
+               ans =  Enums.checkingAns.CAN_NO_DB;
             }
         }
         return ans;
     }
 
     @Override
-    public String CreateObject() {
+    public boolean CreateObject() {
         DAL_Interface mydal = DAL_InterfaceImpl.getInstance();
         String D3 = illusionobj.createObject();
         ViewPoint v1 = illusionobj.getViewPoint1();
         ViewPoint v2 = illusionobj.getViewPoint2();
-        mydal.InsertObject(D3,illusionobj.getSvgObj().getSvg(),
+        boolean connected = mydal.InsertObject(D3,illusionobj.getSvgObj().getSvg(),
                                 v1.getShapes(),v2.getShapes(),
                                 v1.getGraph(),v2.getGraph(),
                                 v1.getPaths(),v2.getPaths(),
                             "adarrrr"
                                 );
-        return D3;
+
+        BufferedWriter output = null;
+        try {
+            System.out.println("create file");
+            File file = new File(".\\files\\tempSTL.stl");
+            output = new BufferedWriter(new FileWriter(file));
+            output.write(D3);
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        } finally {
+            if ( output != null ) {
+                try {
+                    output.close();
+                } catch ( IOException e ) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return connected;
     }
 }

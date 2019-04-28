@@ -104,7 +104,7 @@ public class CreationAlgorithm {
         String ans = "";
         List<LinkedList<Point3D>> allLists= new LinkedList<>();
         Double min = findPoint(sortedPathsG1,sortedPathsG2,allLists);
-        System.out.println("number of lists: "+allLists.size());
+        //System.out.println("number of lists: "+allLists.size());
         for (LinkedList<Point3D> l : allLists){
             ans = ans +"\n" + modle3D.listToText(l,min,Height);
         }
@@ -115,14 +115,14 @@ public class CreationAlgorithm {
     private static double findPoint(List<List<Edge>> pathsG1, List<List<Edge>> pathsG2,List<LinkedList<Point3D>> allLists){
         double min = 0;
         boolean first =true ;
-        System.out.println(pathsG1.size());
-        System.out.println(pathsG2.size());
+        //System.out.println(pathsG1.size());
+        //System.out.println(pathsG2.size());
         for (int i=0; i<pathsG1.size(); i++){
             Map<Integer,List<LinkedList<Point3D>>> map = new HashMap<Integer,List<LinkedList<Point3D>>> ();
             for (int j=0; j<pathsG2.size(); j++){
-                System.out.println("path1: "+pathsG1.get(i));
-                System.out.println("path2: "+pathsG2.get(j));
-                System.out.println();
+                //System.out.println("path1: "+pathsG1.get(i));
+                //System.out.println("path2: "+pathsG2.get(j));
+                //System.out.println();
                 List<LinkedList<Point3D>> inter2Paths=new LinkedList<LinkedList<Point3D>>();
                 for (Edge e1 : pathsG1.get(i)){
                     for (Edge e2 : pathsG2.get(j)){

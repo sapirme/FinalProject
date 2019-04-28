@@ -32,20 +32,20 @@ public class CreationAlgorithmTest {
         Set<Vertex> vertex1=new HashSet<Vertex>();
         Set<Edge> edges1 =new HashSet<Edge>();
         v1=new Vertex(0, 0);
-        v2=new Vertex(2, 0);
+        v2=new Vertex(20, 0);
         vertex1.add(v1);
         vertex1.add(v2);
-        e1 = new Edge(new Line(0,0,2,0), v1,  v2);
+        e1 = new Edge(new Line(0,0,20,0), v1,  v2);
         edges1.add(e1);
         g1=new Graph(vertex1, edges1);
 
         Set<Vertex> vertex2=new HashSet<Vertex>();
         Set<Edge> edges2 =new HashSet<Edge>();
         v3=new Vertex(0, 0);
-        v4=new Vertex(2, 0);
+        v4=new Vertex(20, 0);
         vertex2.add(v3);
         vertex2.add(v4);
-        e2 = new Edge(new Line(0,0,2,0), v3,  v4);
+        e2 = new Edge(new Line(0,0,20,0), v3,  v4);
         edges2.add(e2);
         g2=new Graph(vertex2, edges2);
     }
