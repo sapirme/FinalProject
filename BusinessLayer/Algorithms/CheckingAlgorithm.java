@@ -38,7 +38,7 @@ public class CheckingAlgorithm {
 
         return map;
     }
-
+/*
 
     public static void findAllMatchInLists(List<Vertex> list1, List<Vertex> list2,
                                             List<Pair<Vertex,Vertex>> current,Set<List<Pair<Vertex,Vertex>>>ans){
@@ -59,7 +59,7 @@ public class CheckingAlgorithm {
             list2.add(v2);
         }
         list1.add(v1);
-    }
+    }*/
 
 
     /*
@@ -241,7 +241,6 @@ public class CheckingAlgorithm {
                                           Set<List<Edge>> pathsListG1, Set<List<Edge>> pathsListG2) {
         if (g1.getEdges().isEmpty() && g2.getEdges().isEmpty()) return true;
         if (g1.getEdges().isEmpty() || g2.getEdges().isEmpty()){
-            //System.out.println("whayyy??");
             return false;
         }
         //System.out.println("g1: "+g1.getEdges().size()+" g2: "+g2.getEdges().size());
@@ -282,6 +281,10 @@ public class CheckingAlgorithm {
         //System.out.println("///////////////////////////////////////////////////////////////////");
         return false;
     }
+
+
+
+
 
 
 }

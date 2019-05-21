@@ -31,17 +31,20 @@ public class BLManagerImpl implements BLManager{
     @Override
     public Enums.checkingAns Decide(String xml){
         Enums.checkingAns ans = illusionobj.Decide(xml);
+        ////////
         if(ans ==  Enums.checkingAns.CAN) {
             boolean connected = this.CreateObject();
             if(!connected){
                ans =  Enums.checkingAns.CAN_NO_DB;
             }
         }
+        ////////
         return ans;
     }
 
     @Override
     public boolean CreateObject() {
+        System.out.println("creating the object");
         DAL_Interface mydal = DAL_InterfaceImpl.getInstance();
         String D3 = illusionobj.createObject();
         ViewPoint v1 = illusionobj.getViewPoint1();

@@ -20,6 +20,8 @@ public class Circle extends Shape{
         this.r=r;
     }
 
+
+
     public double getX() {
         return x;
     }
@@ -30,6 +32,12 @@ public class Circle extends Shape{
 
     public double getR() {
         return r;
+    }
+
+    @Override
+    public void negY(){
+        if (this.y > 0)
+            this.y= -1*this.y;
     }
 
     @Override

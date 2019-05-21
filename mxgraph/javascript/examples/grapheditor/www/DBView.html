@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>View</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <script type="text/javascript" src="Online3DViewer/jsmodeler/three.min.js"></script>
+    <script type="text/javascript" src="Online3DViewer/jsmodeler/jsmodeler.js"></script>
+    <script type="text/javascript" src="Online3DViewer/jsmodeler/jsmodeler.ext.three.js"></script>
+    <script type="text/javascript" src="Online3DViewer/embeddable/include/online3dembedder.js"></script>
+    <script type="text/javascript">
+        window.addEventListener ('load', LoadOnline3DModels, true);
+    </script>
+</head>
+
+<style>
+    .topDiv{
+        with: 100%;
+        background-color: #d9d9d9;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+    }
+
+    .buttonStyle {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+    .buttonStyle:hover {background-color: #3e8e41}
+
+    .buttonStyle2 {
+
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+
+        width: 60%;
+        padding: 10px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+    .buttonStyle2:hover {background-color: #3e8e41}
+
+    table {
+        table-layout: fixed ;
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100% ;
+    }
+    td {
+        width: 25% ;
+        text-align: center;
+        padding-bottom: 5px;
+    }
+
+</style>
+
+
+<body>
+
+<div class="topDiv">
+    <button class="buttonStyle" type="button" onclick="alert('Hello world!')">All Objects</button>
+    <button class="buttonStyle" type="button" onclick="alert('Hello world!')">My Objects</button>
+</div>
+
+<table id = "objectTbl">
+    <tr>
+        <td>
+            <canvas class="3dviewer" sourcefiles="../../../../../files/diamondAndCircle.stl" height="250px"></canvas>
+        </td>
+        <td>
+            <canvas class="3dviewer" sourcefiles="../../../../../files/diamondAndCircle.stl" height="250px"></canvas>
+        </td>
+        <td>
+            <canvas class="3dviewer" sourcefiles="../../../../../files/diamondAndCircle.stl" height="250px"></canvas>
+        </td>
+        <td>
+            <canvas class="3dviewer" sourcefiles="../../../../../files/diamondAndCircle.stl" height="250px"></canvas>
+        </td>
+    </tr>
+    <tr>
+        <td >
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        </td>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        </td>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        </td>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        </td>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        </td>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        </td>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <canvas class="3dviewer" sourcefiles="../../../../../files/diamondAndCircle.stl" height="250px"></canvas>
+        </td>
+        <td>
+            <canvas class="3dviewer" sourcefiles="../../../../../files/diamondAndCircle.stl" height="250px"></canvas>
+        </td>
+        <td>
+            <canvas class="3dviewer" sourcefiles="../../../../../files/diamondAndCircle.stl" height="250px"></canvas>
+        </td>
+        <td>
+            <canvas class="3dviewer" sourcefiles="../../../../../files/diamondAndCircle.stl" height="250px"></canvas>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        </td>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        </td>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        </td>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        </td>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        </td>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        </td>
+        <td>
+            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        </td>
+    </tr>
+</table>
+
+
+</body>
+</html>

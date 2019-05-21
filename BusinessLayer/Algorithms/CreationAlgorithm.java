@@ -4,28 +4,128 @@ import Graph.*;
 import Object3D.*;
 import javafx.geometry.Point3D;
 
+import java.awt.*;
 import java.math.BigDecimal;
 
 import java.util.*;
+import java.util.List;
 
 
 public class CreationAlgorithm {
 
-    private static double Alpha = (90-45) * (Math.PI/180);
+    private static double Alpha = 45 * (Math.PI/180);
     private static int Height = 30;
 
     public static Point3D cuttingPoint(Point3D p1, Point3D p2){
         double cosA = round( Math.cos(Alpha), 14);
         double sinA = round( Math.sin(Alpha), 14);
 
-        double s = (p2.getZ() - p1.getZ() - ((cosA/sinA)*(p2.getY()-p1.getY())))
-                /(-2*cosA);
+        //double s = (p2.getZ() - p1.getZ() - ((cosA/sinA)*(p2.getY()-p1.getY())))
+         //       /(-2*cosA);
+        double s = (p2.getY()-p1.getY())/cosA + (p2.getZ()-p1.getZ())/sinA;
 
-        double x = p1.getX();
-        double y = p2.getY() - (sinA*s);
-        double z = p2.getZ() + (cosA*s);
-
+        double x = p2.getX();
+        double y = p2.getY() - s*cosA;
+        double z = p2.getZ() - (sinA*s);
+///////////////////////////////////////////////////////////////////
         return new Point3D(x, y, z);
+        //return new Point3D(x, z, y);
+    }
+
+/*
+    private static Map<Pair<Vertex,Vertex>,List<Edge>> makeMapPath(Set<List<Edge>> paths){
+        Map<Pair<Vertex,Vertex>,List<Edge>> map = new HashMap<Pair<Vertex, Vertex>, List<Edge>>();
+        for (List<Edge> l: paths){
+            if (l.size()>0){
+                Vertex start = l.get(0).getFrom();
+                Vertex end = l.get(l.size()-1).getFrom();
+                map.put(new Pair<Vertex, Vertex>(start,end),l);
+            }
+        }
+        return map;
+    }*/
+    private static void addSortedPaths(List<List<Edge>> ans,List<Edge> path){
+        int i=0;
+        for (List<Edge> p : ans){
+            if (path.get(0).getTo().getX() < p.get(0).getTo().getX()){
+                double x = path.get(0).getFrom().getX() + (path.get(0).getTo().getX() - path.get(0).getFrom().getX())/2;
+                double pathY = path.get(0).getF().getYbyX(x,path.get(0).getFrom().getY(),path.get(0).getTo().getY());
+                double pY = p.get(0).getF().getYbyX(x,p.get(0).getFrom().getY(),p.get(0).getTo().getY());
+                if (pY >= pathY){
+                    ans.add(i,path);
+                    return;
+                }
+            }
+            else{
+                double x = p.get(0).getFrom().getX() + (p.get(0).getTo().getX() - p.get(0).getFrom().getX())/2;
+                double pathY = path.get(0).getF().getYbyX(x,path.get(0).getFrom().getY(),path.get(0).getTo().getY());
+                double pY = p.get(0).getF().getYbyX(x,p.get(0).getFrom().getY(),p.get(0).getTo().getY());
+                if (pY >= pathY){
+                    ans.add(i,path);
+                    return;
+                }
+            }
+            i++;
+        }
+        ans.add(i,path);
+    }
+
+    private static List<List<Edge>> findPossibleMatchPath (List<Edge> path,Set<List<Edge>> paths){
+        List<List<Edge>> ans = new LinkedList<List<Edge>>() ;
+        if (path.size()==0){
+            return ans;
+        }
+        double pathXstart = path.get(0).getFrom().getX();
+        double pathXend = path.get(path.size()-1).getTo().getX();
+        for (List<Edge> p : paths){
+            if (p.size()>0){
+                if ((p.get(0).getFrom().getX() < pathXstart - 1) || (p.get(p.size()-1).getTo().getX() > pathXend + 1)){
+                    continue;
+                }
+                else{
+                    addSortedPaths(ans,p);
+                }
+            }
+        }
+        return ans;
+    }
+
+    private static Pair<List<List<Edge>>,List<List<Edge>>> sortByMatch(Set<List<Edge>> paths1,Set<List<Edge>> paths2){
+        Pair <List<List<Edge>>,List<List<Edge>>> p;
+        LinkedList<List<Edge>> paths1Ans = new LinkedList<List<Edge>>();
+        LinkedList<List<Edge>> paths2Ans = new LinkedList<List<Edge>>();
+        p=new Pair<List<List<Edge>>, List<List<Edge>>>(paths1Ans,paths2Ans);
+        Set<List<Edge>> paths1Copy = new HashSet<List<Edge>>(paths1);
+        Set<List<Edge>> paths2Copy = new HashSet<List<Edge>>(paths2);
+        for (List<Edge> path : paths1){
+            if (paths1Ans.contains(path)) continue;
+            List<List<Edge>> match = findPossibleMatchPath(path,paths2Copy);
+            if (match.size()==1){
+                System.out.println("one match");
+                paths1Ans.add(path);
+                paths2Ans.add(match.get(0));
+                paths1Copy.remove(path);
+                paths2Copy.remove(match.get(0));
+            }
+            else if (match.size()>1){
+                System.out.println("mor than one");
+                List<List<Edge>> matchTo2 = findPossibleMatchPath(match.get(0),paths1Copy);
+                for (List<Edge> l:matchTo2){
+                    paths1Ans.add(l);
+                    paths1Copy.remove(l);
+                }
+                for (List<Edge> l:match){
+                    paths2Ans.add(l);
+                    paths2Copy.remove(l);
+                }
+            }
+            else{
+                System.out.println("no match");
+            }
+        }
+
+
+        return p;
     }
 
     private static double round(double value, int numberOfDigitsAfterDecimalPoint) {
@@ -33,7 +133,7 @@ public class CreationAlgorithm {
         bigDecimal = bigDecimal.setScale(numberOfDigitsAfterDecimalPoint, BigDecimal.ROUND_HALF_UP);
         return bigDecimal.doubleValue();
     }
-
+/*
     public static List<List<Edge>> sortToList(Set<List<Edge>> paths){
         List<List<Edge>> ans= new LinkedList<List<Edge>>();
         for (List<Edge> path1 : paths){
@@ -49,6 +149,8 @@ public class CreationAlgorithm {
                 ((LinkedList) ans).addLast(path1);
             }
         }
+        System.out.println("sorted:");
+        System.out.println(ans);
         return ans;
     }
 
@@ -59,10 +161,14 @@ public class CreationAlgorithm {
             for (Edge e2 :p2){
                 double xStartE2 = e2.getFrom().getX();
                 double xEndE2 = e2.getTo().getX();
+                if (xEndE1<=xStartE2 || xEndE2<=xStartE1) continue;
                 if (xStartE1 > xStartE2 && xStartE1 < xEndE2){
                     double x = xStartE1 + (xEndE2 - xStartE1)/2;
                     double yOnE1 = e1.getF().getYbyX(x,e1.getFrom().getY(),e1.getTo().getY());
                     double yOnE2 = e2.getF().getYbyX(x,e2.getFrom().getY(),e2.getTo().getY());
+                    ////
+                    if (yOnE1 == yOnE2) continue;
+                    ////
                     if (yOnE1 > yOnE2) return  true;
                     else return false;
                 }
@@ -71,6 +177,9 @@ public class CreationAlgorithm {
                     double x = xStartE1 + (xEndE1 - xStartE1)/2;
                     double yOnE1 = e1.getF().getYbyX(x,e1.getFrom().getY(),e1.getTo().getY());
                     double yOnE2 = e2.getF().getYbyX(x,e2.getFrom().getY(),e2.getTo().getY());
+                    ////
+                    if (yOnE1 == yOnE2) continue;
+                    ////
                     if (yOnE1 > yOnE2) return  true;
                     else return false;
                 }
@@ -78,6 +187,9 @@ public class CreationAlgorithm {
                     double x = xStartE2 + (xEndE1 - xStartE2)/2;
                     double yOnE1 = e1.getF().getYbyX(x,e1.getFrom().getY(),e1.getTo().getY());
                     double yOnE2 = e2.getF().getYbyX(x,e2.getFrom().getY(),e2.getTo().getY());
+                    ////
+                    if (yOnE1 == yOnE2) continue;
+                    ////
                     if (yOnE1 > yOnE2) return  true;
                     else return false;
                 }
@@ -86,6 +198,9 @@ public class CreationAlgorithm {
                     double x = xStartE2 + (xEndE2 - xStartE2)/2;
                     double yOnE1 = e1.getF().getYbyX(x,e1.getFrom().getY(),e1.getTo().getY());
                     double yOnE2 = e2.getF().getYbyX(x,e2.getFrom().getY(),e2.getTo().getY());
+                    ////
+                    if (yOnE1 == yOnE2) continue;
+                    ////
                     if (yOnE1 > yOnE2) return  true;
                     else return false;
                 }
@@ -96,11 +211,30 @@ public class CreationAlgorithm {
         if (p1.get(0).getFrom().getX() > p2.get(0).getFrom().getX()) return true;
         else return false;
     }
+*/
+    private static void fixPoints(Set<List<Edge>> paths){
+        for (List<Edge> l : paths){
+            for (Edge e : l){
+                e.negY();
+            }
+        }
+    }
 
     public static String createObject(Set<List<Edge>> pathsG1, Set<List<Edge>> pathsG2, ObjectInteface modle3D){
         //System.out.println("fore : 4");
-        List<List<Edge>> sortedPathsG1 = sortToList(pathsG1);
-        List<List<Edge>> sortedPathsG2 = sortToList(pathsG2);
+        //List<List<Edge>> sortedPathsG1 = sortToList(pathsG1);
+        //List<List<Edge>> sortedPathsG2 = sortToList(pathsG2);
+
+        //fixPoints(pathsG1);
+        Pair<List<List<Edge>>,List<List<Edge>>> pair = sortByMatch(pathsG1,pathsG2);
+        List<List<Edge>> sortedPathsG1 = pair.getFirst();
+        List<List<Edge>> sortedPathsG2 = pair.getSecond();
+
+        System.out.println("sorted g1");
+        System.out.println(sortedPathsG1);
+        System.out.println("sorted g2");
+        System.out.println(sortedPathsG2);
+
         String ans = "";
         List<LinkedList<Point3D>> allLists= new LinkedList<>();
         Double min = findPoint(sortedPathsG1,sortedPathsG2,allLists);
@@ -120,6 +254,7 @@ public class CreationAlgorithm {
         for (int i=0; i<pathsG1.size(); i++){
             Map<Integer,List<LinkedList<Point3D>>> map = new HashMap<Integer,List<LinkedList<Point3D>>> ();
             for (int j=0; j<pathsG2.size(); j++){
+                if (i!=j) continue;
                 //System.out.println("path1: "+pathsG1.get(i));
                 //System.out.println("path2: "+pathsG2.get(j));
                 //System.out.println();
@@ -560,26 +695,6 @@ public class CreationAlgorithm {
 
     }*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private static double findMaxY(LinkedList<Point3D> lst){
-        double max=lst.getFirst().getY();
-        for (Point3D p : lst){
-            if (p.getY()>max){
-                max=p.getY();
-            }
-        }
-        return max;
-    }
-
-    private static double findMinY(LinkedList<Point3D> lst){
-        double min=lst.getFirst().getY();
-        for (Point3D p : lst){
-            if (p.getY()<min){
-                min=p.getY();
-            }
-        }
-        return min;
-    }
-
     private static Pair<LinkedList<Point3D>,LinkedList<Point3D>> split(LinkedList<Point3D> list,double x){
         LinkedList<Point3D> lst1=new LinkedList<>();
         LinkedList<Point3D> lst2=new LinkedList<>();
@@ -687,11 +802,15 @@ public class CreationAlgorithm {
     }
 
     public static Point3D Point2Dto3DVP1(double x, double y){
-        return  new Point3D(x,0,y);
+        //return  new Point3D(x,-5,y);
+        //return  new Point3D(x,-y,0);
+        return  new Point3D(x,y,-5);
     }
 
     public static Point3D Point2Dto3DVP2(double x, double y){
-        return  new Point3D(x,10,y);
+        //return  new Point3D(x,5,y);
+        //return  new Point3D(x,y,0);
+        return  new Point3D(x,y,5);
     }
 
 

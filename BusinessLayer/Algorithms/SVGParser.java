@@ -149,12 +149,12 @@ public class SVGParser {
             //System.out.println("update g2");
         }
 
-        /*System.out.println("Graph 1:");
+        System.out.println("Graph 1:");
         System.out.println(g1);
         System.out.println();
         System.out.println("Graph 2:");
         System.out.println(g2);
-        System.out.println();*/
+        System.out.println();
 
         Pair<Set<List<Edge>>,Set<List<Edge>>> p =CheckingAlgorithm.checkAlgorithem(g1, g2);
 
