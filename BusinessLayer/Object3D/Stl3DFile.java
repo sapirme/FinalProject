@@ -18,7 +18,7 @@ public class Stl3DFile implements ObjectInteface {
     public void setText(String text) {
         this.text = text;
     }
-/*
+
     @Override
     public String listToText(LinkedList<Point3D> list, double minZ, double Height) {
         String ans = "solid OpenSCAD_Model\n";
@@ -89,7 +89,7 @@ public class Stl3DFile implements ObjectInteface {
 
         ans = ans + "endsolid OpenSCAD_Model";
         return ans;
-    }*/
+    }
 /*
     public static LinkedList<Point3D> changePoints(LinkedList<Point3D> list){
         LinkedList<Point3D> ans = new LinkedList<Point3D>();
@@ -99,7 +99,7 @@ public class Stl3DFile implements ObjectInteface {
         return ans;
     }
 */
-
+/*
     @Override
     public String listToText(LinkedList<Point3D> list, double minZ, double Height) {
         //list = changePoints(list);
@@ -171,7 +171,7 @@ public class Stl3DFile implements ObjectInteface {
 
         ans = ans + "endsolid OpenSCAD_Model";
         return ans;
-    }
+    }*/
 
     public String addSurface(Point3D d1, Point3D d2, Point3D d3){
         String ans = "";

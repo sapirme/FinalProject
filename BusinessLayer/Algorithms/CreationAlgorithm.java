@@ -14,7 +14,7 @@ import java.util.List;
 public class CreationAlgorithm {
 
     private static double Alpha = 45 * (Math.PI/180);
-    private static int Height = 30;
+    private static int Height = 70;
 
     public static Point3D cuttingPoint(Point3D p1, Point3D p2){
         double cosA = round( Math.cos(Alpha), 14);
@@ -22,7 +22,7 @@ public class CreationAlgorithm {
 
         //double s = (p2.getZ() - p1.getZ() - ((cosA/sinA)*(p2.getY()-p1.getY())))
          //       /(-2*cosA);
-        double s = (p2.getY()-p1.getY())/cosA + (p2.getZ()-p1.getZ())/sinA;
+        double s = ((p2.getY()-p1.getY())/cosA + (p2.getZ()-p1.getZ())/sinA)/2;
 
         double x = p2.getX();
         double y = p2.getY() - s*cosA;
@@ -90,7 +90,8 @@ public class CreationAlgorithm {
         return ans;
     }
 
-    private static Pair<List<List<Edge>>,List<List<Edge>>> sortByMatch(Set<List<Edge>> paths1,Set<List<Edge>> paths2){
+    private static Pair<List<List<Edge>>,List<List<Edge>>> sortByMatch(Set<List<Edge>> paths1,
+                                                                       Set<List<Edge>> paths2){
         Pair <List<List<Edge>>,List<List<Edge>>> p;
         LinkedList<List<Edge>> paths1Ans = new LinkedList<List<Edge>>();
         LinkedList<List<Edge>> paths2Ans = new LinkedList<List<Edge>>();
@@ -121,6 +122,7 @@ public class CreationAlgorithm {
             }
             else{
                 System.out.println("no match");
+                System.out.println(path);
             }
         }
 
@@ -803,14 +805,14 @@ public class CreationAlgorithm {
 
     public static Point3D Point2Dto3DVP1(double x, double y){
         //return  new Point3D(x,-5,y);
-        //return  new Point3D(x,-y,0);
-        return  new Point3D(x,y,-5);
+        return  new Point3D(x,y,0);
+        //return  new Point3D(x,y,-5);
     }
 
     public static Point3D Point2Dto3DVP2(double x, double y){
         //return  new Point3D(x,5,y);
-        //return  new Point3D(x,y,0);
-        return  new Point3D(x,y,5);
+        return  new Point3D(x,y,0);
+        //return  new Point3D(x,y,5);
     }
 
 

@@ -217,24 +217,12 @@ public class CheckingAlgorithm {
 
         return false;
     }
-
+/*
     public static boolean isPathsIntersect(Set<List<Edge>> pathsList, List<Edge> path) {
         for (List<Edge> p : pathsList) {
             if (isPathIntersect(p,path)) return true;
         }
         return false;
-    }
-
-    public static Pair<Set<List<Edge>>,Set<List<Edge>>> checkAlgorithem(Graph g1, Graph g2) {
-        List<Pair<Vertex,Vertex>> matchVertex = findMatch(g1,g2);
-        if (matchVertex.isEmpty()) return null;
-        Set<List<Edge>> pathsListG1=new HashSet<List<Edge>>();
-        Set<List<Edge>> pathsListG2=new HashSet<List<Edge>> ();
-        //System.out.println("here!");
-        if (checkAlgorithem(g1, g2, matchVertex, pathsListG1, pathsListG2)) {
-            return new Pair<Set<List<Edge>>,Set<List<Edge>>>(pathsListG1,pathsListG2);
-        }
-        return null;
     }
 
     public static boolean checkAlgorithem(Graph g1, Graph g2, List<Pair<Vertex,Vertex>> matchVertex,
@@ -264,6 +252,7 @@ public class CheckingAlgorithm {
                         if (isPathsIntersect(pathsListG2,path2)) {
                             continue;
                         }
+
                         g2.removeEdges(path2);
                         pathsListG2.add(path2);
                         if (checkAlgorithem(g1,g2,matchVertex,pathsListG1,pathsListG2)) {
@@ -282,8 +271,159 @@ public class CheckingAlgorithm {
         return false;
     }
 
+    public static Pair<Set<List<Edge>>,Set<List<Edge>>> checkAlgorithem(Graph g1, Graph g2) {
+        List<Pair<Vertex,Vertex>> matchVertex = findMatch(g1,g2);
+        if (matchVertex.isEmpty()) return null;
+        Set<List<Edge>> pathsListG1=new HashSet<List<Edge>>();
+        Set<List<Edge>> pathsListG2=new HashSet<List<Edge>> ();
+        //System.out.println("here!");
+        if (checkAlgorithem(g1, g2, matchVertex, pathsListG1, pathsListG2)) {
+            return new Pair<Set<List<Edge>>,Set<List<Edge>>>(pathsListG1,pathsListG2);
+        }
+        return null;
+    }
+    */
 
 
+
+    public static boolean isPathsIntersect(LinkedList<List<Edge>> pathsList, List<Edge> path) {
+        for (List<Edge> p : pathsList) {
+            if (isPathIntersect(p,path)) return true;
+        }
+        return false;
+    }
+
+    public static int addSortedListPath ( LinkedList<List<Edge>> pathsList, List<Edge> path){
+        if (pathsList.size()==0) {
+            pathsList.add(path);
+            return 0;
+        }
+        int i=0;
+        for (List<Edge> p : pathsList){
+            if (isP1BiggerThenP2(path,p)){
+                pathsList.add(i,path);
+                return i;
+            }
+            i++;
+        }
+        pathsList.addLast(path);
+        return pathsList.size()-1;
+    }
+
+    public static boolean isP1BiggerThenP2 (List<Edge> p1,List<Edge> p2){
+        for (Edge e1 : p1){
+            for (Edge e2 :p2){
+                if (e1.getFrom().getX() >= e2.getTo().getX() - 1) continue;
+                if (e2.getFrom().getX() >= e1.getTo().getX() - 1) continue;
+                double xStart,xEnd;
+                if ((e1.getFrom().getX() >= e2.getFrom().getX()) &&
+                        (e1.getTo().getX() <= e2.getTo().getX())) //e1 boundries
+                {
+                    xStart = e1.getFrom().getX();
+                    xEnd = e1.getTo().getX();
+                }
+                else if (e2.getFrom().getX() >= e1.getFrom().getX() &&
+                        (e2.getTo().getX() <= e1.getTo().getX())) //e2 boundries
+                {
+                    xStart = e2.getFrom().getX();
+                    xEnd = e2.getTo().getX();
+                }
+                else if (e1.getFrom().getX() <= e2.getFrom().getX() &&
+                        (e1.getTo().getX() <= e2.getTo().getX())) //s-e2,e - e1
+                {
+                    xStart = e2.getFrom().getX();
+                    xEnd = e1.getTo().getX();
+                }
+                else  //s-e2,e - e1
+                {
+                    xStart = e1.getFrom().getX();
+                    xEnd = e2.getTo().getX();
+                }
+                double x = (xEnd - xStart)/2 + xStart;
+                double yE1 = e1.getF().getYbyX(x,e1.getFrom().getY(),e1.getTo().getY());
+                double yE2 = e2.getF().getYbyX(x,e2.getFrom().getY(),e2.getTo().getY());
+                if (yE1 > yE2) return true;
+                else return false;
+            }
+        }
+        return false;
+    }
+
+    public static boolean checkAlgorithem(Graph g1, Graph g2, List<Pair<Vertex,Vertex>> matchVertex,
+                                          LinkedList<List<Edge>> pathsListG1, LinkedList<List<Edge>> pathsListG2) {
+        if (g1.getEdges().isEmpty() && g2.getEdges().isEmpty()) return true;
+        if (g1.getEdges().isEmpty() || g2.getEdges().isEmpty()){
+            return false;
+        }
+        //System.out.println("g1: "+g1.getEdges().size()+" g2: "+g2.getEdges().size());
+        for (Pair<Vertex,Vertex> p1 : matchVertex) {
+            for (Pair<Vertex,Vertex> p2 : matchVertex) {
+                if (p1.equals(p2)) continue;
+                Set<List<Edge>> paths1 = g1.allPaths(p1.getFirst(),p2.getFirst());
+                Set<List<Edge>> paths2 = g2.allPaths(p1.getSecond(),p2.getSecond());
+                if (paths1.size()==0 || paths2.size()==0) continue;
+                for (List<Edge> path1 : paths1) {
+                    //System.out.println("path 1");
+                    //System.out.println(path1);
+                    if (isPathsIntersect(pathsListG1,path1)) {
+                        continue;
+                    }
+                    g1.removeEdges(path1);
+                    //pathsListG1.add(path1);
+                    int locP1=addSortedListPath(pathsListG1,path1);
+                    for (List<Edge> path2 : paths2) {
+                        //System.out.println("path 2");
+                        //System.out.println(path2);
+                        if (isPathsIntersect(pathsListG2,path2)) {
+                            continue;
+                        }
+                        int locP2=addSortedListPath(pathsListG2,path2);
+                        if (locP1!=locP2){
+                            pathsListG2.remove(path2);
+                            continue;
+                        }
+                        g2.removeEdges(path2);
+                        //pathsListG2.add(path2);
+
+
+                        if (checkAlgorithem(g1,g2,matchVertex,pathsListG1,pathsListG2)) {
+                            return true;
+                        }
+                        //System.out.println("not good paths");
+                        pathsListG2.remove(path2);
+                        g2.addEdges(path2);
+                    }
+                    pathsListG1.remove(path1);
+                    g1.addEdges(path1);
+                }
+            }
+        }
+        //System.out.println("///////////////////////////////////////////////////////////////////");
+        return false;
+    }
+
+
+
+
+
+
+    public static Pair<Set<List<Edge>>,Set<List<Edge>>> checkAlgorithem(Graph g1, Graph g2) {
+        List<Pair<Vertex,Vertex>> matchVertex = findMatch(g1,g2);
+        if (matchVertex.isEmpty()) return null;
+        LinkedList<List<Edge>> pathsListG1=new LinkedList<List<Edge>>();
+        LinkedList<List<Edge>> pathsListG2=new LinkedList<List<Edge>> ();
+        //System.out.println("here!");
+        if (checkAlgorithem(g1, g2, matchVertex, pathsListG1, pathsListG2)) {
+            System.out.println("paths 1: ");
+            System.out.println(pathsListG1);
+            System.out.println("paths 2: ");
+            System.out.println(pathsListG2);
+            Set<List<Edge>> set1 = new HashSet<List<Edge>>(pathsListG1);
+            Set<List<Edge>> set2 = new HashSet<List<Edge>>(pathsListG2);
+            return new Pair<Set<List<Edge>>,Set<List<Edge>>>(set1,set2);
+        }
+        return null;
+    }
 
 
 
