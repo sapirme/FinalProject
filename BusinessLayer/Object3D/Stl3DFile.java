@@ -187,6 +187,39 @@ public class Stl3DFile implements ObjectInteface {
         return ans;
     }
 
+    public String addButtomCube(double minx,double maxx,double miny,double maxy,double z){
+        Point3D p1 = new Point3D(minx,miny,z);
+        Point3D p2 = new Point3D(maxx,miny,z);
+        Point3D p3 = new Point3D(maxx,maxy,z);
+        Point3D p4 = new Point3D(minx,maxy,z);
+
+        Point3D p5 = new Point3D(minx,miny,z-d*2);
+        Point3D p6 = new Point3D(maxx,miny,z-d*2);
+        Point3D p7 = new Point3D(maxx,maxy,z-d*2);
+        Point3D p8 = new Point3D(minx,maxy,z-d*2);
+
+        String ans = "";
+        //p1,p2,p3,p4
+        ans = ans + addSurface (p1,p2,p3);
+        ans = ans + addSurface (p1,p3,p4);
+        //p1,p2,p6,p5
+        ans = ans + addSurface (p1,p2,p6);
+        ans = ans + addSurface (p1,p6,p5);
+        //p2,p3,p7,p6
+        ans = ans + addSurface (p2,p3,p7);
+        ans = ans + addSurface (p2,p7,p6);
+        //p4,p3,p7,p8
+        ans = ans + addSurface (p4,p3,p7);
+        ans = ans + addSurface (p4,p7,p8);
+        //p1,p4,p8,p5
+        ans = ans + addSurface (p1,p4,p8);
+        ans = ans + addSurface (p1,p8,p5);
+        //p5,p6,p7,p8
+        ans = ans + addSurface (p5,p6,p7);
+        ans = ans + addSurface (p5,p7,p8);
+        return ans;
+    }
+
     public Point3D getNormal(Point3D p0, Point3D p1, Point3D p2){
         Point3D u = new Point3D(p1.getX() - p0.getX(), p1.getY() - p0.getY(), p1.getZ() - p0.getZ());
         Point3D v = new Point3D(p2.getX() - p0.getX(), p2.getY() - p0.getY(), p2.getZ() - p0.getZ());

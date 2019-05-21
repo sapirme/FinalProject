@@ -15,6 +15,28 @@ public class Obj3DFile implements ObjectInteface {
         this.text = text;
     }
 
+    public String addButtomCube(double minx,double maxx,double miny,double maxy,double z){
+        Point3D p1 = new Point3D(minx,miny,z);
+        Point3D p2 = new Point3D(maxx,miny,z);
+        Point3D p3 = new Point3D(maxx,maxy,z);
+        Point3D p4 = new Point3D(minx,maxy,z);
+
+        Point3D p5 = new Point3D(minx,miny,z-d*2);
+        Point3D p6 = new Point3D(maxx,miny,z-d*2);
+        Point3D p7 = new Point3D(maxx,maxy,z-d*2);
+        Point3D p8 = new Point3D(minx,maxy,z-d*2);
+
+        String ans = "";
+        ans = ans + addSurface (p1,p2,p3,p4);
+        ans = ans + addSurface (p1,p2,p6,p5);
+        ans = ans + addSurface (p2,p3,p7,p6);
+        ans = ans + addSurface (p4,p3,p7,p8);
+        ans = ans + addSurface (p1,p4,p8,p5);
+        ans = ans + addSurface (p5,p6,p7,p8);
+        return ans;
+    }
+
+
     public String listToText (LinkedList<Point3D> list, double minZ, double Height){
         String ans = "";
         if (list.size() <= 1){
