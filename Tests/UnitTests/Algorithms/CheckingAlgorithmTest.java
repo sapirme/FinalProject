@@ -167,14 +167,14 @@ public class CheckingAlgorithmTest {
 
     @Test
     public void checkAlgorithemTest() {
-        Pair<Set<List<Edge>>,Set<List<Edge>>> ans=CheckingAlgorithm.checkAlgorithem(G1,G2);
+        Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> ans=CheckingAlgorithm.checkAlgorithem(G1,G2);
         Assert.assertNotNull(ans);
 
     }
 
     @Test
     public void checkAlgorithemNOTTest() {
-        Pair<Set<List<Edge>>,Set<List<Edge>>> ans=CheckingAlgorithm.checkAlgorithem(G3,G2);
+        Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> ans=CheckingAlgorithm.checkAlgorithem(G3,G2);
         Assert.assertNull(ans);
 
     }

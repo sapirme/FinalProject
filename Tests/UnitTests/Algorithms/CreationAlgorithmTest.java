@@ -104,7 +104,7 @@ public class CreationAlgorithmTest {
         l2.add(new Line(20,0,40,20));
 
 
-        Pair<Set<List<Edge>>,Set<List<Edge>>> pair = CheckingAlgorithm.checkAlgorithem(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2));
+        Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> pair = CheckingAlgorithm.checkAlgorithem(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2));
         System.out.println(pair.getFirst());
         System.out.println(pair.getSecond());
         String text = ca.createObject(pair.getFirst(),pair.getSecond(),new Stl3DFile());//"Hello world";
@@ -178,7 +178,7 @@ public class CreationAlgorithmTest {
         l2.add(new Line(20,0,40,20));
         l2.add(new Line(20,40,40,20));
 
-        Pair<Set<List<Edge>>,Set<List<Edge>>> pair = CheckingAlgorithm.checkAlgorithem
+        Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> pair = CheckingAlgorithm.checkAlgorithem
                 (CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2));
         //System.out.println(pair.getFirst());
 

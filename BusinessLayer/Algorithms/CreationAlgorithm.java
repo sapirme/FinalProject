@@ -44,6 +44,7 @@ public class CreationAlgorithm {
         }
         return map;
     }*/
+/*
     private static void addSortedPaths(List<List<Edge>> ans,List<Edge> path){
         int i=0;
         for (List<Edge> p : ans){
@@ -68,8 +69,8 @@ public class CreationAlgorithm {
             i++;
         }
         ans.add(i,path);
-    }
-
+    }*/
+/*
     private static List<List<Edge>> findPossibleMatchPath (List<Edge> path,Set<List<Edge>> paths){
         List<List<Edge>> ans = new LinkedList<List<Edge>>() ;
         if (path.size()==0){
@@ -88,7 +89,7 @@ public class CreationAlgorithm {
             }
         }
         return ans;
-    }
+    }*/
 
     private static Pair<List<List<Edge>>,List<List<Edge>>> sortByMatch(Set<List<Edge>> paths1,
                                                                        Set<List<Edge>> paths2){
@@ -96,7 +97,13 @@ public class CreationAlgorithm {
         LinkedList<List<Edge>> paths1Ans = new LinkedList<List<Edge>>();
         LinkedList<List<Edge>> paths2Ans = new LinkedList<List<Edge>>();
         p=new Pair<List<List<Edge>>, List<List<Edge>>>(paths1Ans,paths2Ans);
-        Set<List<Edge>> paths1Copy = new HashSet<List<Edge>>(paths1);
+
+        for (List<Edge> pth : paths1)
+            CheckingAlgorithm.addSortedListPath(paths1Ans,pth);
+        for (List<Edge> pth : paths2)
+            CheckingAlgorithm.addSortedListPath(paths2Ans,pth);
+
+        /*Set<List<Edge>> paths1Copy = new HashSet<List<Edge>>(paths1);
         Set<List<Edge>> paths2Copy = new HashSet<List<Edge>>(paths2);
         for (List<Edge> path : paths1){
             if (paths1Ans.contains(path)) continue;
@@ -126,7 +133,7 @@ public class CreationAlgorithm {
             }
         }
 
-
+*/
         return p;
     }
 
@@ -222,15 +229,15 @@ public class CreationAlgorithm {
         }
     }
 
-    public static String createObject(Set<List<Edge>> pathsG1, Set<List<Edge>> pathsG2, ObjectInteface modle3D){
+    public static String createObject(LinkedList<List<Edge>> pathsG1, LinkedList<List<Edge>> pathsG2, ObjectInteface modle3D){
         //System.out.println("fore : 4");
         //List<List<Edge>> sortedPathsG1 = sortToList(pathsG1);
         //List<List<Edge>> sortedPathsG2 = sortToList(pathsG2);
 
         //fixPoints(pathsG1);
-        Pair<List<List<Edge>>,List<List<Edge>>> pair = sortByMatch(pathsG1,pathsG2);
-        List<List<Edge>> sortedPathsG1 = pair.getFirst();
-        List<List<Edge>> sortedPathsG2 = pair.getSecond();
+        //Pair<List<List<Edge>>,List<List<Edge>>> pair = sortByMatch(pathsG1,pathsG2);
+        List<List<Edge>> sortedPathsG1 = pathsG1;
+        List<List<Edge>> sortedPathsG2 = pathsG2;
 
         System.out.println("sorted g1");
         System.out.println(sortedPathsG1);

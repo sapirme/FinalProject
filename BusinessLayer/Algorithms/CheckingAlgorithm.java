@@ -407,7 +407,7 @@ public class CheckingAlgorithm {
 
 
 
-    public static Pair<Set<List<Edge>>,Set<List<Edge>>> checkAlgorithem(Graph g1, Graph g2) {
+    public static Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> checkAlgorithem(Graph g1, Graph g2) {
         List<Pair<Vertex,Vertex>> matchVertex = findMatch(g1,g2);
         if (matchVertex.isEmpty()) return null;
         LinkedList<List<Edge>> pathsListG1=new LinkedList<List<Edge>>();
@@ -418,9 +418,9 @@ public class CheckingAlgorithm {
             System.out.println(pathsListG1);
             System.out.println("paths 2: ");
             System.out.println(pathsListG2);
-            Set<List<Edge>> set1 = new HashSet<List<Edge>>(pathsListG1);
-            Set<List<Edge>> set2 = new HashSet<List<Edge>>(pathsListG2);
-            return new Pair<Set<List<Edge>>,Set<List<Edge>>>(set1,set2);
+            //Set<List<Edge>> set1 = new HashSet<List<Edge>>(pathsListG1);
+            //Set<List<Edge>> set2 = new HashSet<List<Edge>>(pathsListG2);
+            return new Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>>(pathsListG1,pathsListG2);
         }
         return null;
     }

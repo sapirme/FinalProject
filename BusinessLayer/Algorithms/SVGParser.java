@@ -156,7 +156,7 @@ public class SVGParser {
         System.out.println(g2);
         System.out.println();
 
-        Pair<Set<List<Edge>>,Set<List<Edge>>> p =CheckingAlgorithm.checkAlgorithem(g1, g2);
+        Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> p =CheckingAlgorithm.checkAlgorithem(g1, g2);
 
         System.out.println("ans :");
         System.out.println(p);
