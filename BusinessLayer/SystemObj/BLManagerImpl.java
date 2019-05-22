@@ -55,7 +55,7 @@ public class BLManagerImpl implements BLManager{
                                 v1.getPaths(),v2.getPaths(),
                             "adarrrr"
                                 );
-        
+
         BufferedWriter output = null;
         try {
             System.out.println("create file");
