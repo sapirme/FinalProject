@@ -2,17 +2,18 @@ package SystemObj;
 
 import DAL.DAL_Interface;
 import DAL.DAL_InterfaceImpl;
+import org.bson.types.ObjectId;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.util.List;
 
 public class BLManagerImpl implements BLManager{
     private static BLManager single_instance = null;
     private static IllusionObj illusionobj;
-
+    private PoolObj pool = new PoolObj();
     private BLManagerImpl(){
 
     }
@@ -60,14 +61,19 @@ public class BLManagerImpl implements BLManager{
     public String CreateObject() {
         DAL_Interface mydal = DAL_InterfaceImpl.getInstance();
         String D3 = illusionobj.createObject();
-        ViewPoint v1 = illusionobj.getViewPoint1();
+        /*ViewPoint v1 = illusionobj.getViewPoint1();
         ViewPoint v2 = illusionobj.getViewPoint2();
         mydal.InsertObject(D3,illusionobj.getSvgObj().getSvg(),
                                 v1.getShapes(),v2.getShapes(),
                                 v1.getGraph(),v2.getGraph(),
                                 v1.getPaths(),v2.getPaths(),
                             "adarrrr"
-                                );
+                                );*/
+        List<ObjectId> ids = mydal.getAllIDs();
+        pool.setAllID(ids);
+        List<ObjectId> next8 = pool.next8();
+        List<String> files = mydal.getNext8(next8);
+        System.out.println(files);
         return D3;
     }
 }

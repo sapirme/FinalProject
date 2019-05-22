@@ -17,7 +17,7 @@ import java.io.*;
 
 
 public class DAL_InterfaceImpl implements DAL_Interface {
-    private String myUrl = "http://132.72.23.63:3043/run";
+    private String myUrl = "http://132.72.23.63:3043";
     private static DAL_Interface single_instance = null;
     private Gson gson = new Gson();
 
@@ -38,13 +38,11 @@ public class DAL_InterfaceImpl implements DAL_Interface {
         return single_instance ;
     }
 
-    public int Send(String document){
+    private int Send(String document){
         String charset = java.nio.charset.StandardCharsets.UTF_8.name();  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
         int status = -1;
         try {
-            URL url = new URL(myUrl);
-            /*String query = String.format("param1=%s",
-                    URLEncoder.encode(document, charset));*/
+            URL url = new URL(myUrl+"/run");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true); // Triggers POST.
             connection.setRequestProperty("Accept-Charset", charset);
@@ -63,6 +61,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
     return status;
 
     }
+
     public boolean InsertObject(String D3, String SVG, List<Shape> s1, List<Shape> s2, Graph g1, Graph g2, Set<List<Edge>> m1, Set<List<Edge>> m2, String email) {
 
         BasicDBObject[] document = new BasicDBObject[3];
@@ -93,6 +92,63 @@ public class DAL_InterfaceImpl implements DAL_Interface {
         if (status == 200)
             return true;
         else return false;
+    }
+
+    public List<ObjectId> getAllIDs(){
+        String charset = java.nio.charset.StandardCharsets.UTF_8.name();  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
+        try {
+            URL url = new URL(myUrl+"/run");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("Accept-Charset", charset);
+            InputStream response = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(response));
+            StringBuilder out = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                out.append(line);
+            }
+            List<ObjectId> ans = gson.fromJson(out.toString(),List.class);   //Prints the string content read from input stream
+            reader.close();
+            connection.disconnect();
+            return ans;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<String> getNext8(List<ObjectId> IDs){
+        String charset = java.nio.charset.StandardCharsets.UTF_8.name();  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
+        int status = -1;
+        try {
+            URL url = new URL(myUrl+"/getillusions");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true); // Triggers POST.
+            connection.setRequestProperty("Accept-Charset", charset);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+            try (OutputStream output = connection.getOutputStream()) {
+                output.write(gson.toJson(IDs).getBytes(charset));
+            }
+            status = connection.getResponseCode();
+            if (status == 200) {
+                InputStream response = connection.getInputStream();
+                System.out.println("hereeee+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(response));
+                StringBuilder out = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    out.append(line);
+                }
+                List<String> ans = gson.fromJson(out.toString(), List.class);   //Prints the string content read from input stream
+                reader.close();
+                connection.disconnect();
+                return ans;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
     public Map<String,List<Shape>> getAllViewPoints() { // return map of vp's id and vp's shapes
