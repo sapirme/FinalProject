@@ -45,8 +45,8 @@ public class BLManagerImpl implements BLManager{
     @Override
     public boolean CreateObject() {
         System.out.println("creating the object");
-        DAL_Interface mydal = DAL_InterfaceImpl.getInstance();
         String D3 = illusionobj.createObject();
+        DAL_Interface mydal = DAL_InterfaceImpl.getInstance();
         ViewPoint v1 = illusionobj.getViewPoint1();
         ViewPoint v2 = illusionobj.getViewPoint2();
         boolean connected = mydal.InsertObject(D3,illusionobj.getSvgObj().getSvg(),
@@ -55,7 +55,7 @@ public class BLManagerImpl implements BLManager{
                                 v1.getPaths(),v2.getPaths(),
                             "adarrrr"
                                 );
-
+        
         BufferedWriter output = null;
         try {
             System.out.println("create file");
@@ -73,7 +73,7 @@ public class BLManagerImpl implements BLManager{
                 }
             }
         }
-
-        return connected;
+        return true;
+        //return connected;
     }
 }

@@ -405,8 +405,6 @@ public class CheckingAlgorithm {
 
 
 
-
-
     public static Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> checkAlgorithem(Graph g1, Graph g2) {
         List<Pair<Vertex,Vertex>> matchVertex = findMatch(g1,g2);
         if (matchVertex.isEmpty()) return null;

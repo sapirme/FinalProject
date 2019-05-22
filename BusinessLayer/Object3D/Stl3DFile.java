@@ -198,7 +198,7 @@ public class Stl3DFile implements ObjectInteface {
         Point3D p7 = new Point3D(maxx,maxy,z-d*2);
         Point3D p8 = new Point3D(minx,maxy,z-d*2);
 
-        String ans = "";
+        String ans = "\nsolid OpenSCAD_Model\n";
         //p1,p2,p3,p4
         ans = ans + addSurface (p1,p2,p3);
         ans = ans + addSurface (p1,p3,p4);
@@ -217,6 +217,9 @@ public class Stl3DFile implements ObjectInteface {
         //p5,p6,p7,p8
         ans = ans + addSurface (p5,p6,p7);
         ans = ans + addSurface (p5,p7,p8);
+
+        ans = ans + "endsolid OpenSCAD_Model\n";
+        System.out.println(ans);
         return ans;
     }
 
