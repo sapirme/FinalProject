@@ -60,7 +60,7 @@ public class CreationAlgorithm {
         }
         Pair<Double,Double> min = findMinXMinY(allLists);
         Pair<Double,Double> max = findMaxXMinY(allLists);
-        //ans=ans + modle3D.addButtomCube(min.getFirst(),max.getFirst(),min.getSecond(),max.getSecond(),minZ - Height);
+        ans=ans + modle3D.addButtomCube(min.getFirst(),max.getFirst(),min.getSecond(),max.getSecond(),minZ - Height);
         modle3D.setText(ans);
         return ans;
     }
