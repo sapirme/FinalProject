@@ -32,20 +32,20 @@ public class CreationAlgorithmTest {
         Set<Vertex> vertex1=new HashSet<Vertex>();
         Set<Edge> edges1 =new HashSet<Edge>();
         v1=new Vertex(0, 0);
-        v2=new Vertex(2, 0);
+        v2=new Vertex(20, 0);
         vertex1.add(v1);
         vertex1.add(v2);
-        e1 = new Edge(new Line(0,0,2,0), v1,  v2);
+        e1 = new Edge(new Line(0,0,20,0), v1,  v2);
         edges1.add(e1);
         g1=new Graph(vertex1, edges1);
 
         Set<Vertex> vertex2=new HashSet<Vertex>();
         Set<Edge> edges2 =new HashSet<Edge>();
         v3=new Vertex(0, 0);
-        v4=new Vertex(2, 0);
+        v4=new Vertex(20, 0);
         vertex2.add(v3);
         vertex2.add(v4);
-        e2 = new Edge(new Line(0,0,2,0), v3,  v4);
+        e2 = new Edge(new Line(0,0,20,0), v3,  v4);
         edges2.add(e2);
         g2=new Graph(vertex2, edges2);
     }
@@ -104,7 +104,7 @@ public class CreationAlgorithmTest {
         l2.add(new Line(20,0,40,20));
 
 
-        Pair<Set<List<Edge>>,Set<List<Edge>>> pair = CheckingAlgorithm.checkAlgorithem(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2));
+        Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> pair = CheckingAlgorithm.checkAlgorithem(CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2));
         System.out.println(pair.getFirst());
         System.out.println(pair.getSecond());
         String text = ca.createObject(pair.getFirst(),pair.getSecond(),new Stl3DFile());//"Hello world";
@@ -178,7 +178,7 @@ public class CreationAlgorithmTest {
         l2.add(new Line(20,0,40,20));
         l2.add(new Line(20,40,40,20));
 
-        Pair<Set<List<Edge>>,Set<List<Edge>>> pair = CheckingAlgorithm.checkAlgorithem
+        Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> pair = CheckingAlgorithm.checkAlgorithem
                 (CheckingAlgorithm.createGraph(l1),CheckingAlgorithm.createGraph(l2));
         //System.out.println(pair.getFirst());
 

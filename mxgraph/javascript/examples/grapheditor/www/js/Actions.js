@@ -1,38 +1,42 @@
 //import { ServletFactory } from './ServletFactory.js';
-
-function createIllusion (xml,factory) {
-    //var servletFactory = new ServletFactory();
-    //var xhr = servletFactory.llusionServlet(factory,'POST');
-    var loader = document.getElementById('myLoader');
-    loader.style.display = "block";
-    var modal = document.getElementById('myModalGrey');
-    modal.style.display = "block";
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/run", true);
-    xhr.send(xml);
-    xhr.onreadystatechange = function(e) {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            //mxUtils.alert('can create!!');
-            //window.open('3DView.html');
-            loader.style.display = "none";
-            var win = window.open('3DView.html',"_blank",
-                "toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%,width=500,height=550");
-            var timer = setInterval(function() {
-                if(win.closed) {
-                    clearInterval(timer);
-                    //alert('closed');
-                    modal.style.display = "none";
-                }
-            }, 1000);
-
-        }
-        else if (xhr.readyState == 4 && xhr.status == 10){
-            loader.style.display = "none";
+function handleShowCreation(loader,modal){
+    loader.style.display = "none";
+    var win = window.open('3DView.html',"_blank",
+        "toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%,width=500,height=550");
+    var timer = setInterval(function() {
+        if(win.closed) {
+            clearInterval(timer);
             modal.style.display = "none";
-            mxUtils.alert('can not create');
         }
-    };
+    }, 1000);
 }
+
+function handleCanCreate(loader,modal){
+    var r = confirm("The object can be produced.\n" +
+        "Would you like to create it?");
+    if (r == true) {
+        xhr.open("GET", "/run", true);
+        xhr.send("");
+        xhr.onreadystatechange = function(e){
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                handleShowCreation(loader,modal);
+            }
+            else if (xhr.readyState == 4 && xhr.status == 20) {
+                handleShowCreation(loader,modal);
+                mxUtils.alert('The connection with the server may be lost. \nThe object is not saved in the system.');
+            }
+        }
+    } else {
+        handleCanNotCreate(loader,modal);
+    }
+}
+
+function handleCanNotCreate(loader,modal){
+    loader.style.display = "none";
+    modal.style.display = "none";
+}
+
+
 
 /**
  * Copyright (c) 2006-2012, JGraph Ltd

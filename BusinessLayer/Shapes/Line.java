@@ -58,10 +58,19 @@ public class Line  extends Shape {
         return yStart-xStart*getM();
     }
 
+
+    @Override
+    public void negY(){
+        if (this.yStart>0)
+            this.yStart=-1*this.yStart;
+        if (this.yEnd>0)
+            this.yEnd=-1*this.yEnd;
+    }
+
     @Override
     public double getYbyX(double x, double yFrom, double yTo) {
-        if (x < xStart || x > xEnd)
-            throw new ArithmeticException("x not in range");
+        //if (x < xStart || x > xEnd)
+        //    throw new ArithmeticException("x not in range");
         return getM()*x + getB();
     }
 

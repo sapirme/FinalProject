@@ -1,6 +1,7 @@
 package SystemObj;
 
 import Algorithms.CreationAlgorithm;
+import Algorithms.Enums;
 import Algorithms.SVGParser;
 import Shapes.*;
 import Object3D.*;
@@ -34,7 +35,7 @@ public class IllusionObj {
 
     public ObjectInteface getObjectInteface(){return model3D;}
 
-    public Boolean Decide(String xml){
+    public Enums.checkingAns Decide(String xml){
         String svg = svgObj.xml2svg(xml);
 
         return SVGParser.decide(svg,v1,v2);

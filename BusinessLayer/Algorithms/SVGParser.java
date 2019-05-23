@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+
 public class SVGParser {
     public static void zero(List<Shape> shapes){
         //find min Y
@@ -115,16 +116,20 @@ public class SVGParser {
                 }
             }
         }
-
+        System.out.println("finish shapes");
         zero(shapes1);
         zero(shapes2);
         Pair<List<Shape>,List<Shape>> p = new Pair<>(shapes1,shapes2);
         return p;
     }
 
-    public static Boolean decide(String svgStr, ViewPoint v1, ViewPoint v2) {
+    public static Enums.checkingAns decide(String svgStr, ViewPoint v1, ViewPoint v2) {
         Pair<List<Shape>,List<Shape>> shapes = fileToShapes(svgStr);
-
+        System.out.println("check size");
+        if (shapes.getFirst().size()>40 || shapes.getSecond().size()>40){
+            System.out.println("to many");
+            return Enums.checkingAns.TO_MANY_SHAPS;
+        }
         //v1.setSapes(shapes.getFirst());
         //v2.setSapes(shapes.getSecond());
 
@@ -136,12 +141,12 @@ public class SVGParser {
         if (v1!=null){
             v1.setSapes(shapes.getFirst());
             v1.setGraph(new Graph(g1));
-            System.out.println("update g1");
+            //System.out.println("update g1");
         }
         if (v2!=null){
             v2.setSapes(shapes.getSecond());
             v2.setGraph(new Graph(g2));
-            System.out.println("update g2");
+            //System.out.println("update g2");
         }
 
         System.out.println("Graph 1:");
@@ -151,7 +156,7 @@ public class SVGParser {
         System.out.println(g2);
         System.out.println();
 
-        Pair<Set<List<Edge>>,Set<List<Edge>>> p =CheckingAlgorithm.checkAlgorithem(g1, g2);
+        Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> p =CheckingAlgorithm.checkAlgorithem(g1, g2);
 
         System.out.println("ans :");
         System.out.println(p);
@@ -162,7 +167,7 @@ public class SVGParser {
             if (v2!=null){
                 v2.setPaths(p.getSecond());
             }
-            return true;
+            return Enums.checkingAns.CAN;
         }
         else {
             if (v1!=null) {
@@ -171,7 +176,7 @@ public class SVGParser {
             if (v2!=null) {
                 v2.setPaths(null);
             }
-            return false;
+            return Enums.checkingAns.CANT;
         }
     }
 

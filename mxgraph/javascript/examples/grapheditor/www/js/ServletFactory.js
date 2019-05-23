@@ -1,3 +1,6 @@
+//boolean test = false;
+
+
 function ServletFactory(){
     this.llusionServlet = function (servletType,httpReqType) {
         var xhr = new XMLHttpRequest();

@@ -15,6 +15,8 @@ public abstract class Shape {
 
     abstract List<Point2D.Double> getIntersections_visit(Line s);//visit function
 
+    public abstract void negY();
+
     public abstract double getYbyX(double x, double yFrom, double yTo);
 
     public abstract void createShapeGraph(List<Shape> shapes,Graph g);
@@ -40,7 +42,6 @@ public abstract class Shape {
             v=g.isVertexExist(v1);
             if (v==null) {
                 v=v1;
-                System.out.println("add vertex: "+v);
                 g.addVertex(v);
             }
 

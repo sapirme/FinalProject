@@ -10,7 +10,7 @@ import org.bson.types.ObjectId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.LinkedList;
 
 import java.net.*;
 import java.io.*;
@@ -51,37 +51,38 @@ public class DAL_InterfaceImpl implements DAL_Interface {
                 output.write(document.getBytes(charset));
             }
             status = connection.getResponseCode();
-            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println("Insert Status: ");
             System.out.println(status);
 
             connection.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    return status;
+        return status;
 
     }
 
-    public boolean InsertObject(String D3, String SVG, List<Shape> s1, List<Shape> s2, Graph g1, Graph g2, Set<List<Edge>> m1, Set<List<Edge>> m2, String email) {
+
+    public boolean InsertObject(String D3, String SVG, List<Shape> s1, List<Shape> s2, Graph g1, Graph g2, LinkedList<List<Edge>> m1, LinkedList<List<Edge>> m2, String email) {
 
         BasicDBObject[] document = new BasicDBObject[3];
         document[0] = new BasicDBObject();
         ObjectId id1 = ObjectId.get();
-        document[0].put("ObjectId", id1);
+        document[0].put("ObjectId", id1.toString());
         document[0].put("Shapes", gson.toJson(s1));
         document[0].put("Graph", gson.toJson(g1));
         document[0].put("Paths", gson.toJson(m1));
 
         document[1] = new BasicDBObject();
         ObjectId id2 = ObjectId.get();
-        document[1].put("ObjectId", id2);
+        document[1].put("ObjectId", id2.toString());
         document[1].put("Shapes", gson.toJson(s2));
         document[1].put("Graph", gson.toJson(g2));
         document[1].put("Paths", gson.toJson(m2));
 
         document[2] = new BasicDBObject();
         ObjectId id = ObjectId.get();
-        document[2].put("ObjectId", id);
+        document[2].put("ObjectId", id.toString());
         document[2].put("SVG", SVG);
         document[2].put("3D", D3);
         document[2].put("ViewPointID1", id1);
@@ -94,7 +95,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
         else return false;
     }
 
-    public List<ObjectId> getAllIDs(){
+    public List<String> getAllIDs(){
         String charset = java.nio.charset.StandardCharsets.UTF_8.name();  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
         try {
             URL url = new URL(myUrl+"/run");
@@ -107,7 +108,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             while ((line = reader.readLine()) != null) {
                 out.append(line);
             }
-            List<ObjectId> ans = gson.fromJson(out.toString(),List.class);   //Prints the string content read from input stream
+            List<String> ans = gson.fromJson(out.toString(),List.class);   //Prints the string content read from input stream
             reader.close();
             connection.disconnect();
             return ans;
@@ -117,7 +118,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
         return null;
     }
 
-    public List<String> getNext8(List<ObjectId> IDs){
+    public List<String> getNext8(List<String> IDs){
         String charset = java.nio.charset.StandardCharsets.UTF_8.name();  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
         int status = -1;
         try {

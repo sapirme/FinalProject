@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
 //import com.gson;
@@ -34,9 +35,9 @@ public class DAL_Tests {
         List<Shape> s2 = shapes.getSecond();
         Graph g1 = CheckingAlgorithm.createGraph(s1);
         Graph g2 = CheckingAlgorithm.createGraph(s2);
-        Pair<Set<List<Edge>>,Set<List<Edge>>> p = CheckingAlgorithm.checkAlgorithem(g1, g2);
-        Set<List<Edge>> m1 = p.getFirst();
-        Set<List<Edge>> m2 = p.getSecond();
+        Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> p = CheckingAlgorithm.checkAlgorithem(g1, g2);
+        LinkedList<List<Edge>> m1 = p.getFirst();
+        LinkedList<List<Edge>> m2 = p.getSecond();
         String D3 = "blablabla";
         String email = "adarne@post.bgu.ac.il";
         dal.InsertObject(D3, SVG2_Yes, s1, s2, g1, g2, m1, m2, email);

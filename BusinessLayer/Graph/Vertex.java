@@ -14,6 +14,11 @@ public class Vertex {
         this.y = v.getY();
     }
 
+    public void negY(){
+        if (this.y>0)
+            this.y = -1*this.y;
+    }
+
     public void setX(int x){
         this.x = x;
     }

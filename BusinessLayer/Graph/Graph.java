@@ -27,6 +27,7 @@ public class Graph {
         }
     }
 
+
     public Vertex isVertexExist(Vertex v) {
         for (Vertex v1 :  vertex) {
             if (v1.equals(v)) return v1;
@@ -200,6 +201,25 @@ public class Graph {
         return ans;
     }
 
+    private List<Edge> sortEdgeByEnd (Set<Edge> edges){
+        LinkedList<Edge> ans= new LinkedList<Edge>();
+
+        for(Edge e : edges){
+            if (ans.isEmpty()) ans.add(e);
+            else{
+                for (int i=0; i<ans.size(); i++){
+                    if (ans.get(i).getTo().getY() >= e.getTo().getY()){
+                        ans.add(i,e);
+                        break;
+                    }
+
+                }
+            }
+        }
+
+        return ans;
+    }
+
     /**
      * find all paths between 2 vertex in recursive function
      * @param from
@@ -209,6 +229,8 @@ public class Graph {
      * @param paths
      */
     private void allPathsRecurs(Vertex from, Vertex to, Set<Vertex> visited, List<Edge> path, Set<List<Edge>> paths){
+        //Set<Edge> allEdegsFromSet = allEdegsFromV(from);
+        //List<Edge> allEdegsFrom=sortEdgeByEnd(allEdegsFromSet);
         Set<Edge> allEdegsFrom = allEdegsFromV(from);
         visited.add(from);
         List<Edge> localPath = new LinkedList<Edge>();
