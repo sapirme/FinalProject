@@ -38,7 +38,7 @@ public class PoolObj {
         return l;
     }
 
-    public void saveFiles(List<String> files){
+    public int saveFiles(List<String> files){
         BufferedWriter output = null;
         int i = 0;
         try {
@@ -60,6 +60,6 @@ public class PoolObj {
                 }
             }
         }
-
+        return files.size();
     }
 }

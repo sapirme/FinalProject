@@ -219,7 +219,7 @@ public class Stl3DFile implements ObjectInteface {
         ans = ans + addSurface (p5,p7,p8);
 
         ans = ans + "endsolid OpenSCAD_Model\n";
-        System.out.println(ans);
+
         return ans;
     }
 

@@ -14,6 +14,7 @@ public class BLManagerImpl implements BLManager{
     private static BLManager single_instance = null;
     private static IllusionObj illusionobj;
     private PoolObj pool = new PoolObj();
+    private DAL_Interface mydal = DAL_InterfaceImpl.getInstance();
     private BLManagerImpl(){
 
     }
@@ -33,10 +34,10 @@ public class BLManagerImpl implements BLManager{
         Enums.checkingAns ans = illusionobj.Decide(xml);
         ////////
         if(ans ==  Enums.checkingAns.CAN) {
-            boolean connected = this.CreateObject();
+            /*boolean connected = this.CreateObject();
             if(!connected){
                ans =  Enums.checkingAns.CAN_NO_DB;
-            }
+            }*/
         }
         ////////
         return ans;
@@ -45,7 +46,6 @@ public class BLManagerImpl implements BLManager{
     @Override
     public boolean CreateObject() {
         System.out.println("creating the object");
-        DAL_Interface mydal = DAL_InterfaceImpl.getInstance();
         String D3 = illusionobj.createObject();
         ViewPoint v1 = illusionobj.getViewPoint1();
         ViewPoint v2 = illusionobj.getViewPoint2();
@@ -73,14 +73,15 @@ public class BLManagerImpl implements BLManager{
                 }
             }
         }
-
+        return connected;
+    }
+    public int getAllobjects(){
         List<String> ids = mydal.getAllIDs();
         System.out.println(ids.toString());
         pool.setAllID(ids);
         List<String> next8 = pool.next8();
         List<String> files = mydal.getNext8(next8);
-        pool.saveFiles(files);
-
-        return connected;
+        int numOfFiles = pool.saveFiles(files);
+        return numOfFiles;
     }
 }

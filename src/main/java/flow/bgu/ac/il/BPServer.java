@@ -31,6 +31,7 @@ public class BPServer {
 		//context.addServlet(new ServletHolder(new ExportServlet()), "/export");
 		context.addServlet(new ServletHolder(new FlowOpenServlet()), "/open");
 		context.addServlet(new ServletHolder(new CreateLllusionServlet()), "/run");
+		context.addServlet(new ServletHolder(new AllObjectsServlet()), "/allObjects");
 		context.addServlet(new ServletHolder(new EventPushSerlet()), "/push");
 		
 		

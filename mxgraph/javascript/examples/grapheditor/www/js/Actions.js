@@ -1,41 +1,4 @@
 //import { ServletFactory } from './ServletFactory.js';
-function handleShowCreation(loader,modal){
-    loader.style.display = "none";
-    var win = window.open('3DView.html',"_blank",
-        "toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%,width=500,height=550");
-    var timer = setInterval(function() {
-        if(win.closed) {
-            clearInterval(timer);
-            modal.style.display = "none";
-        }
-    }, 1000);
-}
-
-function handleCanCreate(loader,modal){
-    var r = confirm("The object can be produced.\n" +
-        "Would you like to create it?");
-    if (r == true) {
-        xhr.open("GET", "/run", true);
-        xhr.send("");
-        xhr.onreadystatechange = function(e){
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                handleShowCreation(loader,modal);
-            }
-            else if (xhr.readyState == 4 && xhr.status == 20) {
-                handleShowCreation(loader,modal);
-                mxUtils.alert('The connection with the server may be lost. \nThe object is not saved in the system.');
-            }
-        }
-    } else {
-        handleCanNotCreate(loader,modal);
-    }
-}
-
-function handleCanNotCreate(loader,modal){
-    loader.style.display = "none";
-    modal.style.display = "none";
-}
-
 
 
 /**
@@ -651,7 +614,9 @@ Actions.prototype.init = function()
         createIllusion(code,true);
     }, null, null);
 
-    this.addAction('allObjects...', function() { ui.saveFile(true);}, null, null).isEnabled = isGraphEnabled;
+    this.addAction('allObjects...', function() {
+        getAllObjects(true);
+        }, null, null).isEnabled = isGraphEnabled;
     this.addAction('similarObjects...', function(evt) { }, null, null);
 
 
