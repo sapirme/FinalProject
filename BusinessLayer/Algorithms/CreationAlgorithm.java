@@ -14,7 +14,7 @@ import java.util.Set;
 public class CreationAlgorithm {
 
     private static double Alpha = 45 * (Math.PI/180);
-    private static int Height = 70;
+    private static int Height = 50;
 
     public static Point3D cuttingPoint(Point3D p1, Point3D p2){
         double cosA = round( Math.cos(Alpha), 14);
@@ -25,7 +25,7 @@ public class CreationAlgorithm {
         double x = p2.getX();
         double y = p2.getY() - s*cosA;
         double z = p2.getZ() - (sinA*s);
-        return new Point3D(x, y, z);
+        return new Point3D(x/2, y/2, z/2);
     }
 
     private static double round(double value, int numberOfDigitsAfterDecimalPoint) {

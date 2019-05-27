@@ -8,7 +8,9 @@ function getAllObjects(factory)
             var a=xhr.responseText;
             mxUtils.alert(a);
             var win = window.open('DBView.html',"_blank",
-                "toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%");
+                'toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%,fullscreen="yes",'+'height=' + screen.availHeight + ',width=' + screen.availWidth );
+            win.moveTo(0, 0);
+
 
         }
     };
