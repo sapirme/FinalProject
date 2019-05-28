@@ -75,13 +75,31 @@ public class BLManagerImpl implements BLManager{
         }
         return connected;
     }
-    public int getAllobjects(){
+    public List<Integer> getAllobjects(){
         List<String> ids = mydal.getAllIDs();
+        if (ids == null) return null;
         System.out.println(ids.toString());
         pool.setAllID(ids);
         List<String> next8 = pool.next8();
         List<String> files = mydal.getNext8(next8);
-        int numOfFiles = pool.saveFiles(files);
-        return numOfFiles;
+        if (files == null) return null;
+        List<Integer> index = pool.saveFiles(files);
+        return index;
+    }
+
+    public List<Integer> getNextObjects(){
+        List<String> next8 = pool.next8();
+        List<String> files = mydal.getNext8(next8);
+        if (files == null) return null;
+        List<Integer> index = pool.saveFiles(files);
+        return index;
+    }
+
+    public List<Integer> getPrevObjects(){
+        List<String> prev8 = pool.prev8();
+        List<String> files = mydal.getNext8(prev8);
+        if (files == null) return null;
+        List<Integer> index = pool.saveFiles(files);
+        return index;
     }
 }

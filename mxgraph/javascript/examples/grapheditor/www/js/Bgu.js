@@ -5,17 +5,106 @@ function getAllObjects(factory)
     xhr.send(null);
     xhr.onreadystatechange = function(e) {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            var a=xhr.responseText;
-            mxUtils.alert(a);
-            var win = window.open('DBView.html',"_blank",
+            let array= xhr.responseText;
+            sessionStorage.setItem("array", array);
+            let win = window.open('DBView.html',"_blank",
                 'toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%,fullscreen="yes",'+'height=' + screen.availHeight + ',width=' + screen.availWidth );
-            win.moveTo(0, 0);
 
-
+        }
+        else if (xhr.readyState == 4 && xhr.status == 20){
+            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
         }
     };
 }
 
+
+function myOnLoad() {
+    console.log("onLoad");
+    window.moveTo(0, 0);
+    console.log("onLoad");
+    let myArray= JSON.parse(sessionStorage.getItem("array"));
+    let reloading = sessionStorage.getItem("reloading");
+    if (reloading) {
+        console.log("reloading");
+        clearTable();
+        updateTable(myArray);
+
+    }
+    else {
+        updateTable(myArray);
+    }
+}
+
+function getNextObjects(factory)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/NextObjects", true);
+    xhr.send(null);
+    xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            let array= JSON.parse(xhr.responseText);
+            console.log(array.length);
+            if (array.length > 0){
+                sessionStorage.setItem("array", JSON.stringify(array));
+                sessionStorage.setItem("reloading", "true");
+                window.location.reload(true );
+            }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 20){
+            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
+        }
+    };
+}
+
+function getPrevObjects(factory)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/PrevObjects", true);
+    xhr.send(null);
+    xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            let array= JSON.parse(xhr.responseText);
+            console.log(array.length);
+            if (array.length > 0){
+                sessionStorage.setItem("array", JSON.stringify(array));
+                sessionStorage.setItem("reloading", "true");
+                window.location.reload(true);
+            }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 20){
+            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
+        }
+    };
+}
+
+function clearTable() {
+    for (let i=0; i<8; i++){
+        let theObj = document.getElementById("obj"+i);
+        theObj.innerHTML = '';
+        let loadBtn = document.getElementById("load"+i);
+        loadBtn.innerHTML = '';
+        let downloadBtn = document.getElementById("download"+i);
+        downloadBtn.innerHTML = '';
+    }
+}
+
+function updateTable(array) {
+    let i=0;
+    while (i<array.length){
+        let obkText ='<canvas class="3dviewer" sourcefiles="../../../../../files/dbObject'+array[i]+'.stl" height="250px"></canvas>';
+        let loadText ='<button class="buttonStyle2" type="button" onclick="alert(\'Hello world!\')">Load</button>';
+        let downloadText ='<a href="../../../../../files/dbObject'+array[i]+'.stl" download="myObject'+array[i]+'.stl">\n' +
+            '                <button class="buttonStyle2" type="button" >Download</button>\n' +
+            '            </a>';
+        let theObj = window.document.getElementById("obj"+i);
+        theObj.innerHTML = obkText;
+        let loadBtn = window.document.getElementById("load"+i);
+        loadBtn.innerHTML = loadText;
+        let downloadBtn = window.document.getElementById("download"+i);
+        downloadBtn.innerHTML = downloadText;
+        i++;
+    }
+}
 
 
 function createIllusion (xml,factory) {
@@ -33,29 +122,12 @@ function createIllusion (xml,factory) {
             handleCanCreate(loader,modal);
         } else if (xhr.readyState == 4 && xhr.status == 10) {
             handleCanNotCreate(loader, modal);
-            mxUtils.alert('Can not create an appropriate 3D object.');
+            window.alert('Can not create an appropriate 3D object.');
         } else if (xhr.readyState == 4 && xhr.status == 50) {
             handleCanNotCreate(loader, modal);
-            mxUtils.alert('You used too many shapes.');
+            window.alert('You used too many shapes.');
         }
     };
-    /*xhr.onreadystatechange = function(e) {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            handleShowCreation(loader,modal);
-        }
-        else if (xhr.readyState == 4 && xhr.status == 20) {
-            handleShowCreation(loader,modal);
-            mxUtils.alert('The connection with the server may be lost. \nThe object is not saved in the system.');
-        }
-        else if (xhr.readyState == 4 && xhr.status == 10){
-            handleCanNotCreate(loader,modal);
-            mxUtils.alert('Can not create an appropriate 3D object.');
-        }
-        else if (xhr.readyState == 4 && xhr.status == 50){
-            handleCanNotCreate(loader,modal);
-            mxUtils.alert('You used too many shapes.');
-        }
-    };*/
 }
 
 
@@ -84,7 +156,7 @@ function handleCanCreate(loader,modal){
             }
             else if (xhr.readyState == 4 && xhr.status == 20) {
                 handleShowCreation(loader,modal);
-                mxUtils.alert('The connection with the server may be lost. \nThe object is not saved in the system.');
+                window.alert('The connection with the server may be lost. \nThe object is not saved in the system.');
             }
         }
     } else {
