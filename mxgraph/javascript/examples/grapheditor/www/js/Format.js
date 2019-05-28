@@ -1464,7 +1464,7 @@ ArrangePanel.prototype.init = function()
 
 	if (!ss.containsLabel || ss.edges.length == 0)
 	{
-		this.container.appendChild(this.addAngle(this.createPanel()));
+		//this.container.appendChild(this.addAngle(this.createPanel()));
 	}
 
 	if (!ss.containsLabel && ss.edges.length == 0)
