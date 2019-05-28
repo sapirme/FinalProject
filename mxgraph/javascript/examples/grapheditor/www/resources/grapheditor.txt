@@ -4,6 +4,7 @@ illusions=Illusions
 createIllusion=Create Illusion
 allObjects=All Objects
 similarObjects=Similar Objects
+google=Google
 
 alreadyConnected=Nodes already connected
 cancel=Cancel

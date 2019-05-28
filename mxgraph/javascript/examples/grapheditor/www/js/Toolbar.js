@@ -135,6 +135,7 @@ Toolbar.prototype.init = function()
 			{
 				//this.addItems(['shadow']);
                 this.addItems(['-', 'similarObjects']);
+				this.addItems(['-', 'google']);
 			}
 		}
 	}

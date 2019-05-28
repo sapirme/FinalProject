@@ -617,8 +617,12 @@ Actions.prototype.init = function()
     this.addAction('allObjects...', function() {
         getAllObjects(true);
         }, null, null).isEnabled = isGraphEnabled;
+
     this.addAction('similarObjects...', function(evt) { }, null, null);
 
+	this.addAction('google', function() {
+		handleSignIn();
+	}, null, null);
 
     // View actions
 	this.addAction('resetView', function()
