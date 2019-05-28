@@ -5,9 +5,9 @@ function getAllObjects(factory)
     xhr.send(null);
     xhr.onreadystatechange = function(e) {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            let array= xhr.responseText;
+            var array= xhr.responseText;
             sessionStorage.setItem("array", array);
-            let win = window.open('DBView.html',"_blank",
+            var win = window.open('DBView.html',"_blank",
                 'toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%,fullscreen="yes",'+'height=' + screen.availHeight + ',width=' + screen.availWidth );
 
         }
@@ -22,8 +22,8 @@ function myOnLoad() {
     console.log("onLoad");
     window.moveTo(0, 0);
     console.log("onLoad");
-    let myArray= JSON.parse(sessionStorage.getItem("array"));
-    let reloading = sessionStorage.getItem("reloading");
+    var myArray= JSON.parse(sessionStorage.getItem("array"));
+    var reloading = sessionStorage.getItem("reloading");
     if (reloading) {
         console.log("reloading");
         clearTable();
@@ -42,7 +42,7 @@ function getNextObjects(factory)
     xhr.send(null);
     xhr.onreadystatechange = function(e) {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            let array= JSON.parse(xhr.responseText);
+            var array= JSON.parse(xhr.responseText);
             console.log(array.length);
             if (array.length > 0){
                 sessionStorage.setItem("array", JSON.stringify(array));
@@ -63,7 +63,7 @@ function getPrevObjects(factory)
     xhr.send(null);
     xhr.onreadystatechange = function(e) {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            let array= JSON.parse(xhr.responseText);
+            var array= JSON.parse(xhr.responseText);
             console.log(array.length);
             if (array.length > 0){
                 sessionStorage.setItem("array", JSON.stringify(array));
@@ -78,29 +78,29 @@ function getPrevObjects(factory)
 }
 
 function clearTable() {
-    for (let i=0; i<8; i++){
-        let theObj = document.getElementById("obj"+i);
+    for (var i=0; i<8; i++){
+        var theObj = document.getElementById("obj"+i);
         theObj.innerHTML = '';
-        let loadBtn = document.getElementById("load"+i);
+        var loadBtn = document.getElementById("load"+i);
         loadBtn.innerHTML = '';
-        let downloadBtn = document.getElementById("download"+i);
+        var downloadBtn = document.getElementById("download"+i);
         downloadBtn.innerHTML = '';
     }
 }
 
 function updateTable(array) {
-    let i=0;
+    var i=0;
     while (i<array.length){
-        let obkText ='<canvas class="3dviewer" sourcefiles="../../../../../files/dbObject'+array[i]+'.stl" height="250px"></canvas>';
-        let loadText ='<button class="buttonStyle2" type="button" onclick="alert(\'Hello world!\')">Load</button>';
-        let downloadText ='<a href="../../../../../files/dbObject'+array[i]+'.stl" download="myObject'+array[i]+'.stl">\n' +
+        var obkText ='<canvas class="3dviewer" sourcefiles="../../../../../files/dbObject'+array[i]+'.stl" height="250px"></canvas>';
+        var loadText ='<button class="buttonStyle2" type="button" onclick="alert(\'Hello world!\')">Load</button>';
+        var downloadText ='<a href="../../../../../files/dbObject'+array[i]+'.stl" download="myObject'+array[i]+'.stl">\n' +
             '                <button class="buttonStyle2" type="button" >Download</button>\n' +
             '            </a>';
-        let theObj = window.document.getElementById("obj"+i);
+        var theObj = window.document.getElementById("obj"+i);
         theObj.innerHTML = obkText;
-        let loadBtn = window.document.getElementById("load"+i);
+        var loadBtn = window.document.getElementById("load"+i);
         loadBtn.innerHTML = loadText;
-        let downloadBtn = window.document.getElementById("download"+i);
+        var downloadBtn = window.document.getElementById("download"+i);
         downloadBtn.innerHTML = downloadText;
         i++;
     }
