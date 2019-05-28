@@ -1,6 +1,7 @@
 package flow.bgu.ac.il;
 
 import SystemObj.*;
+import com.google.gson.Gson;
 import il.ac.bgu.cs.bp.bpjs.execution.BProgramRunner;
 import il.ac.bgu.cs.bp.bpjs.model.BProgram;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class AllObjectsServlet extends HttpServlet {
 
@@ -57,11 +59,18 @@ public class AllObjectsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		BLManager BPM = BLManagerImpl.getInstance();
-		int ans = BPM.getAllobjects();
+		List<Integer> lst = BPM.getAllobjects();
+		if (lst == null){
+			response.setStatus(20);
+		}
+		else{
+			String ans = new Gson().toJson(lst);
 
-		response.setContentType("text/plain");
-		response.getWriter().println(ans);
-		response.setStatus(HttpServletResponse.SC_OK);
+			response.setContentType("text/plain");
+			response.getWriter().println(ans);
+			response.setStatus(HttpServletResponse.SC_OK);
+		}
+
 
 	}
 

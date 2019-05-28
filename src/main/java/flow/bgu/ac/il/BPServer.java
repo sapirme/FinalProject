@@ -27,16 +27,18 @@ public class BPServer {
 		context.setContextPath("/");
 		server.setHandler(context);
 
-		context.addServlet(new ServletHolder(new SaveServlet()), "/save");
+		//context.addServlet(new ServletHolder(new SaveServlet()), "/save");
 		//context.addServlet(new ServletHolder(new ExportServlet()), "/export");
-		context.addServlet(new ServletHolder(new FlowOpenServlet()), "/open");
+		//context.addServlet(new ServletHolder(new FlowOpenServlet()), "/open");
 		context.addServlet(new ServletHolder(new CreateLllusionServlet()), "/run");
 		context.addServlet(new ServletHolder(new AllObjectsServlet()), "/allObjects");
-		context.addServlet(new ServletHolder(new EventPushSerlet()), "/push");
+		context.addServlet(new ServletHolder(new NextObjectsServlet()), "/NextObjects");
+		context.addServlet(new ServletHolder(new PrevObjectsServlet()), "/PrevObjects");
+		//context.addServlet(new ServletHolder(new EventPushSerlet()), "/push");
 		
 		
-		context.addServlet(new ServletHolder(new DashboardServlet()), "/dashboard/users/*");
-		context.addServlet(new ServletHolder(new DashboardServlet()), "/dashboard/courses/*");
+		//context.addServlet(new ServletHolder(new DashboardServlet()), "/dashboard/users/*");
+		//context.addServlet(new ServletHolder(new DashboardServlet()), "/dashboard/courses/*");
 
 		ResourceHandler fileHandler = new ResourceHandler();
 		fileHandler.setResourceBase(".");

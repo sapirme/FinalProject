@@ -8,9 +8,8 @@
     <script type="text/javascript" src="Online3DViewer/jsmodeler/jsmodeler.js"></script>
     <script type="text/javascript" src="Online3DViewer/jsmodeler/jsmodeler.ext.three.js"></script>
     <script type="text/javascript" src="Online3DViewer/embeddable/include/online3dembedder.js"></script>
-    <script type="text/javascript">
-        window.addEventListener ('load', LoadOnline3DModels, true);
-    </script>
+    <script type="text/javascript" src="js/Bgu.js"></script>
+
 </head>
 
 <style>
@@ -61,99 +60,99 @@
         padding-bottom: 5px;
     }
 
+    .next:hover {
+        background-color: #2e3b60;
+        color: black;
+    }
+
+    .next {
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #17264f;
+        color: white;
+    }
+
+    .round {
+        border-radius: 50%;
+    }
+
 </style>
+<script>
+    function doOnLoad(){
+        myOnLoad();
+        LoadOnline3DModels();
+    }
+</script>
 
-
-<body>
+<body onload="doOnLoad()">
 
 <div class="topDiv">
+    <button onclick="getPrevObjects(true)" class="next round">&#8249;</button>
     <button class="buttonStyle" type="button" onclick="alert('Hello world!')">All Objects</button>
     <button class="buttonStyle" type="button" onclick="alert('Hello world!')">My Objects</button>
+    <button onclick="getNextObjects(true)" class="next round">&#8250;</button>
 </div>
 
 <table id = "objectTbl">
     <tr>
-        <td>
-            <canvas class="3dviewer" sourcefiles="../../../../../files/1.stl" height="250px"></canvas>
+        <td id="obj0">
         </td>
-        <td>
-            <canvas class="3dviewer" sourcefiles="../../../../../files/2.stl" height="250px"></canvas>
+        <td id="obj1">
+        </td >
+        <td id="obj2">
         </td>
-        <td>
-            <canvas class="3dviewer" sourcefiles="../../../../../files/3.stl" height="250px"></canvas>
-        </td>
-        <td>
-            <canvas class="3dviewer" sourcefiles="../../../../../files/4.stl" height="250px"></canvas>
+        <td id="obj3">
         </td>
     </tr>
     <tr>
-        <td >
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        <td id="load0">
         </td>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        <td id="load1">
+        </td >
+        <td id="load2">
         </td>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
-        </td>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        <td id="load3">
         </td>
     </tr>
     <tr>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        <td id="download0">
         </td>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        <td id="download1">
         </td>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        <td id="download2">
         </td>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        <td id="download3">
         </td>
     </tr>
     <tr>
-        <td>
-            <canvas class="3dviewer" sourcefiles="../../../../../files/5.stl" height="250px"></canvas>
+        <td id="obj4">
         </td>
-        <td>
-            <canvas class="3dviewer" sourcefiles="../../../../../files/1.stl" height="250px"></canvas>
+        <td id="obj5">
         </td>
-        <td>
-            <canvas class="3dviewer" sourcefiles="../../../../../files/4.stl" height="250px"></canvas>
+        <td id="obj6">
         </td>
-        <td>
-            <canvas class="3dviewer" sourcefiles="../../../../../files/2.stl" height="250px"></canvas>
+        <td id="obj7">
         </td>
     </tr>
     <tr>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        <td id="load4">
         </td>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        <td id="load5">
         </td>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        <td id="load6">
         </td>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Load</button>
+        <td id="load7">
         </td>
     </tr>
     <tr>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        <td id="download4">
         </td>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        <td id="download5">
+        </td >
+        <td id="download6">
         </td>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
-        </td>
-        <td>
-            <button class="buttonStyle2" type="button" onclick="alert('Hello world!')">Download</button>
+        <td id="download7">
         </td>
     </tr>
 </table>

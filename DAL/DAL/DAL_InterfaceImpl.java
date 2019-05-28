@@ -114,6 +114,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             return ans;
         } catch (Exception e) {
             e.printStackTrace();
+            //return null;
         }
         return null;
     }
@@ -147,6 +148,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         return null;
 

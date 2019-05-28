@@ -1,5 +1,6 @@
 LoadOnline3DModels = function ()
 {
+	console.log("load on line 3d models");
 	function Error (viewerElement, message)
 	{
 		var context = viewerElement.getContext ('2d');
