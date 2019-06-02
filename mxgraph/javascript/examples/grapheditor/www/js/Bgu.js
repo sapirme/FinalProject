@@ -2,16 +2,18 @@
 
 
 
-function createIllusion (xml,factory) {
+function createIllusion (xml,svg,factory) {
     //var servletFactory = new ServletFactory();
     //var xhr = servletFactory.llusionServlet(factory,'POST');
     var loader = document.getElementById('myLoader');
     loader.style.display = "block";
     var modal = document.getElementById('myModalGrey');
     modal.style.display = "block";
+    var ans = [xml, svg];
+    console.log(JSON.stringify(ans));
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/run", true);
-    xhr.send(xml);
+    xhr.send(JSON.stringify(ans));
     xhr.onreadystatechange = function(e) {
         if (xhr.readyState == 4 && xhr.status == 200) {
             handleCanCreate(loader,modal);
@@ -69,6 +71,25 @@ function handleCanNotCreate(loader,modal){
 
 // db view functions
 
+function getAllObjects(){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/allObjects", true);
+    xhr.send(null);
+    xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var array= JSON.parse(xhr.responseText);
+            console.log(array.length);
+            if (array.length > 0){
+                sessionStorage.setItem("array", JSON.stringify(array));
+                sessionStorage.setItem("reloading", "true");
+                window.location.reload(true );
+            }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 20){
+            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
+        }
+    };
+}
 
 function getAllObjects(editor,mxUtils,factory)
 {

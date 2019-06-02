@@ -612,9 +612,9 @@ Actions.prototype.init = function()
     this.addAction('createIllusion', function() {
         var code = mxUtils.getPrettyXml(ui.editor.getGraphXml());
         //mxUtils.getXml(graph.getSvg(bg, s, b))
-        var text = mxUtils.getXml(graph.getSvg(null, 1, 0));
-        console.log(text);
-        createIllusion(code,true);
+        var svg = mxUtils.getXml(graph.getSvg(null, 1, 0));
+        console.log(svg);
+        createIllusion(code,svg,true);
     }, null, null);
 
     this.addAction('allObjects', function() {

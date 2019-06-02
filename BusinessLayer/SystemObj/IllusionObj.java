@@ -35,17 +35,15 @@ public class IllusionObj {
 
     public ObjectInteface getObjectInteface(){return model3D;}
 
-    public Enums.checkingAns Decide(String xml){
-        String svg = svgObj.xml2svg(xml);
-
+    public Enums.checkingAns Decide(String xml,String svg){
+        //String svg = svgObj.xml2svg(xml);
+        this.svgObj.setSvg(svg);
+        this.svgObj.setXml(xml);
         return SVGParser.decide(svg,v1,v2);
     }
 
     public String createObject (){
-        //System.out.println("second : 2");
         if (v1.hasPaths() && v2.hasPaths()){
-            //System.out.println("third : 3, has paths");
-            //String m = CreationAlgorithm.createOBJ(v1.getGraph(),v2.getGraph(),model3D);
             String m = CreationAlgorithm.createObject(v1.getPaths(),v2.getPaths(),model3D);
             return m;
         }
