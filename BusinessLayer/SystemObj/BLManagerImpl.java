@@ -30,8 +30,8 @@ public class BLManagerImpl implements BLManager{
     }
 
     @Override
-    public Enums.checkingAns Decide(String xml){
-        Enums.checkingAns ans = illusionobj.Decide(xml);
+    public Enums.checkingAns Decide(String xml,String svg){
+        Enums.checkingAns ans = illusionobj.Decide(xml,svg);
         return ans;
     }
 

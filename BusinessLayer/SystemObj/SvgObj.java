@@ -25,6 +25,13 @@ public class SvgObj {
     public String getSvg() {return svg;}
     public String getXml() {return xml;}
 
+    public void setSvg(String svg){
+        this.svg=svg;
+    }
+    public void setXml(String xml){
+        this.xml=xml;
+    }
+
     private String[] shapes = new String[] {
             mxConstants.SHAPE_RECTANGLE,
             mxConstants.SHAPE_ELLIPSE,
