@@ -37,6 +37,12 @@ public class LoadObject extends HttpServlet {
 			throws ServletException, IOException {
 		// Extract the XML fro the message
 		BufferedReader br = request.getReader();
+		/*
+		String str = "<mxGraphModel grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"0\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"827\" pageHeight=\"1169\" background=\"#ffffff\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\" style=\"rounded=0;endArrow=none;html=1;\" edge=\"1\" parent=\"1\"><mxGeometry width=\"50\" height=\"50\" relative=\"1\" as=\"geometry\"><mxPoint y=\"240\" as=\"sourcePoint\"/><mxPoint x=\"825\" y=\"240\" as=\"targetPoint\"/></mxGeometry></mxCell></root></mxGraphModel>";
+		response.setContentType("text/plain");
+		response.getWriter().println(str);
+		response.setStatus(HttpServletResponse.SC_OK);
+		return;*/
 		int index=-1;
 		try {
 			index = Integer.parseInt(IOUtils.toString(br));

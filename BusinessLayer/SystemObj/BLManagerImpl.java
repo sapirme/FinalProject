@@ -99,6 +99,8 @@ public class BLManagerImpl implements BLManager{
     public String loadObject(int index) {
         String name = pool.getIndexName(index);
         if (name == null) return null;
+        System.out.println("index: "+index);
+        System.out.println("name: "+name);
         String xml = mydal.getObjectXml(name);
         if (xml == null) return null;
         return xml;

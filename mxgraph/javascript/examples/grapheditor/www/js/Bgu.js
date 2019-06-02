@@ -1,131 +1,5 @@
-var mainWindow;
+// creation functions
 
-function getAllObjects(factory)
-{
-    var modal = document.getElementById('myModalGrey');
-    modal.style.display = "block";
-
-    mainWindow = window;
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/allObjects", true);
-    xhr.send(null);
-    xhr.onreadystatechange = function(e) {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            var array= xhr.responseText;
-            sessionStorage.setItem("array", array);
-            var win = window.open('DBView.html',"_blank",
-                'toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%,fullscreen="yes",'+'height=' + screen.availHeight + ',width=' + screen.availWidth );
-            var timer = setInterval(function() {
-                if(win.closed) {
-                    clearInterval(timer);
-                    modal.style.display = "none";
-                }
-            }, 1000);
-        }
-        else if (xhr.readyState == 4 && xhr.status == 20){
-            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
-        }
-    };
-}
-
-
-function myOnLoad() {
-    console.log("onLoad");
-    window.moveTo(0, 0);
-    console.log("onLoad");
-    var myArray= JSON.parse(sessionStorage.getItem("array"));
-    var reloading = sessionStorage.getItem("reloading");
-    if (reloading) {
-        console.log("reloading");
-        clearTable();
-        updateTable(myArray);
-
-    }
-    else {
-        updateTable(myArray);
-    }
-}
-
-function getNextObjects(factory)
-{
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/NextObjects", true);
-    xhr.send(null);
-    xhr.onreadystatechange = function(e) {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            var array= JSON.parse(xhr.responseText);
-            console.log(array.length);
-            if (array.length > 0){
-                sessionStorage.setItem("array", JSON.stringify(array));
-                sessionStorage.setItem("reloading", "true");
-                window.location.reload(true );
-            }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 20){
-            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
-        }
-    };
-}
-
-function getPrevObjects(factory)
-{
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/PrevObjects", true);
-    xhr.send(null);
-    xhr.onreadystatechange = function(e) {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            var array= JSON.parse(xhr.responseText);
-            console.log(array.length);
-            if (array.length > 0){
-                sessionStorage.setItem("array", JSON.stringify(array));
-                sessionStorage.setItem("reloading", "true");
-                window.location.reload(true);
-            }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 20){
-            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
-        }
-    };
-}
-
-function clearTable() {
-    for (var i=0; i<8; i++){
-        var theObj = document.getElementById("obj"+i);
-        theObj.innerHTML = '';
-        var loadBtn = document.getElementById("load"+i);
-        loadBtn.innerHTML = '';
-        var downloadBtn = document.getElementById("download"+i);
-        downloadBtn.innerHTML = '';
-    }
-}
-
-function loadFunc(index){
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/LoadObject", true);
-    xhr.send(index);
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////
-}
-
-function updateTable(array) {
-    var i=0;
-    while (i<array.length){
-        var obkText ='<canvas class="3dviewer" sourcefiles="../../../../../files/dbObject'+array[i]+'.stl" height="250px"></canvas>';
-
-        var loadText ='<button class="buttonStyle2" type="button" onclick="loadFunc('+array[i]+')">Load</button>';
-
-        var downloadText ='<a href="../../../../../files/dbObject'+array[i]+'.stl" download="myObject'+array[i]+'.stl">\n' +
-            '                <button class="buttonStyle2" type="button" >Download</button>\n' +
-            '            </a>';
-        var theObj = window.document.getElementById("obj"+i);
-        theObj.innerHTML = obkText;
-        var loadBtn = window.document.getElementById("load"+i);
-        loadBtn.innerHTML = loadText;
-        var downloadBtn = window.document.getElementById("download"+i);
-        downloadBtn.innerHTML = downloadText;
-        i++;
-    }
-}
 
 
 function createIllusion (xml,factory) {
@@ -189,6 +63,166 @@ function handleCanNotCreate(loader,modal){
     loader.style.display = "none";
     modal.style.display = "none";
 }
+
+
+
+
+// db view functions
+
+
+function getAllObjects(editor,mxUtils,factory)
+{
+    var modal = document.getElementById('myModalGrey');
+    modal.style.display = "block";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/allObjects", true);
+    xhr.send(null);
+    xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var array= xhr.responseText;
+            sessionStorage.setItem("array", array);
+            var win = window.open('DBView.html',"_blank",
+                'toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%,fullscreen="yes",'+'height=' + screen.availHeight + ',width=' + screen.availWidth );
+            var timer = setInterval(function() {
+                if(win.closed) {
+                    clearInterval(timer);
+
+                    var update = localStorage.getItem("update");
+
+                    if (update){
+                        localStorage.setItem("update","false");
+                        var theXml = localStorage.getItem("theXml");
+
+                        var doc = mxUtils.parseXml(theXml);
+                        editor.graph.model.beginUpdate();
+                        editor.setGraphXml(doc.documentElement);
+                        editor.graph.model.endUpdate();
+                    }
+                    modal.style.display = "none";
+                }
+            }, 1000);
+        }
+        else if (xhr.readyState == 4 && xhr.status == 20){
+            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
+        }
+    };
+}
+
+
+function getNextObjects(factory)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/NextObjects", true);
+    xhr.send(null);
+    xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var array= JSON.parse(xhr.responseText);
+            console.log(array.length);
+            if (array.length > 0){
+                sessionStorage.setItem("array", JSON.stringify(array));
+                sessionStorage.setItem("reloading", "true");
+                window.location.reload(true );
+            }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 20){
+            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
+        }
+    };
+}
+
+function getPrevObjects(factory)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/PrevObjects", true);
+    xhr.send(null);
+    xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var array= JSON.parse(xhr.responseText);
+            console.log(array.length);
+            if (array.length > 0){
+                sessionStorage.setItem("array", JSON.stringify(array));
+                sessionStorage.setItem("reloading", "true");
+                window.location.reload(true);
+            }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 20){
+            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
+        }
+    };
+}
+
+
+function clearTable() {
+    for (var i=0; i<8; i++){
+        var theObj = document.getElementById("obj"+i);
+        theObj.innerHTML = '';
+        var loadBtn = document.getElementById("load"+i);
+        loadBtn.innerHTML = '';
+        var downloadBtn = document.getElementById("download"+i);
+        downloadBtn.innerHTML = '';
+    }
+}
+
+function loadFunc(index){
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/LoadObject", true);
+    xhr.send(index);
+
+    xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            //var xml = "<mxGraphModel grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"0\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"827\" pageHeight=\"1169\" background=\"#ffffff\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\" style=\"rounded=0;endArrow=none;html=1;\" edge=\"1\" parent=\"1\"><mxGeometry width=\"50\" height=\"50\" relative=\"1\" as=\"geometry\"><mxPoint y=\"240\" as=\"sourcePoint\"/><mxPoint x=\"825\" y=\"240\" as=\"targetPoint\"/></mxGeometry></mxCell></root></mxGraphModel>";
+            var xml= xhr.responseText;
+            localStorage.setItem("update", "true");
+            localStorage.setItem("theXml", xml);
+
+            window.close();
+        }
+        else if (xhr.readyState == 4 && xhr.status == 20){
+            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
+        }
+    };
+}
+
+function updateTable(array) {
+    var i=0;
+    while (i<array.length){
+        var obkText ='<canvas class="3dviewer" sourcefiles="../../../../../files/dbObject'+array[i]+'.stl" height="250px"></canvas>';
+
+        var loadText ='<button class="buttonStyle2" type="button" onclick="loadFunc('+array[i]+')">Load</button>';
+
+        var downloadText ='<a href="../../../../../files/dbObject'+array[i]+'.stl" download="myObject'+array[i]+'.stl">\n' +
+            '                <button class="buttonStyle2" type="button" >Download</button>\n' +
+            '            </a>';
+        var theObj = window.document.getElementById("obj"+i);
+        theObj.innerHTML = obkText;
+        var loadBtn = window.document.getElementById("load"+i);
+        loadBtn.innerHTML = loadText;
+        var downloadBtn = window.document.getElementById("download"+i);
+        downloadBtn.innerHTML = downloadText;
+        i++;
+    }
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function myOnLoad() {
+    console.log("onLoad");
+    window.moveTo(0, 0);
+    console.log("onLoad");
+    var myArray= JSON.parse(sessionStorage.getItem("array"));
+    var reloading = sessionStorage.getItem("reloading");
+    if (reloading) {
+        console.log("reloading");
+        clearTable();
+        updateTable(myArray);
+
+    }
+    else {
+        updateTable(myArray);
+    }
+}
+
 
 
 function handleSignIn(){

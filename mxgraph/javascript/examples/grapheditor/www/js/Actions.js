@@ -617,11 +617,20 @@ Actions.prototype.init = function()
         createIllusion(code,true);
     }, null, null);
 
-    this.addAction('allObjects...', function() {
-        getAllObjects(true);
-        }, null, null).isEnabled = isGraphEnabled;
+    this.addAction('allObjects', function() {
+        //var ui = Actions.editorUi;
+        //var editor = ui.editor;
+        //var graph = editor.graph;
+		/*
+        var doc = mxUtils.parseXml("<mxGraphModel grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"0\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"827\" pageHeight=\"1169\" background=\"#ffffff\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\" style=\"rounded=0;endArrow=none;html=1;\" edge=\"1\" parent=\"1\"><mxGeometry width=\"50\" height=\"50\" relative=\"1\" as=\"geometry\"><mxPoint y=\"240\" as=\"sourcePoint\"/><mxPoint x=\"825\" y=\"240\" as=\"targetPoint\"/></mxGeometry></mxCell></root></mxGraphModel>");
+        editor.graph.model.beginUpdate();
+        editor.setGraphXml(doc.documentElement);
+        editor.graph.model.endUpdate();
+		*/
+    	getAllObjects(editor,mxUtils,true);
+        }, null, null);
 
-    this.addAction('similarObjects...', function(evt) { }, null, null);
+    this.addAction('similarObjects', function(evt) { }, null, null);
 
 	this.addAction('google', function() {
 		handleSignIn();
