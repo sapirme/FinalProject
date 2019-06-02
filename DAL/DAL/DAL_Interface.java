@@ -14,4 +14,6 @@ public interface DAL_Interface {
      List<String> getNext8(List<String> IDs);
      Map<String,List<Shape>>  getAllViewPoints(); // return map of vp's id and vp's shapes
      String getObjIDByViewPointID(String vpID);
+
+     String getObjectXml(String objectId);
 }

@@ -1,5 +1,11 @@
+var mainWindow;
+
 function getAllObjects(factory)
 {
+    var modal = document.getElementById('myModalGrey');
+    modal.style.display = "block";
+
+    mainWindow = window;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/allObjects", true);
     xhr.send(null);
@@ -9,7 +15,12 @@ function getAllObjects(factory)
             sessionStorage.setItem("array", array);
             var win = window.open('DBView.html',"_blank",
                 'toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%,fullscreen="yes",'+'height=' + screen.availHeight + ',width=' + screen.availWidth );
-
+            var timer = setInterval(function() {
+                if(win.closed) {
+                    clearInterval(timer);
+                    modal.style.display = "none";
+                }
+            }, 1000);
         }
         else if (xhr.readyState == 4 && xhr.status == 20){
             window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
@@ -88,11 +99,21 @@ function clearTable() {
     }
 }
 
+function loadFunc(index){
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/LoadObject", true);
+    xhr.send(index);
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+}
+
 function updateTable(array) {
     var i=0;
     while (i<array.length){
         var obkText ='<canvas class="3dviewer" sourcefiles="../../../../../files/dbObject'+array[i]+'.stl" height="250px"></canvas>';
-        var loadText ='<button class="buttonStyle2" type="button" onclick="alert(\'Hello world!\')">Load</button>';
+
+        var loadText ='<button class="buttonStyle2" type="button" onclick="loadFunc('+array[i]+')">Load</button>';
+
         var downloadText ='<a href="../../../../../files/dbObject'+array[i]+'.stl" download="myObject'+array[i]+'.stl">\n' +
             '                <button class="buttonStyle2" type="button" >Download</button>\n' +
             '            </a>';

@@ -1238,6 +1238,9 @@ ExportDialog.exportFile = function(editorUi, name, format, bg, s, b)
 	}
     else if (format == 'svg')
 	{
+		console.log('b: '+b);
+		console.log("s: " + s);
+		console.log("bg: "+bg);
 		ExportDialog.saveLocalFile(editorUi, mxUtils.getXml(graph.getSvg(bg, s, b)), name, format);
 	}
     else

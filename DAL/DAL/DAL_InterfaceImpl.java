@@ -195,4 +195,11 @@ public class DAL_InterfaceImpl implements DAL_Interface {
         }
         return objId;
     }
+
+    @Override
+    public String getObjectXml(String objectId) {
+        //TODO
+        /////////////////////////////////////////////////////////////////////////////////
+        return null;
+    }
 }

@@ -32,14 +32,6 @@ public class BLManagerImpl implements BLManager{
     @Override
     public Enums.checkingAns Decide(String xml){
         Enums.checkingAns ans = illusionobj.Decide(xml);
-        ////////
-        if(ans ==  Enums.checkingAns.CAN) {
-            /*boolean connected = this.CreateObject();
-            if(!connected){
-               ans =  Enums.checkingAns.CAN_NO_DB;
-            }*/
-        }
-        ////////
         return ans;
     }
 
@@ -101,5 +93,14 @@ public class BLManagerImpl implements BLManager{
         if (files == null) return null;
         List<Integer> index = pool.saveFiles(files);
         return index;
+    }
+
+    @Override
+    public String loadObject(int index) {
+        String name = pool.getIndexName(index);
+        if (name == null) return null;
+        String xml = mydal.getObjectXml(name);
+        if (xml == null) return null;
+        return xml;
     }
 }

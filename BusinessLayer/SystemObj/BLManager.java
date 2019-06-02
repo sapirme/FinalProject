@@ -10,4 +10,5 @@ public interface BLManager {
     public List<Integer> getAllobjects();
     public List<Integer> getNextObjects();
     public List<Integer> getPrevObjects();
+    public String loadObject(int index);
 }
