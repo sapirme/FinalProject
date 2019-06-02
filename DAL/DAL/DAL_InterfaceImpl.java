@@ -180,7 +180,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
         return null;
     }
 
-    public String getObjIDByViewPointID(String vpID){
+    public List<String> getObjIDByViewPointID(List<String> vpIDs){
         int status = -1;
         try {
             URL url = new URL(myUrl+"/similarities");
@@ -189,7 +189,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             connection.setRequestProperty("Accept-Charset", charset);
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
             try (OutputStream output = connection.getOutputStream()) {
-                output.write(gson.toJson(vpID).getBytes(charset));
+                output.write(gson.toJson(vpIDs).getBytes(charset));
             }
             status = connection.getResponseCode();
             if (status == 200) {
@@ -201,7 +201,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
                 while ((line = reader.readLine()) != null) {
                     out.append(line);
                 }
-                String ans = gson.fromJson(out.toString(), String.class);   //Prints the string content read from input stream
+                List<String> ans = gson.fromJson(out.toString(), List.class);   //Prints the string content read from input stream
                 reader.close();
                 connection.disconnect();
                 return ans;
@@ -211,6 +211,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             return null;
         }
         return null;
+
     }
 
     @Override

@@ -13,7 +13,7 @@ public interface DAL_Interface {
      List<String> getAllIDs();
      List<String> getNext8(List<String> IDs);
      Map<String,List<Shape>>  getAllViewPoints(); // return map of vp's id and vp's shapes
-     String getObjIDByViewPointID(String vpID);
+     List<String> getObjIDByViewPointID(List<String> vpIDs);
 
      String getObjectXml(String objectId);
 }
