@@ -23,6 +23,7 @@ public class SvgObj {
     private String svg;
 
     public String getSvg() {return svg;}
+    public String getXml() {return xml;}
 
     private String[] shapes = new String[] {
             mxConstants.SHAPE_RECTANGLE,
