@@ -223,7 +223,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             connection.setRequestProperty("Accept-Charset", charset);
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
             try (OutputStream output = connection.getOutputStream()) {
-                output.write(gson.toJson(objectId).getBytes(charset));
+                output.write(objectId.getBytes(charset));
             }
             status = connection.getResponseCode();
             if (status == 200) {
@@ -235,9 +235,10 @@ public class DAL_InterfaceImpl implements DAL_Interface {
                 while ((line = reader.readLine()) != null) {
                     out.append(line);
                 }
-                String ans = gson.fromJson(out.toString(), String.class);   //Prints the string content read from input stream
+                String ans = out.toString();   //Prints the string content read from input stream
                 reader.close();
                 connection.disconnect();
+                //System.out.println(ans);
                 return ans;
             }
         } catch (Exception e) {
