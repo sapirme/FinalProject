@@ -1,7 +1,6 @@
 package DAL;
 
 import Graph.Pair;
-import Shapes.Shape;
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
