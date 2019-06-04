@@ -54,13 +54,13 @@ public class IllusionObj {
     public List<String> similarObj(){//return list of ID of the similar objects
         List<String> TopIDs = new LinkedList<>();
         Map <String, Double> allVPimaginationPercentage = new HashMap<>();
-
+        /*
         for (Map.Entry<String,List<Shape>> vp: getAllViewPoints().entrySet()) {
             if(imaginationPercentage(v1.getShapes(), vp.getValue()) > imaginationPercentage(v2.getShapes(), vp.getValue()) )
                 allVPimaginationPercentage.put(vp.getKey(), imaginationPercentage(v1.getShapes(), vp.getValue()));
             else allVPimaginationPercentage.put(vp.getKey(), imaginationPercentage(v2.getShapes(), vp.getValue()));
         }
-
+        */
         for (Map.Entry<String, Double> vp :allVPimaginationPercentage.entrySet()) {
             if(vp.getValue() >= 80)
                 TopIDs.add(vp.getKey());
