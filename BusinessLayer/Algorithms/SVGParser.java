@@ -127,6 +127,25 @@ public class SVGParser {
         return p;
     }
 
+    public static int sumNumOfCircles(List<Shape> shapes){
+        int c=0;
+        for (Shape s: shapes) {
+            if (s instanceof Circle)
+                c++;
+        }
+        return c;
+    }
+
+    public static int sumNumOfLines(List<Shape> shapes){
+        int c=0;
+        for (Shape s: shapes) {
+            if (s instanceof Line)
+                c++;
+        }
+        return c;
+    }
+
+
     public static Enums.checkingAns decide(String svgStr, ViewPoint v1, ViewPoint v2) {
         Pair<List<Shape>,List<Shape>> shapes = fileToShapes(svgStr);
         System.out.println("check size");
@@ -143,12 +162,16 @@ public class SVGParser {
         //v1.setGraph(g1);
         //v2.setGraph(g2);
         if (v1!=null){
-            v1.setShapes(shapes.getFirst());
+            v1.setCircleNum(sumNumOfCircles(shapes.getFirst()));
+            v1.setCircleNum(sumNumOfLines(shapes.getFirst()));
+            //v1.setSapes(shapes.getFirst());
             v1.setGraph(new Graph(g1));
             //System.out.println("update g1");
         }
         if (v2!=null){
-            v2.setShapes(shapes.getSecond());
+            v2.setCircleNum(sumNumOfCircles(shapes.getSecond()));
+            v2.setCircleNum(sumNumOfLines(shapes.getSecond()));
+            //v2.setSapes(shapes.getSecond());
             v2.setGraph(new Graph(g2));
             //System.out.println("update g2");
         }

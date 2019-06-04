@@ -1,20 +1,23 @@
 package SystemObj;
-import Graph.Edge;
-import Graph.Graph;
-import Shapes.Shape;
-
-import java.util.LinkedList;
+import Shapes.*;
+import Graph.*;
 import java.util.List;
+import java.util.LinkedList;
+import java.util.Set;
 
 public class ViewPoint {
     private LinkedList<List<Edge>> paths;
-    private List<Shape> shapes;
+    //private List<Shape> shapes;
+    private int circleNum;
+    private int lineNum;
     private Graph graph;
 
     public ViewPoint(){
         paths = null;
-        shapes = null;
+        //shapes = null;
         graph = null;
+        circleNum = 0;
+        lineNum = 0;
     }
 
     public boolean hasPaths(){
@@ -23,9 +26,11 @@ public class ViewPoint {
     }
 
     public String toString(){
-        return paths + "\n" +
-                shapes + "\n" +
-                graph;
+        return "paths: " + paths + "\n" +
+                //shapes + "\n" +
+                " circle num: "+ circleNum +"\n"+
+                " line num: "+ lineNum +"\n"+
+                " graph: "+graph;
     }
 
 
@@ -33,8 +38,14 @@ public class ViewPoint {
         this.paths = paths;
     }
 
-    public void setShapes(List<Shape> shapes){
+    /*public void setSapes(List<Shape> shapes){
         this.shapes = shapes;
+    }*/
+    public void setCircleNum(int num){
+        this.circleNum = num;
+    }
+    public void setLineNum (int num){
+        this.lineNum = num;
     }
 
     public void setGraph(Graph g){
@@ -43,8 +54,14 @@ public class ViewPoint {
 
     public Graph getGraph(){return graph;}
 
-    public  List<Shape> getShapes(){
+    /*public  List<Shape> getShapes(){
         return shapes;
+    }*/
+    public int getCircleNum(){
+        return circleNum;
+    }
+    public int getLineNum(){
+        return lineNum;
     }
 
     public  LinkedList<List<Edge>> getPaths(){
