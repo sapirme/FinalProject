@@ -4,8 +4,8 @@ import Algorithms.CreationAlgorithm;
 import Algorithms.Enums;
 import Algorithms.SVGParser;
 import Graph.Pair;
-import Shapes.*;
-import Object3D.*;
+import Object3D.ObjectInteface;
+import Object3D.Stl3DFile;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -52,14 +52,15 @@ public class IllusionObj {
             return null;
     }
 
-    public List<String> similarObj(){//return list of ID of the similar objects
+    public List<String> similarObj(Map<String,Pair<Integer, Integer>> allViewPoints){//return list of ID of the similar objects
         List<String> TopIDs = new LinkedList<>();
+        
         Map <String, Double> allVPimaginationPercentage = new HashMap<>();
-
-        for (Map.Entry<String, Pair<Integer, Integer>> vp: getAllViewPoints().entrySet()) {
+        for (Map.Entry<String, Pair<Integer, Integer>> vp: allViewPoints.entrySet()) {
             if(imaginationPercentage(v1.getCircleNum(), vp.getValue().getFirst(), v1.getLineNum(), vp.getValue().getSecond())
-                > imaginationPercentage(v2.getCircleNum(), vp.getValue().getFirst(), v2.getLineNum(), vp.getValue().getSecond()))
+                > imaginationPercentage(v2.getCircleNum(), vp.getValue().getFirst(), v2.getLineNum(), vp.getValue().getSecond())) {
                 allVPimaginationPercentage.put(vp.getKey(), imaginationPercentage(v1.getCircleNum(), vp.getValue().getFirst(), v1.getLineNum(), vp.getValue().getSecond()));
+            }
             else allVPimaginationPercentage.put(vp.getKey(), imaginationPercentage(v2.getCircleNum(), vp.getValue().getFirst(), v2.getLineNum(), vp.getValue().getSecond()));
         }
 
@@ -101,8 +102,6 @@ public class IllusionObj {
     }
 
     public double sameNumOfLines(int l1,int l2){
-
-
         if (l1 < l2)
             return (l1/l2)*100;
         if (l1 == 0 && l2 == 0)
@@ -113,6 +112,6 @@ public class IllusionObj {
     }
 
     //function DB
-    public Map<String,Pair<Integer, Integer>>  getAllViewPoints(){return null;} // return map of vp's id and vp's shapes
-    public String  getObjIDByViewPointID(String vpID){return null;}
+    //public Map<String,Pair<Integer, Integer>>  getAllViewPoints(){return null;} // return map of vp's id and vp's shapes
+    //public String  getObjIDByViewPointID(String vpID){return null;}
 }

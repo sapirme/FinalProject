@@ -1,12 +1,11 @@
 package DAL;
 
-import Graph.Edge;
-import Graph.Graph;
-import Shapes.Shape;
+import Graph.Pair;
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import org.bson.types.ObjectId;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -14,7 +13,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,22 +66,20 @@ public class DAL_InterfaceImpl implements DAL_Interface {
     }
 
 
-    public boolean InsertObject(String D3, String SVG, String XML, List<Shape> s1, List<Shape> s2, Graph g1, Graph g2, LinkedList<List<Edge>> m1, LinkedList<List<Edge>> m2, String email) {
+    public boolean InsertObject(String D3, String SVG, String XML, int circles1, int lines1, int circles2, int lines2, String email) {
 
         BasicDBObject[] document = new BasicDBObject[3];
         document[0] = new BasicDBObject();
         ObjectId id1 = ObjectId.get();
         document[0].put("ObjectId", id1.toString());
-        document[0].put("Shapes", gson.toJson(s1));
-        document[0].put("Graph", gson.toJson(g1));
-        document[0].put("Paths", gson.toJson(m1));
+        document[0].put("Circles", circles1);
+        document[0].put("Lines", lines1);
 
         document[1] = new BasicDBObject();
         ObjectId id2 = ObjectId.get();
         document[1].put("ObjectId", id2.toString());
-        document[1].put("Shapes", gson.toJson(s2));
-        document[1].put("Graph", gson.toJson(g2));
-        document[1].put("Paths", gson.toJson(m2));
+        document[1].put("Circles", circles2);
+        document[1].put("Lines", lines2);
 
         document[2] = new BasicDBObject();
         ObjectId id = ObjectId.get();
@@ -157,7 +154,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
 
     }
 
-    public Map<String,List<Shape>> getAllViewPoints() { // return map of vp's id and vp's shapes
+    public Map<String, Pair<Integer, Integer>> getAllViewPoints() { // return map of vp's id and vp's shapes
         try {
             URL url = new URL(myUrl+"/similarities");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -169,7 +166,28 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             while ((line = reader.readLine()) != null) {
                 out.append(line);
             }
-            Map<String,List<Shape>> ans = gson.fromJson(out.toString(),Map.class);   //Prints the string content read from input stream
+            //Map<String,List<Shape>> ans = new HashMap<String,List<Shape>>();
+            //Map<String, Pair<Integer, Integer>> ans =  gson.fromJson(out.toString(), Map.class);   //Prints the string content read from input stream
+            /*
+            for (Map.Entry<String,List<String>> entry: map.entrySet()){
+                //List<String> list =  gson.fromJson(entry.getValue(), List.class);
+                List <Shape> listAns = new LinkedList<Shape>();
+                for (String st : entry.getValue()){
+                    listAns.add(gson.fromJson(st, Shape.class)new Circle(1,1,1));
+                }
+                ans.put(entry.getKey(),listAns);
+            }*/
+            Map<String,Pair<Integer,Integer>> ans = new HashMap<String,Pair<Integer,Integer>>();
+            List<String> lst = gson.fromJson(out.toString(), List.class);
+            for (String str : lst){
+                JSONObject jsonObj = new JSONObject(str);
+                String id = jsonObj.get("id").toString();
+                int circles = (int) Double.parseDouble(jsonObj.get("circles").toString());
+                int lines = (int) Double.parseDouble(jsonObj.get("lines").toString());
+                ans.put(id,new Pair<Integer,Integer>(circles,lines));
+
+            }
+
             reader.close();
             connection.disconnect();
             return ans;
@@ -180,7 +198,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
         return null;
     }
 
-    public String getObjIDByViewPointID(String vpID){
+    public List<String> getObjIDByViewPointID(List<String> vpIDs){
         int status = -1;
         try {
             URL url = new URL(myUrl+"/similarities");
@@ -189,7 +207,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             connection.setRequestProperty("Accept-Charset", charset);
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
             try (OutputStream output = connection.getOutputStream()) {
-                output.write(gson.toJson(vpID).getBytes(charset));
+                output.write(gson.toJson(vpIDs).getBytes(charset));
             }
             status = connection.getResponseCode();
             if (status == 200) {
@@ -201,7 +219,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
                 while ((line = reader.readLine()) != null) {
                     out.append(line);
                 }
-                String ans = gson.fromJson(out.toString(), String.class);   //Prints the string content read from input stream
+                List<String> ans = gson.fromJson(out.toString(), List.class);   //Prints the string content read from input stream
                 reader.close();
                 connection.disconnect();
                 return ans;
@@ -211,6 +229,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             return null;
         }
         return null;
+
     }
 
     @Override

@@ -11,4 +11,6 @@ public interface BLManager {
     public List<Integer> getNextObjects();
     public List<Integer> getPrevObjects();
     public String loadObject(int index);
+
+    public List<Integer> getSimilarObjects(String xml,String svg);
 }
