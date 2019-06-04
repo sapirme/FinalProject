@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class ViewPoint {
     private LinkedList<List<Edge>> paths;
-    //private List<Shape> shapes;
+
     private int circleNum;
     private int lineNum;
     private Graph graph;
@@ -38,9 +38,6 @@ public class ViewPoint {
         this.paths = paths;
     }
 
-    /*public void setSapes(List<Shape> shapes){
-        this.shapes = shapes;
-    }*/
     public void setCircleNum(int num){
         this.circleNum = num;
     }
@@ -54,9 +51,7 @@ public class ViewPoint {
 
     public Graph getGraph(){return graph;}
 
-    /*public  List<Shape> getShapes(){
-        return shapes;
-    }*/
+
     public int getCircleNum(){
         return circleNum;
     }

@@ -109,6 +109,7 @@ public class IllusionObj {
         if (l1 == 0)
             return 0;
         return  (l2/l1)*100;
+
     }
 
     //function DB
