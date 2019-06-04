@@ -37,6 +37,7 @@ public class SVGParser {
     }
 
     public static Pair<List<Shape>,List<Shape>> fileToShapes(String svg) {
+        System.out.println("the svg:\n" + svg);
         String[] svgArr = svg.split("<");
         List<Shape> shapes1 = new LinkedList<Shape>();
         List<Shape> shapes2 = new LinkedList<Shape>();
@@ -71,7 +72,7 @@ public class SVGParser {
                     double y = Double.parseDouble(line.substring(line.indexOf("cy=\"")+4,line.indexOf("\"",line.indexOf("cy=\"")+4)));
                     double r = Double.parseDouble(line.substring(line.indexOf("rx=\"")+4,line.indexOf("\"",line.indexOf("rx=\"")+4)));
                     Shape ellipse = new Circle(x,y,r);
-                    System.out.println(ellipse.toString());
+                    //System.out.println(ellipse.toString());
                     if(y<middle)
                         shapes1.add(ellipse);
                     else
@@ -123,6 +124,25 @@ public class SVGParser {
         return p;
     }
 
+    public static int sumNumOfCircles(List<Shape> shapes){
+        int c=0;
+        for (Shape s: shapes) {
+            if (s instanceof Circle)
+                c++;
+        }
+        return c;
+    }
+
+    public static int sumNumOfLines(List<Shape> shapes){
+        int c=0;
+        for (Shape s: shapes) {
+            if (s instanceof Line)
+                c++;
+        }
+        return c;
+    }
+
+
     public static Enums.checkingAns decide(String svgStr, ViewPoint v1, ViewPoint v2) {
         Pair<List<Shape>,List<Shape>> shapes = fileToShapes(svgStr);
         System.out.println("check size");
@@ -139,12 +159,16 @@ public class SVGParser {
         //v1.setGraph(g1);
         //v2.setGraph(g2);
         if (v1!=null){
-            v1.setSapes(shapes.getFirst());
+            v1.setCircleNum(sumNumOfCircles(shapes.getFirst()));
+            v1.setCircleNum(sumNumOfLines(shapes.getFirst()));
+            //v1.setSapes(shapes.getFirst());
             v1.setGraph(new Graph(g1));
             //System.out.println("update g1");
         }
         if (v2!=null){
-            v2.setSapes(shapes.getSecond());
+            v2.setCircleNum(sumNumOfCircles(shapes.getSecond()));
+            v2.setCircleNum(sumNumOfLines(shapes.getSecond()));
+            //v2.setSapes(shapes.getSecond());
             v2.setGraph(new Graph(g2));
             //System.out.println("update g2");
         }

@@ -20,6 +20,13 @@ public class PoolObj {
         this.indexEnd = 0;
     }
 
+    public String getIndexName(int index){
+        if (index < 0 || index > 7 || indexStart+index >= allID.size()){
+            return null;
+        }
+        return allID.get(indexStart+index);
+    }
+
     public List<String> next8(){
         List<String> l = new LinkedList<>();
         int i = 0;

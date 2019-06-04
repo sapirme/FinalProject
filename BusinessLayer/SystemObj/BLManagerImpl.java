@@ -30,16 +30,8 @@ public class BLManagerImpl implements BLManager{
     }
 
     @Override
-    public Enums.checkingAns Decide(String xml){
-        Enums.checkingAns ans = illusionobj.Decide(xml);
-        ////////
-        if(ans ==  Enums.checkingAns.CAN) {
-            /*boolean connected = this.CreateObject();
-            if(!connected){
-               ans =  Enums.checkingAns.CAN_NO_DB;
-            }*/
-        }
-        ////////
+    public Enums.checkingAns Decide(String xml,String svg){
+        Enums.checkingAns ans = illusionobj.Decide(xml,svg);
         return ans;
     }
 
@@ -49,8 +41,9 @@ public class BLManagerImpl implements BLManager{
         String D3 = illusionobj.createObject();
         ViewPoint v1 = illusionobj.getViewPoint1();
         ViewPoint v2 = illusionobj.getViewPoint2();
-        boolean connected = mydal.InsertObject(D3,illusionobj.getSvgObj().getSvg(),
-                                v1.getShapes(),v2.getShapes(),
+        boolean connected = mydal.InsertObject(D3,illusionobj.getSvgObj().getSvg(), illusionobj.getSvgObj().getXml(),
+                                //v1.getShapes(),v2.getShapes(),
+                                null,null,
                                 v1.getGraph(),v2.getGraph(),
                                 v1.getPaths(),v2.getPaths(),
                             "adarrrr"
@@ -101,5 +94,16 @@ public class BLManagerImpl implements BLManager{
         if (files == null) return null;
         List<Integer> index = pool.saveFiles(files);
         return index;
+    }
+
+    @Override
+    public String loadObject(int index) {
+        String name = pool.getIndexName(index);
+        if (name == null) return null;
+        System.out.println("index: "+index);
+        System.out.println("name: "+name);
+        String xml = mydal.getObjectXml(name);
+        if (xml == null) return null;
+        return xml;
     }
 }

@@ -23,6 +23,14 @@ public class SvgObj {
     private String svg;
 
     public String getSvg() {return svg;}
+    public String getXml() {return xml;}
+
+    public void setSvg(String svg){
+        this.svg=svg;
+    }
+    public void setXml(String xml){
+        this.xml=xml;
+    }
 
     private String[] shapes = new String[] {
             mxConstants.SHAPE_RECTANGLE,
@@ -76,6 +84,7 @@ public class SvgObj {
     }
 
     public String xml2svg(String xml){
+        System.out.println("xml: \n"+xml);
         this.xml=xml;
         Document doc = mxXmlUtils.parseXml(xml);
         mxCodec codec = new mxCodec(doc);

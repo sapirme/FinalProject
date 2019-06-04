@@ -8,12 +8,14 @@ import il.ac.bgu.cs.bp.bpjs.model.BProgram;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.List;
 
 public class CreateLllusionServlet extends HttpServlet {
 
@@ -38,9 +40,15 @@ public class CreateLllusionServlet extends HttpServlet {
 
 		// Extract the XML fro the message
 		BufferedReader br = request.getReader();
-		String xml = IOUtils.toString(br);
+		String gsonAns = IOUtils.toString(br);
+		Gson gson = new Gson();
+		List<String> l= gson.fromJson(gsonAns, List.class);
+		if (l==null || l.size()!=2) return;
+		String xml = l.get(0);
+		String svg = l.get(1);
 		BLManager BPM = BLManagerImpl.getInstance();
-		Enums.checkingAns ans = BPM.Decide(xml);
+
+		Enums.checkingAns ans = BPM.Decide(xml,svg);
 		switch (ans){
 			case CAN:
 				response.setStatus(HttpServletResponse.SC_OK);
