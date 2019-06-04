@@ -3,12 +3,14 @@ package SystemObj;
 import Algorithms.Enums;
 import DAL.DAL_Interface;
 import DAL.DAL_InterfaceImpl;
+import Graph.Pair;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class BLManagerImpl implements BLManager{
     private static BLManager single_instance = null;
@@ -42,10 +44,8 @@ public class BLManagerImpl implements BLManager{
         ViewPoint v1 = illusionobj.getViewPoint1();
         ViewPoint v2 = illusionobj.getViewPoint2();
         boolean connected = mydal.InsertObject(D3,illusionobj.getSvgObj().getSvg(), illusionobj.getSvgObj().getXml(),
-                                //v1.getShapes(),v2.getShapes(),
-                                null,null,
-                                v1.getGraph(),v2.getGraph(),
-                                v1.getPaths(),v2.getPaths(),
+                                v1.getCircleNum(),v1.getLineNum(),
+                                v2.getCircleNum(),v2.getLineNum(),
                             "adarrrr"
                                 );
 
@@ -105,5 +105,28 @@ public class BLManagerImpl implements BLManager{
         String xml = mydal.getObjectXml(name);
         if (xml == null) return null;
         return xml;
+    }
+
+    @Override
+    public List<Integer> getSimilarObjects(String xml,String svg){
+        illusionobj.Decide(xml,svg);
+        System.out.println("1");
+        Map<String, Pair<Integer, Integer>> viewPoints = mydal.getAllViewPoints();
+        System.out.println("2");
+        List<String> similarVP = illusionobj.similarObj(viewPoints);
+
+        System.out.println("similar vp: "+similarVP);
+
+        List<String> ids=mydal.getObjIDByViewPointID(similarVP);
+
+        System.out.println("the ids: "+ids);
+        if (ids == null) return null;
+        pool.setAllID(ids);
+
+        List<String> next8 = pool.next8();
+        List<String> files = mydal.getNext8(next8);
+        if (files == null) return null;
+        List<Integer> index = pool.saveFiles(files);
+        return index;
     }
 }
