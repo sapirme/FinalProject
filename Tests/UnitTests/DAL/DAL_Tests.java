@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 //import com.gson;
 
 public class DAL_Tests {
@@ -54,12 +53,13 @@ public class DAL_Tests {
 
     @Test
     public void get50HeadViewPointsTest() {
-        Map<String, List<Shape>> AllViewPoints  = dal.getAllViewPoints();
+        //Map<String, List<Shape>> AllViewPoints  = dal.getAllViewPoints();
     }
 
     @Test
     public void get100HeadViewPointsTest() {
-        Map<String, List<Shape>> AllViewPoints  = dal.getAllViewPoints();
+
+        //Map<String, List<Shape>> AllViewPoints  = dal.getAllViewPoints();
     }
 
 

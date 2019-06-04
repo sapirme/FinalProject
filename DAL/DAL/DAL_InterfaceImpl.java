@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import org.bson.types.ObjectId;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -12,6 +13,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -165,9 +167,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
                 out.append(line);
             }
             //Map<String,List<Shape>> ans = new HashMap<String,List<Shape>>();
-
-
-            Map<String, Pair<Integer, Integer>> ans =  gson.fromJson(out.toString(), Map.class);   //Prints the string content read from input stream
+            //Map<String, Pair<Integer, Integer>> ans =  gson.fromJson(out.toString(), Map.class);   //Prints the string content read from input stream
             /*
             for (Map.Entry<String,List<String>> entry: map.entrySet()){
                 //List<String> list =  gson.fromJson(entry.getValue(), List.class);
@@ -177,6 +177,16 @@ public class DAL_InterfaceImpl implements DAL_Interface {
                 }
                 ans.put(entry.getKey(),listAns);
             }*/
+            Map<String,Pair<Integer,Integer>> ans = new HashMap<String,Pair<Integer,Integer>>();
+            List<String> lst = gson.fromJson(out.toString(), List.class);
+            for (String str : lst){
+                JSONObject jsonObj = new JSONObject(str);
+                String id = jsonObj.get("id").toString();
+                int circles = (int) Double.parseDouble(jsonObj.get("circles").toString());
+                int lines = (int) Double.parseDouble(jsonObj.get("lines").toString());
+                ans.put(id,new Pair<Integer,Integer>(circles,lines));
+
+            }
 
             reader.close();
             connection.disconnect();

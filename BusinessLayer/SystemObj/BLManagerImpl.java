@@ -3,7 +3,7 @@ package SystemObj;
 import Algorithms.Enums;
 import DAL.DAL_Interface;
 import DAL.DAL_InterfaceImpl;
-import Shapes.Shape;
+import Graph.Pair;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -44,10 +44,8 @@ public class BLManagerImpl implements BLManager{
         ViewPoint v1 = illusionobj.getViewPoint1();
         ViewPoint v2 = illusionobj.getViewPoint2();
         boolean connected = mydal.InsertObject(D3,illusionobj.getSvgObj().getSvg(), illusionobj.getSvgObj().getXml(),
-                                //v1.getShapes(),v2.getShapes(),
-                                null,null,
-                                v1.getGraph(),v2.getGraph(),
-                                v1.getPaths(),v2.getPaths(),
+                                v1.getCircleNum(),v1.getLineNum(),
+                                v2.getCircleNum(),v2.getLineNum(),
                             "adarrrr"
                                 );
 
@@ -113,7 +111,7 @@ public class BLManagerImpl implements BLManager{
     public List<Integer> getSimilarObjects(String xml,String svg){
         illusionobj.Decide(xml,svg);
         System.out.println("1");
-        Map<String,List<Shape>> viewPoints = mydal.getAllViewPoints();
+        Map<String, Pair<Integer, Integer>> viewPoints = mydal.getAllViewPoints();
         System.out.println("2");
         List<String> similarVP = illusionobj.similarObj(viewPoints);
 

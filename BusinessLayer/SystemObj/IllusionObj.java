@@ -3,12 +3,9 @@ package SystemObj;
 import Algorithms.CreationAlgorithm;
 import Algorithms.Enums;
 import Algorithms.SVGParser;
+import Graph.Pair;
 import Object3D.ObjectInteface;
 import Object3D.Stl3DFile;
-import Shapes.Circle;
-import Shapes.Line;
-import Shapes.Shape;
-import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -55,16 +52,18 @@ public class IllusionObj {
             return null;
     }
 
-    public List<String> similarObj(){//return list of ID of the similar objects
+    public List<String> similarObj(Map<String,Pair<Integer, Integer>> allViewPoints){//return list of ID of the similar objects
         List<String> TopIDs = new LinkedList<>();
+        
         Map <String, Double> allVPimaginationPercentage = new HashMap<>();
-        /*
-        for (Map.Entry<String,List<Shape>> vp: getAllViewPoints().entrySet()) {
-            if(imaginationPercentage(v1.getShapes(), vp.getValue()) > imaginationPercentage(v2.getShapes(), vp.getValue()) )
-                allVPimaginationPercentage.put(vp.getKey(), imaginationPercentage(v1.getShapes(), vp.getValue()));
-            else allVPimaginationPercentage.put(vp.getKey(), imaginationPercentage(v2.getShapes(), vp.getValue()));
+        for (Map.Entry<String, Pair<Integer, Integer>> vp: allViewPoints.entrySet()) {
+            if(imaginationPercentage(v1.getCircleNum(), vp.getValue().getFirst(), v1.getLineNum(), vp.getValue().getSecond())
+                > imaginationPercentage(v2.getCircleNum(), vp.getValue().getFirst(), v2.getLineNum(), vp.getValue().getSecond())) {
+                allVPimaginationPercentage.put(vp.getKey(), imaginationPercentage(v1.getCircleNum(), vp.getValue().getFirst(), v1.getLineNum(), vp.getValue().getSecond()));
+            }
+            else allVPimaginationPercentage.put(vp.getKey(), imaginationPercentage(v2.getCircleNum(), vp.getValue().getFirst(), v2.getLineNum(), vp.getValue().getSecond()));
         }
-        */
+
         for (Map.Entry<String, Double> vp :allVPimaginationPercentage.entrySet()) {
             if(vp.getValue() >= 80)
                 TopIDs.add(vp.getKey());
@@ -87,20 +86,11 @@ public class IllusionObj {
         return TopIDs;
     }
 
-    public double imaginationPercentage(List<Shape> s1,List<Shape> s2){
-        return  (sameNumOfCircles(s1, s2) + sameNumOfLines(s1, s2))/2;
+    public double imaginationPercentage(int s1Circles,int s2Circles,int s1Lines,int s2Lines){
+        return  (sameNumOfCircles(s1Circles, s2Circles) + sameNumOfLines(s1Lines, s2Lines))/2;
     }
 
-    public double sameNumOfCircles(List<Shape> s1,List<Shape> s2){
-        int c1=0, c2=0;
-        for (Shape s: s1) {
-            if (s instanceof Circle)
-                c1++;
-        }
-        for (Shape s: s2) {
-            if (s instanceof Circle)
-                c2++;
-        }
+    public double sameNumOfCircles(int c1,int c2){
 
         if (c1 < c2)
             return (c1/c2)*100;
@@ -111,17 +101,7 @@ public class IllusionObj {
         return  (c2/c1)*100;
     }
 
-    public double sameNumOfLines(List<Shape> s1,List<Shape> s2){
-        int l1=0, l2=0;
-        for (Shape s: s1) {
-            if (s instanceof Line)
-                l1++;
-        }
-        for (Shape s: s2) {
-            if (s instanceof Line)
-                l2++;
-        }
-
+    public double sameNumOfLines(int l1,int l2){
         if (l1 < l2)
             return (l1/l2)*100;
         if (l1 == 0 && l2 == 0)
@@ -132,6 +112,6 @@ public class IllusionObj {
     }
 
     //function DB
-    public Map<String,List<Shape>>  getAllViewPoints(){return null;} // return map of vp's id and vp's shapes
-    public String  getObjIDByViewPointID(String vpID){return null;}
+    //public Map<String,Pair<Integer, Integer>>  getAllViewPoints(){return null;} // return map of vp's id and vp's shapes
+    //public String  getObjIDByViewPointID(String vpID){return null;}
 }
