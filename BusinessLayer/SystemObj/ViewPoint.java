@@ -1,9 +1,10 @@
 package SystemObj;
-import Shapes.*;
-import Graph.*;
-import java.util.List;
+import Graph.Edge;
+import Graph.Graph;
+import Shapes.Shape;
+
 import java.util.LinkedList;
-import java.util.Set;
+import java.util.List;
 
 public class ViewPoint {
     private LinkedList<List<Edge>> paths;
@@ -32,7 +33,7 @@ public class ViewPoint {
         this.paths = paths;
     }
 
-    public void setSapes(List<Shape> shapes){
+    public void setShapes(List<Shape> shapes){
         this.shapes = shapes;
     }
 

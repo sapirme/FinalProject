@@ -73,14 +73,14 @@ public class DAL_InterfaceImpl implements DAL_Interface {
         document[0] = new BasicDBObject();
         ObjectId id1 = ObjectId.get();
         document[0].put("ObjectId", id1.toString());
-        document[0].put("Shapes", gson.toJson(s1));
+        document[0].put("Shapes", s1);
         document[0].put("Graph", gson.toJson(g1));
         document[0].put("Paths", gson.toJson(m1));
 
         document[1] = new BasicDBObject();
         ObjectId id2 = ObjectId.get();
         document[1].put("ObjectId", id2.toString());
-        document[1].put("Shapes", gson.toJson(s2));
+        document[1].put("Shapes", s2);
         document[1].put("Graph", gson.toJson(g2));
         document[1].put("Paths", gson.toJson(m2));
 
@@ -169,7 +169,20 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             while ((line = reader.readLine()) != null) {
                 out.append(line);
             }
-            Map<String,List<Shape>> ans = gson.fromJson(out.toString(),Map.class);   //Prints the string content read from input stream
+            //Map<String,List<Shape>> ans = new HashMap<String,List<Shape>>();
+
+
+            Map<String,List<Shape>> ans =  gson.fromJson(out.toString(), Map.class);   //Prints the string content read from input stream
+            /*
+            for (Map.Entry<String,List<String>> entry: map.entrySet()){
+                //List<String> list =  gson.fromJson(entry.getValue(), List.class);
+                List <Shape> listAns = new LinkedList<Shape>();
+                for (String st : entry.getValue()){
+                    listAns.add(gson.fromJson(st, Shape.class)new Circle(1,1,1));
+                }
+                ans.put(entry.getKey(),listAns);
+            }*/
+
             reader.close();
             connection.disconnect();
             return ans;

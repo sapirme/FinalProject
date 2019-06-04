@@ -1,10 +1,13 @@
 package Algorithms;
 
-import Graph.*;
-import Shapes.*;
+import Graph.Edge;
+import Graph.Graph;
+import Graph.Pair;
+import Shapes.Circle;
+import Shapes.Line;
+import Shapes.Shape;
 import SystemObj.ViewPoint;
 
-import java.util.Set;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -140,12 +143,12 @@ public class SVGParser {
         //v1.setGraph(g1);
         //v2.setGraph(g2);
         if (v1!=null){
-            v1.setSapes(shapes.getFirst());
+            v1.setShapes(shapes.getFirst());
             v1.setGraph(new Graph(g1));
             //System.out.println("update g1");
         }
         if (v2!=null){
-            v2.setSapes(shapes.getSecond());
+            v2.setShapes(shapes.getSecond());
             v2.setGraph(new Graph(g2));
             //System.out.println("update g2");
         }

@@ -1,7 +1,5 @@
 // creation functions
 
-
-
 function createIllusion (xml,svg,factory) {
     //var servletFactory = new ServletFactory();
     //var xhr = servletFactory.llusionServlet(factory,'POST');
@@ -224,6 +222,57 @@ function updateTable(array) {
         i++;
     }
 }
+
+
+
+
+//similar objects
+
+
+function getAllSimilarObjects(xml,svg,editor,mxUtils,factory)
+{
+    var modal = document.getElementById('myModalGrey');
+    modal.style.display = "block";
+
+    var ans = [xml, svg];
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/allSimilar", true);
+    xhr.send(JSON.stringify(ans));
+
+    xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var array= xhr.responseText;
+            sessionStorage.setItem("array", array);
+            var win = window.open('DBView.html',"_blank",
+                'toolbar=yes,scrollbars=yes,resizable=yes,top=20%,left=20%,fullscreen="yes",'+'height=' + screen.availHeight + ',width=' + screen.availWidth );
+            var timer = setInterval(function() {
+                if(win.closed) {
+                    clearInterval(timer);
+
+                    var update = localStorage.getItem("update");
+
+                    if (update){
+                        localStorage.setItem("update","false");
+                        var theXml = localStorage.getItem("theXml");
+
+                        var doc = mxUtils.parseXml(theXml);
+                        editor.graph.model.beginUpdate();
+                        editor.setGraphXml(doc.documentElement);
+                        editor.graph.model.endUpdate();
+                    }
+                    modal.style.display = "none";
+                }
+            }, 1000);
+        }
+        else if (xhr.readyState == 4 && xhr.status == 20){
+            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
+        }
+    };
+}
+
+
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////

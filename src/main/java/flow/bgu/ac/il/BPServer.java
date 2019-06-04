@@ -1,6 +1,5 @@
 package flow.bgu.ac.il;
 
-import hackbgu.bgu.ac.il.services.DashboardServlet;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -35,6 +34,7 @@ public class BPServer {
 		context.addServlet(new ServletHolder(new NextObjectsServlet()), "/NextObjects");
 		context.addServlet(new ServletHolder(new PrevObjectsServlet()), "/PrevObjects");
 		context.addServlet(new ServletHolder(new LoadObject()), "/LoadObject");
+		context.addServlet(new ServletHolder(new AllSimilarServlet()), "/allSimilar");
 		//context.addServlet(new ServletHolder(new EventPushSerlet()), "/push");
 		
 		
