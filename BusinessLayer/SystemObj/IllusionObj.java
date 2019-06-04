@@ -101,8 +101,6 @@ public class IllusionObj {
     }
 
     public double sameNumOfLines(int l1,int l2){
-
-
         if (l1 < l2)
             return (l1/l2)*100;
         if (l1 == 0 && l2 == 0)
@@ -110,6 +108,7 @@ public class IllusionObj {
         if (l1 == 0)
             return 0;
         return  (l2/l1)*100;
+
     }
 
     //function DB
