@@ -102,7 +102,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
 
     public List<String> getAllIDs(){
         try {
-            URL url = new URL(myUrl+"/run");
+            URL url = new URL(myUrl+"/getObjects");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty("Accept-Charset", charset);
             InputStream response = connection.getInputStream();
@@ -116,6 +116,38 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             reader.close();
             connection.disconnect();
             return ans;
+        } catch (Exception e) {
+            e.printStackTrace();
+            //return null;
+        }
+        return null;
+    }
+
+    public List<String> getMyIDs(String email){
+        int status = -1;
+        try {
+            URL url = new URL(myUrl+"/getObjects");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true); // Triggers POST.
+            connection.setRequestProperty("Accept-Charset", charset);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+            try (OutputStream output = connection.getOutputStream()) {
+                output.write(email.getBytes(charset));
+            }
+            status = connection.getResponseCode();
+            if (status == 200) {
+                InputStream response = connection.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(response));
+                StringBuilder out = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    out.append(line);
+                }
+                List<String> ans = gson.fromJson(out.toString(), List.class);   //Prints the string content read from input stream
+                reader.close();
+                connection.disconnect();
+                return ans;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             //return null;
