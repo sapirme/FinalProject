@@ -69,7 +69,7 @@ function handleCanNotCreate(loader,modal){
 
 // db view functions
 
-function getAllObjects(){
+function getAllObjectsOpen(){
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/allObjects", true);
     xhr.send(null);
@@ -298,7 +298,5 @@ function myOnLoad() {
 function handleSignIn(){
     var win = window.open('signIn.html',"_blank",
         "toolbar=yes,scrollbars=yes,resizable=yes,top=50%,left=50%,width=200,height=150");
-
-
 }
 

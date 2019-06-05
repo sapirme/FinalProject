@@ -17,6 +17,7 @@ public class BLManagerImpl implements BLManager{
     private static IllusionObj illusionobj;
     private PoolObj pool = new PoolObj();
     private DAL_Interface mydal = DAL_InterfaceImpl.getInstance();
+    private UserObj user = new UserObj();
     private BLManagerImpl(){
 
     }
@@ -43,11 +44,14 @@ public class BLManagerImpl implements BLManager{
         String D3 = illusionobj.createObject();
         ViewPoint v1 = illusionobj.getViewPoint1();
         ViewPoint v2 = illusionobj.getViewPoint2();
-        boolean connected = mydal.InsertObject(D3,illusionobj.getSvgObj().getSvg(), illusionobj.getSvgObj().getXml(),
-                                v1.getCircleNum(),v1.getLineNum(),
-                                v2.getCircleNum(),v2.getLineNum(),
-                            "adarrrr"
-                                );
+        boolean connected = true;
+        if (user.getEmail() != null ) {
+            connected = mydal.InsertObject(D3, illusionobj.getSvgObj().getSvg(), illusionobj.getSvgObj().getXml(),
+                    v1.getCircleNum(), v1.getLineNum(),
+                    v2.getCircleNum(), v2.getLineNum(),
+                    user.getToken()
+            );
+        }
 
         BufferedWriter output = null;
         try {
@@ -110,16 +114,12 @@ public class BLManagerImpl implements BLManager{
     @Override
     public List<Integer> getSimilarObjects(String xml,String svg){
         illusionobj.Decide(xml,svg);
-        System.out.println("1");
         Map<String, Pair<Integer, Integer>> viewPoints = mydal.getAllViewPoints();
-        System.out.println("2");
         List<String> similarVP = illusionobj.similarObj(viewPoints);
 
-        System.out.println("similar vp: "+similarVP);
 
         List<String> ids=mydal.getObjIDByViewPointID(similarVP);
 
-        System.out.println("the ids: "+ids);
         if (ids == null) return null;
         pool.setAllID(ids);
 
@@ -129,4 +129,20 @@ public class BLManagerImpl implements BLManager{
         List<Integer> index = pool.saveFiles(files);
         return index;
     }
+
+    public boolean login (String id_token,String email){
+        user.setEmail(email);
+        user.setToken(id_token);
+
+        System.out.println(user);
+        return true;
+    }
+
+    public boolean logout (){
+        user.setEmail(null);
+        user.setToken(null);
+        System.out.println(user);
+        return true;
+    }
+
 }

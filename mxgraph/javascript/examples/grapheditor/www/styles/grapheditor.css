@@ -498,6 +498,13 @@ div.mxWindow .geButton {
 	height:21px
 }
 
+.geGoogle {
+	background-image:url('googleIcon.png') ;
+	background-size:cover;
+	width:21px;
+	height:21px
+}
+
 .geObjectPool {
 	background-image:url('gallery.png') ;
 	background-size:cover;

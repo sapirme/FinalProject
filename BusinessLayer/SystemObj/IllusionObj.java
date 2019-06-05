@@ -112,7 +112,4 @@ public class IllusionObj {
 
     }
 
-    //function DB
-    //public Map<String,Pair<Integer, Integer>>  getAllViewPoints(){return null;} // return map of vp's id and vp's shapes
-    //public String  getObjIDByViewPointID(String vpID){return null;}
 }

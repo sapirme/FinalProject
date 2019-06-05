@@ -5,36 +5,56 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
 
 
+import SystemObj.BLManager;
+import SystemObj.BLManagerImpl;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson.JacksonFactory;
+import org.apache.commons.io.IOUtils;
 
 import javax.servlet.http.HttpSession;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+
 
 @WebServlet(urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
+
     @Override
     protected void doPost (HttpServletRequest req,
                            HttpServletResponse resp)
             throws ServletException, IOException {
-
         resp.setContentType("text/html");
 
         try {
-            String idToken = req.getParameter("id_token");
+            BufferedReader br = req.getReader();
+            String idToken = IOUtils.toString(br);
+
             GoogleIdToken.Payload payLoad = IdTokenVerifierAndParser.getPayload(idToken);
             String name = (String) payLoad.get("name");
             String email = payLoad.getEmail();
-            System.out.println("User name: " + name);
-            System.out.println("User email: " + email);
 
-            HttpSession session = req.getSession(true);
-            session.setAttribute("userName", name);
-            req.getServletContext()
-                    .getRequestDispatcher("/welcome-page.html").forward(req, resp);
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            BLManager BPM = BLManagerImpl.getInstance();
+            BPM.login(idToken,email);
+
+        } catch (Exception e) { // cant verify
+            System.out.println("not verify");
+            //e.printStackTrace();
+            //throw new RuntimeException(e);
         }
-    }}
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+		BLManager BPM = BLManagerImpl.getInstance();
+		BPM.logout();
+    }
+}

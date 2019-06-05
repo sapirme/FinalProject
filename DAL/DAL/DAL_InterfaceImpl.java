@@ -66,9 +66,9 @@ public class DAL_InterfaceImpl implements DAL_Interface {
     }
 
 
-    public boolean InsertObject(String D3, String SVG, String XML, int circles1, int lines1, int circles2, int lines2, String email) {
+    public boolean InsertObject(String D3, String SVG, String XML, int circles1, int lines1, int circles2, int lines2,String id_token) {
 
-        BasicDBObject[] document = new BasicDBObject[3];
+        BasicDBObject[] document = new BasicDBObject[4];
         document[0] = new BasicDBObject();
         ObjectId id1 = ObjectId.get();
         document[0].put("ObjectId", id1.toString());
@@ -89,7 +89,10 @@ public class DAL_InterfaceImpl implements DAL_Interface {
         document[2].put("3D", D3);
         document[2].put("ViewPointID1", id1.toString());
         document[2].put("ViewPointID2", id2.toString());
-        document[2].put("Email", email);
+
+
+        document[3] = new BasicDBObject();
+        document[3].put("id_token", id_token);
 
         int status = Send(gson.toJson(document));
         if (status == 200)
