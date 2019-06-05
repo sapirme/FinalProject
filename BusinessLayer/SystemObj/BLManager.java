@@ -12,6 +12,9 @@ public interface BLManager {
     public List<Integer> getPrevObjects();
     public String loadObject(int index);
 
+    public boolean login (String id_token,String email);
+    public boolean logout ();
+
     public List<Integer> getSimilarObjects(String xml,String svg);
     public List<String> removeDuplicates (List<String> ids);
 }

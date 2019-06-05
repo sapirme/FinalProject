@@ -882,6 +882,9 @@ Toolbar.prototype.createButton = function(classname)
             case 'geSprite-similarobjects':
                 inner.className = 'geSimilar ';
                 break;
+            case 'geSprite-google':
+                inner.className = 'geGoogle ';
+                break;
             default:
                 inner.className = 'geSprite ' + classname;
         }

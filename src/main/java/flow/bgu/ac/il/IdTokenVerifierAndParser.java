@@ -21,15 +21,21 @@ public class IdTokenVerifierAndParser {
         if (googleIdTokenVerifier.verify(token)) {
             GoogleIdToken.Payload payload = token.getPayload();
             if (!GOOGLE_CLIENT_ID.equals(payload.getAudience())) {
+                System.out.println("1");
                 throw new IllegalArgumentException("Audience mismatch");
             } else if (!GOOGLE_CLIENT_ID.equals(payload.getAuthorizedParty())) {
+                System.out.println("2");
                 throw new IllegalArgumentException("Client ID mismatch");
             }
             return payload;
         } else {
+            System.out.println("3");
             throw new IllegalArgumentException("id token cannot be verified");
         }
+
+
     }
+
 }
 
 
