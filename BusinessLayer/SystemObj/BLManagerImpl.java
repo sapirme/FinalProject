@@ -112,6 +112,14 @@ public class BLManagerImpl implements BLManager{
         return xml;
     }
 
+    public List<Integer> getMyObjects(){
+        String idToken = user.getToken();
+        if (idToken==null) return null;
+        List<String> myObjects;
+        ////////////////////////////////////////
+        return myObjects;
+    }
+
     @Override
     public List<Integer> getSimilarObjects(String xml,String svg){
         illusionobj.Decide(xml,svg);

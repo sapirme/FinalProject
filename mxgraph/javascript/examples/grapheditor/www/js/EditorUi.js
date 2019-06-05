@@ -3009,6 +3009,8 @@ EditorUi.prototype.createDivs = function()
 	this.hsplit = this.createDiv('geHsplit');
 	this.hsplit.setAttribute('title', mxResources.get('collapseExpand'));
 
+	//this.menubarContainer.id= "menuContaine";
+
 	// Sets static style for containers
 	this.menubarContainer.style.top = '0px';
 	this.menubarContainer.style.left = '0px';
@@ -3025,8 +3027,17 @@ EditorUi.prototype.createDivs = function()
 	this.footerContainer.style.zIndex = mxPopupMenu.prototype.zIndex - 2;
 	this.hsplit.style.width = this.splitSize + 'px';
 	this.sidebarFooterContainer = this.createSidebarFooterContainer();
-	
-	if (this.sidebarFooterContainer)
+
+    //menubarContainer.createDiv()
+    //menubarContainer.text = "sapirrrr";
+    //var elt = document.createElement('div');
+    //elt.id = 'log';
+    //elt.innerText="is loged in";
+    //menubarContainer.appendChild(elt);
+
+
+
+    if (this.sidebarFooterContainer)
 	{
 		this.sidebarFooterContainer.style.left = '0px';
 	}

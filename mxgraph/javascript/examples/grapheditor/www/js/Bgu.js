@@ -69,6 +69,26 @@ function handleCanNotCreate(loader,modal){
 
 // db view functions
 
+function getMyObjectsOpen(){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/myObjects", true);
+    xhr.send(null);
+    xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var array= JSON.parse(xhr.responseText);
+            console.log(array.length);
+            if (array.length > 0){
+                sessionStorage.setItem("array", JSON.stringify(array));
+                sessionStorage.setItem("reloading", "true");
+                window.location.reload(true );
+            }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 20){
+            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
+        }
+    };
+}
+
 function getAllObjectsOpen(){
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/allObjects", true);
