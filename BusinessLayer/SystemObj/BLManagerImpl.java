@@ -115,9 +115,17 @@ public class BLManagerImpl implements BLManager{
     public List<Integer> getMyObjects(){
         String idToken = user.getToken();
         if (idToken==null) return null;
-        List<String> myObjects;
+        List<String> myObjects = mydal.getMyIDs(idToken);
+        System.out.println("my: "+myObjects);
         ////////////////////////////////////////
-        return myObjects;
+        if (myObjects == null) return null;
+        pool.setAllID(myObjects);
+
+        List<String> next8 = pool.next8();
+        List<String> files = mydal.getNext8(next8);
+        if (files == null) return null;
+        List<Integer> index = pool.saveFiles(files);
+        return index;
     }
 
     @Override
