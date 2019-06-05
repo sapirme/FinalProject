@@ -13,4 +13,5 @@ public interface BLManager {
     public String loadObject(int index);
 
     public List<Integer> getSimilarObjects(String xml,String svg);
+    public List<String> removeDuplicates (List<String> ids);
 }

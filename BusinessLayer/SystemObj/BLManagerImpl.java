@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -110,14 +111,15 @@ public class BLManagerImpl implements BLManager{
     @Override
     public List<Integer> getSimilarObjects(String xml,String svg){
         illusionobj.Decide(xml,svg);
-        System.out.println("1");
         Map<String, Pair<Integer, Integer>> viewPoints = mydal.getAllViewPoints();
-        System.out.println("2");
         List<String> similarVP = illusionobj.similarObj(viewPoints);
 
         System.out.println("similar vp: "+similarVP);
 
         List<String> ids=mydal.getObjIDByViewPointID(similarVP);
+        ids = removeDuplicates ( ids);
+
+
 
         System.out.println("the ids: "+ids);
         if (ids == null) return null;
@@ -128,5 +130,20 @@ public class BLManagerImpl implements BLManager{
         if (files == null) return null;
         List<Integer> index = pool.saveFiles(files);
         return index;
+    }
+
+    public List<String> removeDuplicates (List<String> ids){
+        List<String> ans= new LinkedList<>();
+        for (String id: ids) {
+            boolean f = false;
+            for (String idAns: ans) {
+                if (id.equals(idAns))
+                    f = true;
+            }
+            if(!f)
+                ans.add(id);
+        }
+
+        return ans;
     }
 }
