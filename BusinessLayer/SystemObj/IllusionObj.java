@@ -37,7 +37,6 @@ public class IllusionObj {
     public ObjectInteface getObjectInteface(){return model3D;}
 
     public Enums.checkingAns Decide(String xml,String svg){
-        //String svg = svgObj.xml2svg(xml);
         this.svgObj.setSvg(svg);
         this.svgObj.setXml(xml);
         return SVGParser.decide(svg,v1,v2);

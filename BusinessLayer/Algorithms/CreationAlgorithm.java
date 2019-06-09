@@ -34,30 +34,18 @@ public class CreationAlgorithm {
         return bigDecimal.doubleValue();
     }
 
-    private static void fixPoints(Set<List<Edge>> paths){
-        for (List<Edge> l : paths){
-            for (Edge e : l){
-                e.negY();
-            }
-        }
-    }
 
     public static String createObject(LinkedList<List<Edge>> pathsG1, LinkedList<List<Edge>> pathsG2, ObjectInteface modle3D){
         List<List<Edge>> sortedPathsG1 = pathsG1;
         List<List<Edge>> sortedPathsG2 = pathsG2;
 
-        System.out.println("sorted g1");
-        System.out.println(sortedPathsG1);
-        System.out.println("sorted g2");
-        System.out.println(sortedPathsG2);
-
         String ans = "";
         List<LinkedList<Point3D>> allLists= new LinkedList<>();
         Double minZ = findPoint(sortedPathsG1,sortedPathsG2,allLists);
-        //System.out.println("number of lists: "+allLists.size());
         for (LinkedList<Point3D> l : allLists){
             ans = ans +"\n" + modle3D.listToText(l,minZ,Height);
         }
+
         Pair<Double,Double> min = findMinXMinY(allLists);
         Pair<Double,Double> max = findMaxXMinY(allLists);
         ans=ans + modle3D.addButtomCube(min.getFirst(),max.getFirst(),min.getSecond(),max.getSecond(),minZ - Height);
@@ -110,20 +98,14 @@ public class CreationAlgorithm {
     private static double findPoint(List<List<Edge>> pathsG1, List<List<Edge>> pathsG2,List<LinkedList<Point3D>> allLists){
         double min = 0;
         boolean first =true ;
-        //System.out.println(pathsG1.size());
-        //System.out.println(pathsG2.size());
         for (int i=0; i<pathsG1.size(); i++){
-            //Map<Integer,List<LinkedList<Point3D>>> map = new HashMap<Integer,List<LinkedList<Point3D>>> ();
             for (int j=0; j<pathsG2.size(); j++){
                 if (i!=j) continue;
-                //List<LinkedList<Point3D>> inter2Paths=new LinkedList<LinkedList<Point3D>>();
                 for (Edge e1 : pathsG1.get(i)){
                     for (Edge e2 : pathsG2.get(j)){
                         LinkedList<Point3D> intersections = inersection2Edges(e1,e2);
                         if (intersections.size()>0){
                             allLists.add(intersections);
-                            //inter2Paths.addAll(intersections);
-                            //inter2Paths.add(intersections);
                             double minZInList = findMinZ(intersections);
                             if (first){
                                 min= minZInList;
@@ -185,15 +167,11 @@ public class CreationAlgorithm {
     }
 
     public static Point3D Point2Dto3DVP1(double x, double y){
-        //return  new Point3D(x,-5,y);
-        return  new Point3D(x,y,0);
-        //return  new Point3D(x,y,-5);
+        return  new Point3D(x,-y,0);
     }
 
     public static Point3D Point2Dto3DVP2(double x, double y){
-        //return  new Point3D(x,5,y);
-        return  new Point3D(x,y,0);
-        //return  new Point3D(x,y,5);
+        return  new Point3D(x,-y,0);
     }
 
 

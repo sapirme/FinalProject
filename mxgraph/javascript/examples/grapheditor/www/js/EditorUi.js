@@ -3009,7 +3009,7 @@ EditorUi.prototype.createDivs = function()
 	this.hsplit = this.createDiv('geHsplit');
 	this.hsplit.setAttribute('title', mxResources.get('collapseExpand'));
 
-	//this.menubarContainer.id= "menuContaine";
+	this.footerContainer.id= "menuContaine";
 
 	// Sets static style for containers
 	this.menubarContainer.style.top = '0px';

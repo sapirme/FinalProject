@@ -4,8 +4,6 @@
 <head>
 
 
-
-
     <title>Optical Illusions</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -62,6 +60,12 @@
 	<script type="text/javascript" src="js/googleConnection.js"></script>
 
 
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<meta name="google-signin-scope" content="profile email">
+	<meta name="google-signin-client_id"
+		  content="592702752072-pbf5j8q2t3bg5mu1htisjqhm95ms2ljr.apps.googleusercontent.com">
+	<script type="text/javascript" src="js/googleConnection.js"></script>
 
 	<style>
 		/* The Modal (background) */
@@ -107,11 +111,12 @@
 			0% { transform: rotate(0deg); }
 			100% { transform: rotate(360deg); }
 		}
+
 	</style>
 </head>
 
 
-<body class="geEditor">
+<body class="geEditor" >
 
 	<script type="text/javascript">
 		// Extends EditorUi to update I/O action states based on availability of backend
@@ -173,4 +178,40 @@
 
 
 </body>
+
+
+<script>
+    document.onreadystatechange = function () {
+        if (document.readyState == "interactive") {
+            var interval = setInterval(function () {
+                if (document.readyState === 'complete') {
+                    clearInterval(interval);
+                    f1();
+                }
+            }, 100);
+        }
+    }
+
+    function f1() {
+        var divContainer = document.getElementById("menuContaine");
+        divContainer.style.cssText  = divContainer.style.cssText + " padding-right:10px;";
+        divContainer.style.height = "40px";
+        divContainer.innerHTML = '<div style="float: right;">  ' +
+				'<table>'+'<tr>'+
+            '<td id="welcome"></td>'+
+            '<td style="padding: 10px">' +
+					'<a href="#" onclick="signOut();">' +
+						'<span class="glyphicon">&#xe163;</span>' +
+					'</a>' +
+			'</td>'+
+			'<td ><div class="g-signin2" style="height:27px;font-size: 16px;" data-onsuccess="onSignIn"></div></td>'+
+			'</tr></table></div>'+ divContainer.innerHTML ;
+        var tag = document.createElement("script");
+        tag.src = "https://apis.google.com/js/platform.js";
+        document.getElementsByTagName("head")[0].appendChild(tag);
+
+    }
+
+</script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </html>

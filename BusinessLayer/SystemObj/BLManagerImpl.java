@@ -19,6 +19,7 @@ public class BLManagerImpl implements BLManager{
     private PoolObj pool = new PoolObj();
     private DAL_Interface mydal = DAL_InterfaceImpl.getInstance();
     private UserObj user = new UserObj();
+
     private BLManagerImpl(){
 
     }
@@ -73,6 +74,7 @@ public class BLManagerImpl implements BLManager{
         }
         return connected;
     }
+
     public List<Integer> getAllobjects(){
         List<String> ids = mydal.getAllIDs();
         if (ids == null) return null;
@@ -105,8 +107,6 @@ public class BLManagerImpl implements BLManager{
     public String loadObject(int index) {
         String name = pool.getIndexName(index);
         if (name == null) return null;
-        System.out.println("index: "+index);
-        System.out.println("name: "+name);
         String xml = mydal.getObjectXml(name);
         if (xml == null) return null;
         return xml;
@@ -116,8 +116,7 @@ public class BLManagerImpl implements BLManager{
         String idToken = user.getToken();
         if (idToken==null) return null;
         List<String> myObjects = mydal.getMyIDs(idToken);
-        System.out.println("my: "+myObjects);
-        ////////////////////////////////////////
+
         if (myObjects == null) return null;
         pool.setAllID(myObjects);
 
@@ -134,11 +133,8 @@ public class BLManagerImpl implements BLManager{
         Map<String, Pair<Integer, Integer>> viewPoints = mydal.getAllViewPoints();
         List<String> similarVP = illusionobj.similarObj(viewPoints);
 
-
         List<String> ids=mydal.getObjIDByViewPointID(similarVP);
         ids = removeDuplicates ( ids);
-
-
 
         if (ids == null) return null;
         pool.setAllID(ids);
@@ -154,17 +150,15 @@ public class BLManagerImpl implements BLManager{
         user.setEmail(email);
         user.setToken(id_token);
 
-        System.out.println(user);
         return true;
     }
 
     public boolean logout (){
         user.setEmail(null);
         user.setToken(null);
-        System.out.println(user);
+
         return true;
     }
-
 
     public List<String> removeDuplicates (List<String> ids){
         List<String> ans= new LinkedList<>();

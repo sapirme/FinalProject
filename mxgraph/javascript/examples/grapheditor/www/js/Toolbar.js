@@ -126,7 +126,8 @@ Toolbar.prototype.init = function()
 		//sapir!!
 		//this.addItems(['-', 'fillColor']);
 		this.addItems(['-', 'createIllusion']);
-		
+        //this.addItems(['-', 'allObjects']);
+        //this.addItems(['-', 'similarObjects']);
 		if (sw >= 780)
 		{
 			//this.addItems(['strokeColor']);
@@ -135,7 +136,7 @@ Toolbar.prototype.init = function()
 			{
 				//this.addItems(['shadow']);
                 this.addItems(['-', 'similarObjects']);
-				this.addItems(['-', 'google']);
+				//this.addItems(['-', 'google']);
 			}
 		}
 	}

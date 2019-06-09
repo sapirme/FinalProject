@@ -128,9 +128,8 @@ function getAllObjects(editor,mxUtils,factory)
                     clearInterval(timer);
 
                     var update = localStorage.getItem("update");
-
+                    console.log(update);
                     if (update){
-                        localStorage.setItem("update","false");
                         var theXml = localStorage.getItem("theXml");
 
                         var doc = mxUtils.parseXml(theXml);
@@ -138,6 +137,8 @@ function getAllObjects(editor,mxUtils,factory)
                         editor.setGraphXml(doc.documentElement);
                         editor.graph.model.endUpdate();
                     }
+                    localStorage.removeItem("update");
+                    localStorage.removeItem("theXml");
                     modal.style.display = "none";
                 }
             }, 1000);

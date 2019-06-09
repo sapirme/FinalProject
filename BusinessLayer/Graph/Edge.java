@@ -18,12 +18,6 @@ public class Edge {
         this.to = other.getTo();
     }
 
-    public void negY(){
-        f.negY();
-        from.negY();
-        to.negY();
-    }
-
     public void setF(Shape f){
         this.f = f;
     }

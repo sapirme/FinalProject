@@ -14,7 +14,6 @@ public class ViewPoint {
 
     public ViewPoint(){
         paths = null;
-        //shapes = null;
         graph = null;
         circleNum = 0;
         lineNum = 0;
@@ -27,7 +26,6 @@ public class ViewPoint {
 
     public String toString(){
         return "paths: " + paths + "\n" +
-                //shapes + "\n" +
                 " circle num: "+ circleNum +"\n"+
                 " line num: "+ lineNum +"\n"+
                 " graph: "+graph;

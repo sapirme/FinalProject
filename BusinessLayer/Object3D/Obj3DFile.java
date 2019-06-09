@@ -47,7 +47,7 @@ public class Obj3DFile implements ObjectInteface {
         p1 = list.get(0);
         p2 = list.get(1);
         p3 = new Point3D(p1.getX(), p1.getY(), (minZ - Height));
-        N = getNormal(p1,p2,p3);
+        N = ObjectInteface.getNormal(p1,p2,p3);
         double t = Math.sqrt((d*d)/(N.getX()*N.getX()+N.getY()*N.getY()+N.getZ()*N.getZ()));
         Point3D d1Next = new Point3D(p1.getX()+ N.getX()*t,p1.getY() + N.getY()*t, p1.getZ() + N.getZ()*t); //
         Point3D d2Next  = new Point3D(p1.getX()- N.getX()*t,p1.getY() - N.getY()*t, p1.getZ() - N.getZ()*t);
@@ -55,7 +55,7 @@ public class Obj3DFile implements ObjectInteface {
             p1 = list.get(i);
             p2 = list.get(i+1);
             p3 = new Point3D(p1.getX(), p1.getY(), (minZ - Height));
-            N = getNormal(p1,p2,p3);
+            N = ObjectInteface.getNormal(p1,p2,p3);
             t = Math.sqrt((d*d)/(N.getX()*N.getX()+N.getY()*N.getY()+N.getZ()*N.getZ()));
             d1 = d1Next; //
             d2 = d2Next; //
@@ -89,14 +89,5 @@ public class Obj3DFile implements ObjectInteface {
         return ans;
     }
 
-    public Point3D getNormal(Point3D p0, Point3D p1, Point3D p2){
-        Point3D u = new Point3D(p1.getX() - p0.getX(), p1.getY() - p0.getY(), p1.getZ() - p0.getZ());
-        Point3D v = new Point3D(p2.getX() - p0.getX(), p2.getY() - p0.getY(), p2.getZ() - p0.getZ());
 
-        double Nx = u.getY()*v.getZ() - u.getZ()*v.getY();
-        double Ny = u.getX()*v.getZ() - u.getZ()*v.getX();
-        double Nz = u.getX()*v.getY() - u.getY()*v.getX();
-
-        return new Point3D(Nx,-Ny,Nz);
-    }
 }
