@@ -14,11 +14,6 @@ public class Vertex {
         this.y = v.getY();
     }
 
-    public void negY(){
-        if (this.y>0)
-            this.y = -1*this.y;
-    }
-
     public void setX(int x){
         this.x = x;
     }
@@ -53,7 +48,7 @@ public class Vertex {
             return false;
         }
         Vertex other = (Vertex) o;
-        //if(this.x == other.getX() && this.y == other.getY()) return true;
+
         if(Math.abs(this.x - other.getX())<1 && Math.abs(this.y - other.getY())<1) return true;
         else return false;
     }

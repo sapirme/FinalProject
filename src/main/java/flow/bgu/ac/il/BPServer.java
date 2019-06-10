@@ -36,6 +36,7 @@ public class BPServer {
 		context.addServlet(new ServletHolder(new LoadObject()), "/LoadObject");
 		context.addServlet(new ServletHolder(new AllSimilarServlet()), "/allSimilar");
 		context.addServlet(new ServletHolder(new LoginServlet()), "/login");
+		context.addServlet(new ServletHolder(new MyObjectsServlet()), "/myObjects");
 
 		//context.addServlet(new ServletHolder(new EventPushSerlet()), "/push");
 		

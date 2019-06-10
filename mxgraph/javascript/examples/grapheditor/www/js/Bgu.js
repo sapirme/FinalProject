@@ -69,6 +69,26 @@ function handleCanNotCreate(loader,modal){
 
 // db view functions
 
+function getMyObjectsOpen(){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/myObjects", true);
+    xhr.send(null);
+    xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var array= JSON.parse(xhr.responseText);
+            console.log(array.length);
+            if (array.length > 0){
+                sessionStorage.setItem("array", JSON.stringify(array));
+                sessionStorage.setItem("reloading", "true");
+                window.location.reload(true );
+            }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 20){
+            window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
+        }
+    };
+}
+
 function getAllObjectsOpen(){
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/allObjects", true);
@@ -108,9 +128,8 @@ function getAllObjects(editor,mxUtils,factory)
                     clearInterval(timer);
 
                     var update = localStorage.getItem("update");
-
+                    console.log(update);
                     if (update){
-                        localStorage.setItem("update","false");
                         var theXml = localStorage.getItem("theXml");
 
                         var doc = mxUtils.parseXml(theXml);
@@ -118,6 +137,8 @@ function getAllObjects(editor,mxUtils,factory)
                         editor.setGraphXml(doc.documentElement);
                         editor.graph.model.endUpdate();
                     }
+                    localStorage.removeItem("update");
+                    localStorage.removeItem("theXml");
                     modal.style.display = "none";
                 }
             }, 1000);

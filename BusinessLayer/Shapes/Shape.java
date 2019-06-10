@@ -15,8 +15,6 @@ public abstract class Shape {
 
     abstract List<Point2D.Double> getIntersections_visit(Line s);//visit function
 
-    public abstract void negY();
-
     public abstract double getYbyX(double x, double yFrom, double yTo);
 
     public abstract void createShapeGraph(List<Shape> shapes,Graph g);

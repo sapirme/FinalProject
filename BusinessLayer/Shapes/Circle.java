@@ -20,8 +20,6 @@ public class Circle extends Shape{
         this.r=r;
     }
 
-
-
     public double getX() {
         return x;
     }
@@ -32,12 +30,6 @@ public class Circle extends Shape{
 
     public double getR() {
         return r;
-    }
-
-    @Override
-    public void negY(){
-        if (this.y > 0)
-            this.y= -1*this.y;
     }
 
     @Override
@@ -69,32 +61,11 @@ public class Circle extends Shape{
             intesection.add(p2);
         }
 
-
-        /*
-        boolean isIntersects = Math.hypot(x1-x2, y1-y2) <= (r1 + r2);
-        if (!isIntersects) return intesection;
-
-        R=Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)); //distance between centers
-        double part1x=0.5*(x1+x2)+((r1*r1-r2*r2)/(2*R*R))*(x2-x1) ;
-        double part1y=0.5*(y1+y2)+((r1*r1-r2*r2)/(2*R*R))*(y2-y1) ;
-
-        double part2x=0.5*Math.sqrt(2*((r1*r1 + r2*r2)/(R*R)) - (((r1*r1-r2*r2)*(r1*r1-r2*r2))/(R*R*R*R))-1)*(y2-y1) ;
-        double part2y=0.5*Math.sqrt(2*((r1*r1 + r2*r2)/(R*R)) - (((r1*r1-r2*r2)*(r1*r1-r2*r2))/(R*R*R*R))-1)*(x2-x1) ;
-
-        Point2D.Double p1 = new Point2D.Double((part1x+part2x),(part1y+part2y));
-        Point2D.Double p2 = new Point2D.Double((part1x-part2x),(part1y-part2y));
-        intesection.add(p1);
-        if(!p1.equals(p2)) {
-            intesection.add(p2);
-        }
-        */
         return intesection;
     }
 
     @Override
-    public double getYbyX(double x,double yFrom, double yTo) {//
-        //if (yNext != 1 && yNext != 2)
-        //    throw new ArithmeticException("part != 1 && part != 2");
+    public double getYbyX(double x,double yFrom, double yTo) {
         if ((yTo > yFrom && y < yTo) || (yFrom > yTo && y < yFrom) )
             return getY() + Math.sqrt(getR()*getR() - (getX() - x)*(getX() - x)); //top
         else return getY() - Math.sqrt(getR()*getR() - (getX() - x)*(getX() - x));//down
@@ -133,42 +104,8 @@ public class Circle extends Shape{
         g.addEdge(new Edge(this,up,right));
         g.addEdge(new Edge(this,down,right));
         this.splitEdges(g,points);
-        /*
-        for (Point2D.Double p : points) {
-            Vertex v1=new Vertex(p.getX(), p.getY());
-            v=g.isVertexExist(v1);
-            if (v==null) {
-                v=v1;
-                g.addVertex(v);
-            }
-
-            Set<Edge> temp=new HashSet<Edge>(g.getEdges());
-            for (Edge e: temp) {
-                if (e.getF().equals(this) && v.isBetween(e.getFrom(),e.getTo())){
-                    //isBetween(e.getFrom(),e.getTo(), v)) {
-                    g.removeEdge(e);
-                    g.addEdge(new Edge(this,e.getFrom(),v));
-                    g.addEdge(new Edge(this,v,e.getTo()));
-
-                }
-            }
-        }*/
     }
-    /*
-    private boolean isPointOnCircle (Point2D.Double p){
-        double distance=Math.sqrt((x-p.getX())*(x-p.getX()) + (y-p.getY())*(y-p.getY()));
-        return distance == r;
-    }*/
-/*
-    private boolean isBetween(Vertex v1,Vertex v2, Vertex v) {
-        if (v1.getX() < v.getX() && v.getX() < v2.getX()) {
-            if (Math.min(v1.getY(), v2.getY()) < v.getY() && v.getY() < Math.max(v1.getY(), v2.getY()))
-                return true;
 
-        }
-        return false;
-    }
-*/
     @Override
     public List<Point2D.Double> getIntersections_visit(Line s) {
         List<Point2D.Double> ans=new LinkedList<Point2D.Double>();

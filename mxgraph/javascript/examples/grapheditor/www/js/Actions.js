@@ -610,6 +610,7 @@ Actions.prototype.init = function()
 	//Illusions actions
 
     this.addAction('createIllusion', function() {
+    	console.log("sapppppppppppppppppppppppppp");
         var code = mxUtils.getPrettyXml(ui.editor.getGraphXml());
         //mxUtils.getXml(graph.getSvg(bg, s, b))
         var svg = mxUtils.getXml(graph.getSvg(null, 1, 0));

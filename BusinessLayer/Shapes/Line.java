@@ -58,19 +58,8 @@ public class Line  extends Shape {
         return yStart-xStart*getM();
     }
 
-
-    @Override
-    public void negY(){
-        if (this.yStart>0)
-            this.yStart=-1*this.yStart;
-        if (this.yEnd>0)
-            this.yEnd=-1*this.yEnd;
-    }
-
     @Override
     public double getYbyX(double x, double yFrom, double yTo) {
-        //if (x < xStart || x > xEnd)
-        //    throw new ArithmeticException("x not in range");
         return getM()*x + getB();
     }
 
@@ -80,7 +69,6 @@ public class Line  extends Shape {
         for (Shape s : shapes) {
             if (s!=this) {
                 this.mergeIfNotIn(points,this.getIntersections_accept(s));
-                //points.addAll(this.getIntersections_accept(s));
             }
         }
 
@@ -96,25 +84,6 @@ public class Line  extends Shape {
         g.addEdge(new Edge(this,start,end));
 
         this.splitEdges(g,points);
-        /*
-        for (Point2D.Double p : points) {
-            Vertex v1=new Vertex(p.getX(), p.getY());
-            v=g.isVertexExist(v1);
-            if (v==null) {
-                v=v1;
-                g.addVertex(v);
-            }
-            Set<Edge> temp=new HashSet<Edge>(g.getEdges());
-            for (Edge e: temp) {
-                if (e.getF().equals(this) && v.isBetween(e.getFrom(),e.getTo())){
-                    g.removeEdge(e);
-                    g.addEdge(new Edge(this,e.getFrom(),v));
-                    g.addEdge(new Edge(this,v,e.getTo()));
-                }
-            }
-
-        }*/
-
     }
 
     @Override

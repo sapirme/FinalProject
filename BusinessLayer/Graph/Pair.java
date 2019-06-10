@@ -16,9 +16,24 @@ public class Pair<T,S> {
     public S getSecond() {
         return second;
     }
+
     @Override
     public String toString() {
-        return "first: "+first.toString()+" second: "+second.toString();
+        return "("+first.toString()+","+second.toString()+")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Pair)) {
+            return false;
+        }
+        Pair<T,S> other = (Pair<T,S>) o;
+        if(this.first.equals(other.getFirst()) && this.second.equals(other.getSecond())) return true;
+
+        else return false;
     }
 
 }
