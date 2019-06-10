@@ -87,6 +87,8 @@ public class IllusionObj {
     }
 
     public double imaginationPercentage(int s1Circles,int s2Circles,int s1Lines,int s2Lines){
+        if (s1Circles == 0 && s1Lines == 0)
+            return 0;
         return  (sameNumOfCircles(s1Circles, s2Circles) + sameNumOfLines(s1Lines, s2Lines))/2;
     }
 
