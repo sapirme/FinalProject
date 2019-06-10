@@ -32,5 +32,7 @@ public class IllusionObjTest {
     public void imaginationPercentage0Test() {
         Assert.assertEquals(0,ill.imaginationPercentage(2,0,2,0),0);
         Assert.assertEquals(0,ill.imaginationPercentage(0,1,0,1),0);
+
+        Assert.assertEquals(0,ill.imaginationPercentage(0,1,0,0),0);
     }
 }
