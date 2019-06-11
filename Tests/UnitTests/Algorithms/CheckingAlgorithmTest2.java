@@ -191,6 +191,8 @@ public class CheckingAlgorithmTest2 {
 
     }
 
+
+
     @Test
     public void addAllOptionsToListTest2(){
         setUp();
@@ -227,6 +229,31 @@ public class CheckingAlgorithmTest2 {
         CheckingAlgorithm.addAllOptionsToList(addInTo,toAdd);
 
         Assert.assertEquals(expected.toString(),addInTo.toString());
+
+
+    }
+
+
+
+    @Test
+    public void isPathCheckedTest(){
+        setUp();
+
+        LinkedList<List<Edge>> pathsChecked = new LinkedList<List<Edge>>();
+        List<Edge> path = new LinkedList<Edge>();
+        path.add(e1);
+        path.add(e2);
+        path.add(e3);
+        Assert.assertFalse(CheckingAlgorithm.isPathChecked(pathsChecked,path));
+
+        List<Edge> path2 = new LinkedList<Edge>();
+        path2.add(new Edge(e1));
+        path2.add(new Edge(e2));
+        path2.add(new Edge(e3));
+
+        pathsChecked.add(path2);
+
+        Assert.assertTrue(CheckingAlgorithm.isPathChecked(pathsChecked,path));
 
 
     }

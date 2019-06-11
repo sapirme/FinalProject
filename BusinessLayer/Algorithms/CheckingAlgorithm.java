@@ -10,6 +10,8 @@ import Shapes.Shape;
 import java.util.*;
 public class CheckingAlgorithm {
 
+    private static int iter = 0;
+
     public static Pair<List<Vertex>,List<Edge>> createGraphForMatch (List<Vertex> l1, List<Vertex> l2){
         List<Vertex> vertex = new LinkedList<Vertex>();
         List<Edge> edges = new LinkedList<Edge>();
@@ -113,6 +115,19 @@ public class CheckingAlgorithm {
         return map;
     }
 
+    public static List<Vertex> getAllWithSameX( Map<Double,List<Vertex>> map,double x){
+        List<Vertex> ans = new LinkedList<Vertex>();
+        Map<Double,List<Vertex>> mapCopy = new HashMap<Double,List<Vertex>>(map);
+        for (Map.Entry<Double,List<Vertex>> entry : mapCopy.entrySet()) {
+            Double key = entry.getKey();
+            if (Math.abs(x - key)<1){
+                ans.addAll(entry.getValue());
+                map.remove(key);
+            }
+        }
+        return ans;
+    }
+
     /**
      * @param g1 - Graph
      * @param g2 - Graph
@@ -122,24 +137,19 @@ public class CheckingAlgorithm {
         List<List<Pair<Vertex,Vertex>>> ans= new LinkedList<List<Pair<Vertex,Vertex>>>();
         Map<Double,List<Vertex>> map1=makeVertexMap(g1);
         Map<Double,List<Vertex>> map2=makeVertexMap(g2);
-
-        for (Map.Entry<Double,List<Vertex>> entry1 : map1.entrySet()) {
-            Double x = entry1.getKey();
-            List<Vertex> list1 = entry1.getValue();
-            List<Vertex> list2 = map2.get(x);
-            if (list2 == null){
-                list2=new LinkedList<Vertex>();
+        while (!map1.isEmpty()){
+            Double x = -1.0;
+            for (Map.Entry<Double,List<Vertex>> entry1 : map1.entrySet()) {
+                x = entry1.getKey();
+                break;
             }
-            Set<Double> keys= map2.keySet();
-            for (Double key : keys ){
-                if (Math.abs(key-x) < 1){
-                    list2.addAll(map2.get(key));
-                }
-            }
-            if (list2.size()>0) {
+            List<Vertex> list1 = getAllWithSameX(map1,x);
+            List<Vertex> list2 = getAllWithSameX(map2,x);
+            if (list2.size()>0 && list1.size()>0) {
                 List<List<Pair<Vertex,Vertex>>> matchForCurrentX = findMatchInLists(list1, list2);
                 addAllOptionsToList(ans,matchForCurrentX);
             }
+
         }
         return ans;
     }
@@ -184,7 +194,16 @@ public class CheckingAlgorithm {
     }
 
     private static List<List<Pair<Vertex,Vertex>>> findMatchInLists(List<Vertex> list1, List<Vertex> list2){
+
         if(list1.size()!=list2.size()) {
+            Vertex[] l1 = new Vertex[list1.size()];
+            list1.toArray(l1); // fill the array
+            Vertex[] l2 = new Vertex[list2.size()];
+            list2.toArray(l2); // fill the array
+            bubbleSort(l1);
+            bubbleSort(l2);
+            list1 = Arrays.asList(l1);
+            list2 = Arrays.asList(l2);
             List<List<Pair<Vertex,Vertex>>> ans = findAllPossibleMatch(list1,list2);
             return ans;
         }
@@ -198,6 +217,8 @@ public class CheckingAlgorithm {
             list2.toArray(l2); // fill the array
             bubbleSort(l1);
             bubbleSort(l2);
+            //System.out.println("l1 sorted: "+l1);
+            //System.out.println("l2 sorted: "+l2);
             for (int i=0; i<l1.length ; i++) {
                 temp.add(new Pair<Vertex,Vertex>(l1[i],l2[i]));
             }
@@ -316,22 +337,54 @@ public class CheckingAlgorithm {
         return false;
     }
 
+    public static boolean isPathChecked(LinkedList<List<Edge>> pathsChecked,List<Edge> path){
+
+        for (List<Edge> p : pathsChecked){
+            if (p.size()!=path.size()) continue;
+            boolean found = true;
+            for (int i=0; i<p.size(); i++){
+                if (!p.get(i).equals(path.get(i))){
+                    found=false;
+                    break;
+                }
+            }
+            if (found) return true;
+        }
+        return false;
+    }
+
     public static boolean checkAlgorithem(Graph g1, Graph g2, List<Pair<Vertex,Vertex>> matchVertex,
-                                          LinkedList<List<Edge>> pathsListG1, LinkedList<List<Edge>> pathsListG2) {
+                                          LinkedList<List<Edge>> pathsListG1, LinkedList<List<Edge>> pathsListG2,
+                                          Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> pathsChecked) {
         if (g1.getEdges().isEmpty() && g2.getEdges().isEmpty()) return true;
         if (g1.getEdges().isEmpty() || g2.getEdges().isEmpty()){
             return false;
         }
+        if (iter > 1000) {
+            //System.out.println("iterrrr");
+            return false;
+        }
+        iter ++;
+        Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> pathsCheckedLocal = new Pair<LinkedList<List<Edge>>, LinkedList<List<Edge>>>
+                (new LinkedList<List<Edge>>(pathsChecked.getFirst()),new LinkedList<List<Edge>>(pathsChecked.getSecond()));
         for (Pair<Vertex,Vertex> p1 : matchVertex) {
             for (Pair<Vertex,Vertex> p2 : matchVertex) {
                 if (p1.equals(p2)) continue;
                 Set<List<Edge>> paths1 = g1.allPaths(p1.getFirst(),p2.getFirst());
                 Set<List<Edge>> paths2 = g2.allPaths(p1.getSecond(),p2.getSecond());
                 if (paths1.size()==0 || paths2.size()==0) continue;
+                //System.out.println("between: "+ p1+ "and: "+p2);
                 for (List<Edge> path1 : paths1) {
                     if (isPathsIntersect(pathsListG1,path1)) {
                         continue;
                     }
+                    ///////////////////////////
+                    /*if (isPathChecked(pathsCheckedLocal.getFirst(),path1))////
+                    {
+                        continue;
+                    }
+                    pathsCheckedLocal.getFirst().add(path1);*/
+                    ///////////////////////////////
                     g1.removeEdges(path1);
                     int locP1=addSortedListPath(pathsListG1,path1);
                     for (List<Edge> path2 : paths2) {
@@ -343,10 +396,23 @@ public class CheckingAlgorithm {
                             pathsListG2.remove(path2);
                             continue;
                         }
+                        ///////////////////////////
+                        /*if (isPathChecked(pathsCheckedLocal.getSecond(),path2))////
+                        {
+                            pathsListG2.remove(path2);
+                            continue;
+                        }
+                        pathsCheckedLocal.getSecond().add(path2);///*/
+                        ///////////////////////////////
+
                         g2.removeEdges(path2);
-                        if (checkAlgorithem(g1,g2,matchVertex,pathsListG1,pathsListG2)) {
+                        //Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> pathsCheckedLocal = new Pair<LinkedList<List<Edge>>, LinkedList<List<Edge>>>
+                        //        (new LinkedList<List<Edge>>(pathsChecked.getFirst()),new LinkedList<List<Edge>>(pathsChecked.getSecond()));
+                        if (checkAlgorithem(g1,g2,matchVertex,pathsListG1,pathsListG2,pathsCheckedLocal)) {
                             return true;
                         }
+                        //System.out.println("not good 1:\n"+pathsListG1);
+                        //System.out.println("not good 2:\n"+pathsListG2);
                         pathsListG2.remove(path2);
                         g2.addEdges(path2);
                     }
@@ -358,14 +424,46 @@ public class CheckingAlgorithm {
         return false;
     }
 
+    public static void sortMatch(Pair<Vertex,Vertex>[] array){
+        boolean swapped = true;
+        int j = 0;
+        Pair<Vertex,Vertex> tmp;
+        while (swapped) {
+            swapped = false;
+            j++;
+            for (int i = 0; i < array.length - j; i++) {
+                if (array[i].getFirst().getX() > array[i + 1].getFirst().getX()) {
+                    tmp = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = tmp;
+                    swapped = true;
+                }
+                /*if (array[i].getY() > array[i + 1].getY()) {
+                    tmp = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = tmp;
+                    swapped = true;
+                }*/
+            }
+        }
+    }
+
     public static Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> checkAlgorithem(Graph g1, Graph g2) {
         List<List<Pair<Vertex,Vertex>>> matchVertex = findMatch(g1,g2);
         if (matchVertex.isEmpty()) return null;
 
         for (List<Pair<Vertex,Vertex>> match : matchVertex){
+            iter = 0;
+            /*Pair<Vertex,Vertex>[] l1 = new Pair[match.size()];
+            match.toArray(l1); // fill the array
+            sortMatch(l1);
+            System.out.println("cheacking match: "+Arrays.asList(l1));*/
+            System.out.println(match);
             LinkedList<List<Edge>> pathsListG1=new LinkedList<List<Edge>>();
             LinkedList<List<Edge>> pathsListG2=new LinkedList<List<Edge>> ();
-            if (checkAlgorithem(g1, g2, match, pathsListG1, pathsListG2)) {
+            Pair<LinkedList<List<Edge>>, LinkedList<List<Edge>>> p = new Pair<LinkedList<List<Edge>>, LinkedList<List<Edge>>>
+                    (new LinkedList<List<Edge>>(),new LinkedList<List<Edge>>());
+            if (checkAlgorithem(g1, g2, /*Arrays.asList(l1)*/match, pathsListG1, pathsListG2,p)) {
                 System.out.println("paths 1: ");
                 System.out.println(pathsListG1);
                 System.out.println("paths 2: ");

@@ -51,8 +51,35 @@ public class Edge {
             return false;
         }
         Edge other = (Edge) o;
-        if(this.from.equals(other.getFrom()) && this.to.equals(other.getTo()) && this.f.equals(other.getF())) return true;
-        else return false;
+
+        boolean ans = true;
+
+        if (this.from!=null && other.getFrom()!=null){
+            ans = this.from.equals(other.getFrom());
+        }
+        else if (this.from==null && other.getFrom()==null) {
+            ans = true;
+        }
+        else ans = false;
+        ////////////////////////////////////////////////
+        if (this.to!=null && other.getTo()!=null){
+            ans = ans && this.to.equals(other.getTo());
+        }
+        else if (this.to==null && other.getTo()==null){
+            ans = ans && true;
+        }
+        else ans = ans && false;
+        /////////////////////////////////////////////////
+        if (this.f!=null && other.getF()!=null){
+            ans = ans && this.f.equals(other.getF());
+        }
+        else if (this.f==null && other.getF()==null){
+            ans = ans && true;
+        }
+        else ans = ans && false;
+        /////////////////////////////////////////////////
+
+        return ans;
     }
 
     public String toString(){

@@ -70,6 +70,8 @@ function handleCanNotCreate(loader,modal){
 // db view functions
 
 function getMyObjectsOpen(){
+    localStorage.removeItem("update");
+    localStorage.removeItem("theXml");
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/myObjects", true);
     xhr.send(null);
@@ -90,6 +92,8 @@ function getMyObjectsOpen(){
 }
 
 function getAllObjectsOpen(){
+    localStorage.removeItem("update");
+    localStorage.removeItem("theXml");
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/allObjects", true);
     xhr.send(null);
@@ -111,6 +115,8 @@ function getAllObjectsOpen(){
 
 function getAllObjects(editor,mxUtils,factory)
 {
+    localStorage.removeItem("update");
+    localStorage.removeItem("theXml");
     var modal = document.getElementById('myModalGrey');
     modal.style.display = "block";
 
