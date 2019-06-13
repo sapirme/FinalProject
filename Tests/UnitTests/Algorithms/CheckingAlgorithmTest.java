@@ -138,7 +138,7 @@ public class CheckingAlgorithmTest {
         Assert.assertEquals(G1.getEdges(), g.getEdges());
     }*/
 
-    @Test
+//    @Test
     public void isPathsIntersectTest() {
         Set<List<Edge>> paths=new HashSet<List<Edge>>();
         List<Edge> path1=new LinkedList<Edge>();
@@ -165,21 +165,21 @@ public class CheckingAlgorithmTest {
         //Assert.assertEquals(true, CheckingAlgorithm.isPathsIntersect(paths,path2));
     }
 
-    @Test
+//    @Test
     public void checkAlgorithemTest() {
         Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> ans=CheckingAlgorithm.checkAlgorithem(G1,G2);
         Assert.assertNotNull(ans);
 
     }
 
-    @Test
+//    @Test
     public void checkAlgorithemNOTTest() {
         Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> ans=CheckingAlgorithm.checkAlgorithem(G3,G2);
         Assert.assertNull(ans);
 
     }
 
-    @Test
+//    @Test
     public void createGraphTest() {
         List<Shape> shapes = new LinkedList<>();
         shapes.add(c1G1);

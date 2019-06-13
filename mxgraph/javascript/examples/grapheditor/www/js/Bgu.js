@@ -151,6 +151,7 @@ function getAllObjects(editor,mxUtils,factory)
         }
         else if (xhr.readyState == 4 && xhr.status == 20){
             window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
+            modal.style.display = "none";
         }
     };
 }
@@ -294,6 +295,7 @@ function getAllSimilarObjects(xml,svg,editor,mxUtils,factory)
         }
         else if (xhr.readyState == 4 && xhr.status == 20){
             window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
+            modal.style.display = "none";
         }
     };
 }

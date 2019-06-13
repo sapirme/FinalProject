@@ -5,6 +5,7 @@ import Graph.Graph;
 import Graph.Pair;
 import Graph.Vertex;
 import Shapes.Circle;
+import Shapes.Line;
 import Shapes.Shape;
 import org.junit.Assert;
 import org.junit.Before;
@@ -258,6 +259,82 @@ public class CheckingAlgorithmTest2 {
 
     }
 
+
+    @Test
+    public void isPathIntersectTest(){
+        v1 = new Vertex(0,0);
+        v2 = new Vertex(80,50);
+        v3 = new Vertex(0,50);
+        v4 = new Vertex(80,0);
+        v5 = new Vertex(40,25);
+
+        Line line1 = new Line(v1.getX(),v1.getY(),v2.getX(),v2.getY());
+        Line line2 = new Line(v3.getX(),v3.getY(),v4.getX(),v4.getY());
+
+
+        e1 = new Edge(line1,v1,v5);
+        e2 = new Edge(line1,v5,v4);
+        e3 = new Edge(line2,v3,v5);
+        e4 = new Edge(line2,v5,v2);
+
+        List<Edge> path1 = new LinkedList<Edge>();
+        path1.add(e1);
+        path1.add(e2);
+        List<Edge> path2 = new LinkedList<Edge>();
+        path2.add(e3);
+        path2.add(e4);
+
+        Assert.assertFalse(CheckingAlgorithm.isPathIntersect(path1,path2));
+
+        path1 = new LinkedList<Edge>();
+        path1.add(e1);
+        path1.add(e4);
+        path2 = new LinkedList<Edge>();
+        path2.add(e3);
+        path2.add(e2);
+
+        Assert.assertTrue(CheckingAlgorithm.isPathIntersect(path1,path2));
+
+
+    }
+
+    @Test
+    public void isPathIntersectTest2(){
+        v1 = new Vertex(0,2);
+        v2 = new Vertex(2,4);
+        v3 = new Vertex(4,6);
+
+        Line line1 = new Line(v1.getX(),v1.getY(),v3.getX(),v3.getY());
+        Circle circle1 = new Circle(2,2,2);
+        Circle circle2 = new Circle(4,4,2);
+
+
+        e1 = new Edge(line1,v1,v2);
+        e2 = new Edge(line1,v2,v3);
+
+        e3 = new Edge(circle1,v1,v2);
+        e4 = new Edge(circle2,v2,v3);
+
+        List<Edge> path1 = new LinkedList<Edge>();
+        path1.add(e1);
+        path1.add(e2);
+        List<Edge> path2 = new LinkedList<Edge>();
+        path2.add(e3);
+        path2.add(e4);
+
+        Assert.assertFalse(CheckingAlgorithm.isPathIntersect(path1,path2));
+
+        path1 = new LinkedList<Edge>();
+        path1.add(e1);
+        path1.add(e4);
+        path2 = new LinkedList<Edge>();
+        path2.add(e3);
+        path2.add(e2);
+
+        Assert.assertTrue(CheckingAlgorithm.isPathIntersect(path1,path2));
+
+
+    }
 
 
 }

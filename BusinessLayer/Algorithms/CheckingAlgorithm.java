@@ -253,7 +253,47 @@ public class CheckingAlgorithm {
         for (int i=0; i<p1.length-1; i++) {
             for (int j=0; j<p2.length-1; j++) {
                 if (p1[i].getTo().equals(p2[j].getTo())) {
-                    if (Math.abs(p1[i].getFrom().getY() - p2[j].getFrom().getY())<1 ||
+                    //double yFromP1,yFromP2,yToP1,yToP2;
+                    double xFirst,xSecond;
+                    if (Math.abs(p1[i].getFrom().getX() - p2[j].getFrom().getX()) < 1){
+                        xFirst = p1[i].getFrom().getX() + (Math.abs(p1[i].getFrom().getX() - p1[i].getTo().getX()))/2;
+                    }
+                    else if (p1[i].getFrom().getX() > p2[j].getFrom().getX()){
+                        xFirst = p1[i].getFrom().getX() + (Math.abs(p1[i].getFrom().getX() - p1[i].getTo().getX()))/2;
+                    }
+                    else {
+                        xFirst = p2[j].getFrom().getX() + (Math.abs(p2[j].getFrom().getX() - p2[j].getTo().getX()))/2;
+                    }
+
+                    if (Math.abs(p1[i+1].getFrom().getX() - p2[j+1].getFrom().getX()) < 1){
+                        xSecond = p1[i+1].getFrom().getX() + (Math.abs(p1[i+1].getFrom().getX() - p1[i+1].getTo().getX()))/2;
+                    }
+                    else if (p1[i+1].getFrom().getX() > p2[j+1].getFrom().getX()){
+                        xSecond = p1[i+1].getFrom().getX() + (Math.abs(p1[i+1].getFrom().getX() - p1[i+1].getTo().getX()))/2;
+                    }
+                    else {
+                        xSecond = p2[j+1].getFrom().getX() + (Math.abs(p2[j+1].getFrom().getX() - p2[j+1].getTo().getX()))/2;
+                    }
+
+                    double yFirstP1,yFirstP2,ySecondP1,ySecondP2;
+                    //System.out.println("xFirst: "+xFirst+ " xSecond: "+xSecond);
+                    yFirstP1 = p1[i].getF().getYbyX(xFirst,p1[i].getFrom().getY(),p1[i].getTo().getY());
+                    yFirstP2 = p2[j].getF().getYbyX(xFirst,p2[j].getFrom().getY(),p2[j].getTo().getY());
+
+                    ySecondP1 = p1[i+1].getF().getYbyX(xSecond,p1[i+1].getFrom().getY(),p1[i+1].getTo().getY());
+                    ySecondP2 = p2[j+1].getF().getYbyX(xSecond,p2[j+1].getFrom().getY(),p2[j+1].getTo().getY());
+                    //System.out.println("yFirstP1: "+yFirstP1+ " yFirstP2: "+yFirstP2);
+                    //System.out.println("ySecondP1: "+ySecondP1+ " ySecondP2: "+ySecondP2);
+
+                    if (yFirstP1 > yFirstP2 && ySecondP1 < ySecondP2) return true;
+
+                    if (yFirstP1 < yFirstP2 && ySecondP1 > ySecondP2) return true;
+
+
+
+
+
+                    /*if (Math.abs(p1[i].getFrom().getY() - p2[j].getFrom().getY())<1 ||
                             Math.abs(p1[i+1].getTo().getY() - p2[j+1].getTo().getY())<1)
                         continue;
                     if ((p1[i].getFrom().getY() > p2[j].getFrom().getY()) &&
@@ -265,7 +305,7 @@ public class CheckingAlgorithm {
                                 p1[i+1].getTo().getY() < p2[j+1].getTo().getY()) {
                             return true;
                         }
-                    }
+                    }*/
                 }
 
             }
@@ -360,10 +400,10 @@ public class CheckingAlgorithm {
         if (g1.getEdges().isEmpty() || g2.getEdges().isEmpty()){
             return false;
         }
-        if (iter > 1000) {
+        /*if (iter > 1000) {
             //System.out.println("iterrrr");
             return false;
-        }
+        }*/
         iter ++;
         Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> pathsCheckedLocal = new Pair<LinkedList<List<Edge>>, LinkedList<List<Edge>>>
                 (new LinkedList<List<Edge>>(pathsChecked.getFirst()),new LinkedList<List<Edge>>(pathsChecked.getSecond()));
@@ -375,19 +415,32 @@ public class CheckingAlgorithm {
                 if (paths1.size()==0 || paths2.size()==0) continue;
                 //System.out.println("between: "+ p1+ "and: "+p2);
                 for (List<Edge> path1 : paths1) {
-                    if (isPathsIntersect(pathsListG1,path1)) {
-                        continue;
+                    if (path1.size()==4){
+                        System.out.println("pp");
                     }
                     ///////////////////////////
-                    /*if (isPathChecked(pathsCheckedLocal.getFirst(),path1))////
+                    if (isPathChecked(pathsCheckedLocal.getFirst(),path1))////
                     {
                         continue;
                     }
-                    pathsCheckedLocal.getFirst().add(path1);*/
+                    pathsCheckedLocal.getFirst().add(path1);
                     ///////////////////////////////
+
+                    if (isPathsIntersect(pathsListG1,path1)) {
+                        continue;
+                    }
+
                     g1.removeEdges(path1);
                     int locP1=addSortedListPath(pathsListG1,path1);
                     for (List<Edge> path2 : paths2) {
+                        ///////////////////////////
+                        if (isPathChecked(pathsCheckedLocal.getSecond(),path2))////
+                        {
+                            continue;
+                        }
+                        pathsCheckedLocal.getSecond().add(path2);
+                        ///////////////////////////////
+
                         if (isPathsIntersect(pathsListG2,path2)) {
                             continue;
                         }
@@ -396,14 +449,6 @@ public class CheckingAlgorithm {
                             pathsListG2.remove(path2);
                             continue;
                         }
-                        ///////////////////////////
-                        /*if (isPathChecked(pathsCheckedLocal.getSecond(),path2))////
-                        {
-                            pathsListG2.remove(path2);
-                            continue;
-                        }
-                        pathsCheckedLocal.getSecond().add(path2);///*/
-                        ///////////////////////////////
 
                         g2.removeEdges(path2);
                         //Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> pathsCheckedLocal = new Pair<LinkedList<List<Edge>>, LinkedList<List<Edge>>>

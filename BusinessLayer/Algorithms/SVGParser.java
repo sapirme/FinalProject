@@ -65,7 +65,7 @@ public class SVGParser {
 
         for(int i=0;i<svgArr.length;i++) {
             String line = svgArr[i];
-            System.out.println(line);
+            //System.out.println(line);
             if(line.length()>6){
                 String shape_name = line.substring(0,line.indexOf(" "));
                 if(shape_name.equals("ellipse")){
@@ -89,7 +89,7 @@ public class SVGParser {
                             double xEnd = Double.parseDouble(vals[j+3]);
                             double yEnd = Double.parseDouble(vals[j+4]);
                             Line l = new Line(xStart, yStart, xEnd, yEnd);
-                            System.out.println(l.toString());
+                            //System.out.println(l.toString());
                             if(yStart<middle)
                                 shapes1.add(l);
                             else {
