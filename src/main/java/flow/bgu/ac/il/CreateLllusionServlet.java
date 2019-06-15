@@ -30,7 +30,7 @@ public class CreateLllusionServlet extends HttpServlet {
 	public static BProgram bprog;
 	public static BProgramRunner rnr;
 
-	private static Thread thread;
+	//private static Thread thread;
 
 	/**
 	 * Handles save request and prints XML.

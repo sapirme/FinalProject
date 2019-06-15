@@ -40,8 +40,6 @@ public class BPServer {
         context.setContextPath("/");
         server.setHandler(context);
 
-        //context.addServlet(new ServletHolder(new SaveServlet()), "/save");
-        //context.addServlet(new ServletHolder(new ExportServlet()), "/export");
         context.addServlet(new ServletHolder(new FlowOpenServlet()), "/open");
         context.addServlet(new ServletHolder(new CreateLllusionServlet()), "/run");
         context.addServlet(new ServletHolder(new AllObjectsServlet()), "/allObjects");
@@ -52,11 +50,6 @@ public class BPServer {
         context.addServlet(new ServletHolder(new LoginServlet()), "/login");
         context.addServlet(new ServletHolder(new MyObjectsServlet()), "/myObjects");
 
-        //context.addServlet(new ServletHolder(new EventPushSerlet()), "/push");
-
-
-        //context.addServlet(new ServletHolder(new DashboardServlet()), "/dashboard/users/*");
-        //context.addServlet(new ServletHolder(new DashboardServlet()), "/dashboard/courses/*");
 
         ResourceHandler fileHandler = new ResourceHandler();
         fileHandler.setResourceBase(".");

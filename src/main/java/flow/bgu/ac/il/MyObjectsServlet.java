@@ -19,18 +19,18 @@ import java.util.List;
 
 public class MyObjectsServlet extends HttpServlet {
 
-	final static Logger LOG = LoggerFactory.getLogger(MyObjectsServlet.class);
+	//final static Logger LOG = LoggerFactory.getLogger(MyObjectsServlet.class);
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1598336877581962216L;
+	//private static final long serialVersionUID = -1598336877581962216L;
 
 	// A hack that only works if one program is running at a time!
-	public static BProgram bprog;
-	public static BProgramRunner rnr;
+	//public static BProgram bprog;
+	//public static BProgramRunner rnr;
 
-	private static Thread thread;
+	//private static Thread thread;
 
 	/**
 	 * Handles save request and prints XML.

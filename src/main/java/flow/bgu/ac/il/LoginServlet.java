@@ -38,7 +38,6 @@ public class LoginServlet extends HttpServlet {
             String idToken = IOUtils.toString(br);
 
             GoogleIdToken.Payload payLoad = IdTokenVerifierAndParser.getPayload(idToken);
-            String name = (String) payLoad.get("name");
             String email = payLoad.getEmail();
 
 
@@ -47,8 +46,7 @@ public class LoginServlet extends HttpServlet {
 
         } catch (Exception e) { // cant verify
             System.out.println("not verify");
-            //e.printStackTrace();
-            //throw new RuntimeException(e);
+
         }
     }
 

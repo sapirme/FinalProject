@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class OpenServlet.
- * 
+ *
  * open.html implements the user interface. This file is displayed within an
  * IFRAME in order to better handle the response. The form is then processed
  * either locally if the browser implements the HTML5 FileReader API or via the
@@ -41,7 +41,7 @@ public class FlowOpenServlet extends HttpServlet
 {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -4442397463551836919L;
 
@@ -113,7 +113,7 @@ public class FlowOpenServlet extends HttpServlet
 	   * Encodes the passed String as UTF-8 using an algorithm that's compatible
 	   * with JavaScript's <code>encodeURIComponent</code> function. Returns
 	   * <code>null</code> if the String is <code>null</code>.
-	   * 
+	   *
 	   * @param s The String to be encoded
 	   * @return the encoded String
 	   */
