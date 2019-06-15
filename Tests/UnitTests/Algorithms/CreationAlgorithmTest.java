@@ -212,9 +212,9 @@ public class CreationAlgorithmTest {
 
     @Test
     public void cuttingPointTest() {
-        Assert.assertEquals(ca.cuttingPoint(new Point3D(1,1,1), new Point3D(1,1,1)),new Point3D(1,1,1));
-        Assert.assertEquals(ca.cuttingPoint(new Point3D(1,1,1), new Point3D(1,5,5)),new Point3D(1,5,5));
-        Assert.assertEquals(ca.cuttingPoint(new Point3D(7,5,9), new Point3D(7,4,3)),new Point3D(7,1.5,5.5));
+        Assert.assertEquals(new Point3D(1,1,1),ca.cuttingPoint(new Point3D(1,1,1), new Point3D(1,1,1)));
+        Assert.assertEquals(new Point3D(1,1,1),ca.cuttingPoint(new Point3D(1,1,1), new Point3D(1,5,5)));
+        Assert.assertEquals(new Point3D(7,7.5,6.5),ca.cuttingPoint(new Point3D(7,5,9), new Point3D(7,4,3)));
 
     }
 

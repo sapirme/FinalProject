@@ -34,6 +34,11 @@ public class BLManagerImpl implements BLManager{
         return single_instance ;
     }
 
+    public boolean isConnected(){
+        if (user.getEmail() == null) return false;
+        return true;
+    }
+
     @Override
     public Enums.checkingAns Decide(String xml,String svg){
         Enums.checkingAns ans = illusionobj.Decide(xml,svg);

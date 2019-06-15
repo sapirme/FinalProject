@@ -45,7 +45,11 @@ public class MyObjectsServlet extends HttpServlet {
 		BLManager BPM = BLManagerImpl.getInstance();
 		List<Integer> lst = BPM.getMyObjects();
 		if (lst == null){
-			response.setStatus(20);
+			if (BPM.isConnected())
+				response.setStatus(20);
+			else{
+				response.setStatus(21);
+			}
 		}
 		else{
 			String ans = new Gson().toJson(lst);

@@ -26,6 +26,9 @@ public class CheckingAlgorithmTest {
 
         c1G2=new Circle(3, 3, 3);
         c2G2=new Circle(3, 10, 3);
+
+        c1G3=new Circle(3,3,3);
+
         makeG1();
         makeG2();
         makeG3();
@@ -45,7 +48,7 @@ public class CheckingAlgorithmTest {
         Vertex v8=new Vertex(3, 11);
 
         Vertex v9=new Vertex(4.6583123951777, 5.5);
-        Vertex v10=new Vertex(1.3416876048223, 5.5);
+        Vertex v10=new Vertex( 1.3416876048223003, 5.5);//1.3416876048223003// 1.3416876048223
 
         vertex1.add(v1);
         vertex1.add(v2);
@@ -129,18 +132,10 @@ public class CheckingAlgorithmTest {
 
     }
 
-    /*@Test
-    public void createGraphTest() {
-        List<Shape> shapes=new LinkedList<>();
-        shapes.add(c2G1);
-        shapes.add(c1G1);
-        Graph g=CheckingAlgorithm.createGraph(shapes);
-        Assert.assertEquals(G1.getEdges(), g.getEdges());
-    }*/
 
-//    @Test
+    @Test
     public void isPathsIntersectTest() {
-        Set<List<Edge>> paths=new HashSet<List<Edge>>();
+        LinkedList<List<Edge>> paths=new LinkedList<List<Edge>>();
         List<Edge> path1=new LinkedList<Edge>();
         List<Edge> path2=new LinkedList<Edge>();
         Vertex v2=new Vertex(0, 3);
@@ -162,30 +157,31 @@ public class CheckingAlgorithmTest {
         path2.add(new Edge(c1G1, v9,  v3));
 
         paths.add(path1);
-        //Assert.assertEquals(true, CheckingAlgorithm.isPathsIntersect(paths,path2));
+        Assert.assertEquals(true, CheckingAlgorithm.isPathsIntersect(paths,path2));
     }
 
-//    @Test
+    @Test
     public void checkAlgorithemTest() {
         Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> ans=CheckingAlgorithm.checkAlgorithem(G1,G2);
         Assert.assertNotNull(ans);
 
     }
 
-//    @Test
+    @Test
     public void checkAlgorithemNOTTest() {
         Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> ans=CheckingAlgorithm.checkAlgorithem(G3,G2);
         Assert.assertNull(ans);
 
     }
 
-//    @Test
+    @Test
     public void createGraphTest() {
         List<Shape> shapes = new LinkedList<>();
         shapes.add(c1G1);
         shapes.add(c2G1);
         Graph g = CheckingAlgorithm.createGraph(shapes);
-        Assert.assertTrue(g.getVertex().size()>0);
-        Assert.assertTrue(g.getEdges().size()>0);
+        Assert.assertEquals(G1.getVertex().size(),g.getVertex().size());
+        Assert.assertEquals(G1.getEdges().size(),g.getEdges().size());
     }
+
 }

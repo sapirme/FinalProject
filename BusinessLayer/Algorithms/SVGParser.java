@@ -40,6 +40,7 @@ public class SVGParser {
     }
 
     public static Pair<List<Shape>,List<Shape>> fileToShapes(String svg) {
+        System.out.println(svg);
         String[] svgArr = svg.split("<");
         List<Shape> shapes1 = new LinkedList<Shape>();
         List<Shape> shapes2 = new LinkedList<Shape>();
@@ -120,6 +121,7 @@ public class SVGParser {
         zero(shapes1);
         zero(shapes2);
         Pair<List<Shape>,List<Shape>> p = new Pair<>(shapes1,shapes2);
+        System.out.println(p);
         return p;
     }
 

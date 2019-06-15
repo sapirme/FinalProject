@@ -49,7 +49,6 @@ public class ViewPoint {
 
     public Graph getGraph(){return graph;}
 
-
     public int getCircleNum(){
         return circleNum;
     }

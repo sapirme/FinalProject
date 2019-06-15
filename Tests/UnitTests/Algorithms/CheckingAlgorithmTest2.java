@@ -273,9 +273,10 @@ public class CheckingAlgorithmTest2 {
 
 
         e1 = new Edge(line1,v1,v5);
-        e2 = new Edge(line1,v5,v4);
+        e2 = new Edge(line2,v5,v4);
+
         e3 = new Edge(line2,v3,v5);
-        e4 = new Edge(line2,v5,v2);
+        e4 = new Edge(line1,v5,v2);
 
         List<Edge> path1 = new LinkedList<Edge>();
         path1.add(e1);

@@ -8,11 +8,57 @@
     <script type="text/javascript" src="Online3DViewer/jsmodeler/jsmodeler.js"></script>
     <script type="text/javascript" src="Online3DViewer/jsmodeler/jsmodeler.ext.three.js"></script>
     <script type="text/javascript" src="Online3DViewer/embeddable/include/online3dembedder.js"></script>
-    <script type="text/javascript" src="js/Bgu.js"></script>
+    <script type="text/javascript" src="js/objectFunctions.js"></script>
 
 </head>
 
 <style>
+
+    /* The Modal (background) */
+    .modalGrey {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 2; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        align: center;
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .loader {
+        display: none;
+        position: fixed; /* Stay in place */
+        z-index: 3; /* Sit on top */
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        left: 50%;
+        top: 50%;
+        margin-top: -60px;
+        margin-left: -60px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+
     .topDiv{
         with: 100%;
         background-color: #d9d9d9;
@@ -86,6 +132,12 @@
 </script>
 
 <body onload="doOnLoad()">
+
+<div id="myModalGrey" class="modalGrey">
+
+    <div id="myLoader" class="loader"></div>
+
+</div>
 
 <div class="topDiv">
     <button onclick="getPrevObjects(true)" class="next round">&#8249;</button>

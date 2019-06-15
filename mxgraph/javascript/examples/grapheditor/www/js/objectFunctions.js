@@ -70,6 +70,11 @@ function handleCanNotCreate(loader,modal){
 // db view functions
 
 function getMyObjectsOpen(){
+    var loader = document.getElementById('myLoader');
+    loader.style.display = "block";
+    var modal = document.getElementById('myModalGrey');
+    modal.style.display = "block";
+
     localStorage.removeItem("update");
     localStorage.removeItem("theXml");
     var xhr = new XMLHttpRequest();
@@ -88,10 +93,19 @@ function getMyObjectsOpen(){
         else if (xhr.readyState == 4 && xhr.status == 20){
             window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
         }
+        else if (xhr.readyState == 4 && xhr.status == 21){
+            window.alert('No user is logged in.\nPlease login and try again.');
+        }
+        loader.style.display = "none";
+        modal.style.display = "none";
     };
 }
 
 function getAllObjectsOpen(){
+    var loader = document.getElementById('myLoader');
+    loader.style.display = "block";
+    var modal = document.getElementById('myModalGrey');
+    modal.style.display = "block";
     localStorage.removeItem("update");
     localStorage.removeItem("theXml");
     var xhr = new XMLHttpRequest();
@@ -110,6 +124,8 @@ function getAllObjectsOpen(){
         else if (xhr.readyState == 4 && xhr.status == 20){
             window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
         }
+        loader.style.display = "none";
+        modal.style.display = "none";
     };
 }
 
@@ -117,6 +133,8 @@ function getAllObjects(editor,mxUtils,factory)
 {
     localStorage.removeItem("update");
     localStorage.removeItem("theXml");
+    var loader = document.getElementById('myLoader');
+    loader.style.display = "block";
     var modal = document.getElementById('myModalGrey');
     modal.style.display = "block";
 
@@ -145,12 +163,14 @@ function getAllObjects(editor,mxUtils,factory)
                     }
                     localStorage.removeItem("update");
                     localStorage.removeItem("theXml");
+                    loader.style.display = "none";
                     modal.style.display = "none";
                 }
             }, 1000);
         }
         else if (xhr.readyState == 4 && xhr.status == 20){
             window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
+            loader.style.display = "none";
             modal.style.display = "none";
         }
     };
@@ -159,6 +179,10 @@ function getAllObjects(editor,mxUtils,factory)
 
 function getNextObjects(factory)
 {
+    var loader = document.getElementById('myLoader');
+    loader.style.display = "block";
+    var modal = document.getElementById('myModalGrey');
+    modal.style.display = "block";
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/NextObjects", true);
     xhr.send(null);
@@ -175,11 +199,17 @@ function getNextObjects(factory)
         else if (xhr.readyState == 4 && xhr.status == 20){
             window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
         }
+        loader.style.display = "none";
+        modal.style.display = "none";
     };
 }
 
 function getPrevObjects(factory)
 {
+    var loader = document.getElementById('myLoader');
+    loader.style.display = "block";
+    var modal = document.getElementById('myModalGrey');
+    modal.style.display = "block";
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/PrevObjects", true);
     xhr.send(null);
@@ -196,6 +226,8 @@ function getPrevObjects(factory)
         else if (xhr.readyState == 4 && xhr.status == 20){
             window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
         }
+        loader.style.display = "none";
+        modal.style.display = "none";
     };
 }
 
@@ -259,6 +291,8 @@ function updateTable(array) {
 
 function getAllSimilarObjects(xml,svg,editor,mxUtils,factory)
 {
+    var loader = document.getElementById('myLoader');
+    loader.style.display = "block";
     var modal = document.getElementById('myModalGrey');
     modal.style.display = "block";
 
@@ -290,12 +324,14 @@ function getAllSimilarObjects(xml,svg,editor,mxUtils,factory)
                         editor.graph.model.endUpdate();
                     }
                     modal.style.display = "none";
+                    loader.style.display = "none";
                 }
             }, 1000);
         }
         else if (xhr.readyState == 4 && xhr.status == 20){
             window.alert('The connection with the server may be lost. \nPlease check your internet connection\nor try again later');
             modal.style.display = "none";
+            loader.style.display = "none";
         }
     };
 }

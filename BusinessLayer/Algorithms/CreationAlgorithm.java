@@ -8,7 +8,6 @@ import javafx.geometry.Point3D;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 
 public class CreationAlgorithm {
@@ -25,7 +24,12 @@ public class CreationAlgorithm {
         double x = p2.getX();
         double y = p2.getY() - s*cosA;
         double z = p2.getZ() - (sinA*s);
-        return new Point3D(x/2, y/2, z/2);
+        return new Point3D(x, y, z);
+    }
+
+    public static Point3D cuttingPointDivBy2(Point3D p1, Point3D p2){
+        Point3D p = cuttingPoint( p1,  p2);
+        return new Point3D(p.getX()/2, p.getY()/2, p.getZ()/2);
     }
 
     private static double round(double value, int numberOfDigitsAfterDecimalPoint) {
@@ -152,7 +156,7 @@ public class CreationAlgorithm {
             y2=(e2.getF()).getYbyX(x,e2.getFrom().getY(),e2.getTo().getY());
             p1= Point2Dto3DVP1 (x,y1);
             p2= Point2Dto3DVP2 (x,y2);
-            intesect = cuttingPoint(p1,p2);
+            intesect = cuttingPointDivBy2(p1,p2);
             ans.add(intesect);
             i=i+0.1;
         }
@@ -161,7 +165,7 @@ public class CreationAlgorithm {
         y2=(e2.getF()).getYbyX(x,e2.getFrom().getY(),e2.getTo().getY());
         p1= Point2Dto3DVP1 (x,y1);
         p2= Point2Dto3DVP2 (x,y2);
-        intesect = cuttingPoint(p1,p2);
+        intesect = cuttingPointDivBy2(p1,p2);
         ans.add(intesect);
         return ans;
     }
