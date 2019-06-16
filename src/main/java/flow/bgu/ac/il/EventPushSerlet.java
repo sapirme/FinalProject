@@ -16,7 +16,7 @@ import il.ac.bgu.cs.bp.bpjs.model.BEvent;
 
 public class EventPushSerlet extends HttpServlet {
 
-	final static Logger LOG = LoggerFactory.getLogger(EventPushSerlet.class);
+	/*final static Logger LOG = LoggerFactory.getLogger(EventPushSerlet.class);
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -29,5 +29,5 @@ public class EventPushSerlet extends HttpServlet {
 			LOG.warn("Event " + name + " is ignored because there is no active deployment");
 
 	}
-
+*/
 }
