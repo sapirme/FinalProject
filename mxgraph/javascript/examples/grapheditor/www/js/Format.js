@@ -1949,7 +1949,7 @@ ArrangePanel.prototype.addGeometry = function(container)
 	var opt = this.createCellOption(mxResources.get('constrainProportions'),
 		mxConstants.STYLE_ASPECT, null, 'fixed', 'null');
 	opt.style.width = '100%';
-	wrapper.appendChild(opt);
+	//wrapper.appendChild(opt);
 	div.appendChild(wrapper);
 
 	var constrainCheckbox = opt.getElementsByTagName('input')[0];

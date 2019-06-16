@@ -32,48 +32,59 @@ public class CreateLllusionServlet extends HttpServlet {
 
 	//private static Thread thread;
 
+	private BLManager BPM;
+	public CreateLllusionServlet(BLManager bpm){
+		this.BPM=bpm;
+	}
+
 	/**
 	 * Handles save request and prints XML.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		// Extract the XML fro the message
 		BufferedReader br = request.getReader();
 		String gsonAns = IOUtils.toString(br);
 		Gson gson = new Gson();
-		List<String> l= gson.fromJson(gsonAns, List.class);
-		if (l==null || l.size()!=2) return;
-		String xml = l.get(0);
-		String svg = l.get(1);
-		BLManager BPM = BLManagerImpl.getInstance();
+		try{
+			List<String> l= gson.fromJson(gsonAns, List.class);
+			if (l==null || l.size()!=2) return;
+			String xml = l.get(0);
+			String svg = l.get(1);
+			//BLManager BPM = BLManagerImpl.getInstance();
 
-		Enums.checkingAns ans = BPM.Decide(xml,svg);
-		switch (ans){
-			case CAN:
-				response.setStatus(HttpServletResponse.SC_OK);
-				break;
-			case CAN_NO_DB:
-				response.setStatus(20);
-				break;
-			case CANT:
-				response.setStatus(10);
-				break;
-			case TO_MANY_SHAPS:
-				response.setStatus(50);
-				break;
+			Enums.checkingAns ans = BPM.Decide(xml,svg);
+			switch (ans){
+				case CAN:
+					response.setStatus(HttpServletResponse.SC_OK);
+					break;
+				case CAN_NO_DB:
+					response.setStatus(20);
+					break;
+				case CANT:
+					response.setStatus(10);
+					break;
+				case TO_MANY_SHAPS:
+					response.setStatus(50);
+					break;
+			}
+		}catch (Exception e){
+			response.setStatus(500);
 		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BLManager BPM = BLManagerImpl.getInstance();
-		boolean ans = BPM.CreateObject();
-		if (ans){
-			response.setStatus(HttpServletResponse.SC_OK);
-		}
-		else{
-			response.setStatus(20);
+		//BLManager BPM = BLManagerImpl.getInstance();
+		try {
+			boolean ans = BPM.CreateObject();
+			if (ans) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.setStatus(20);
+			}
+		}catch (Exception e){
+			response.setStatus(500);
 		}
 	}
 

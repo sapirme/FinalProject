@@ -32,6 +32,12 @@ public class MyObjectsServlet extends HttpServlet {
 
 	//private static Thread thread;
 
+	private BLManager BPM;
+	public MyObjectsServlet(BLManager bpm){
+		this.BPM=bpm;
+	}
+
+
 	/**
 	 * Handles save request and prints XML.
 	 */
@@ -42,7 +48,7 @@ public class MyObjectsServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BLManager BPM = BLManagerImpl.getInstance();
+		//BLManager BPM = BLManagerImpl.getInstance();
 		List<Integer> lst = BPM.getMyObjects();
 		if (lst == null){
 			if (BPM.isConnected())

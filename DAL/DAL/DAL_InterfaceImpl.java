@@ -22,32 +22,16 @@ public class DAL_InterfaceImpl implements DAL_Interface {
     private static String address;
     private static int port;
 
-    private static DAL_Interface single_instance = null;
     private Gson gson = new Gson();
     private final String myUrl;
     String charset = java.nio.charset.StandardCharsets.UTF_8.name();  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
 
 
-    private DBCollection Objects;
-    private DBCollection ViewPoints;
-
-    private DAL_InterfaceImpl(String address, int port)
+    public DAL_InterfaceImpl(String address, int port)
     {
-        myUrl = "http://" + address + ":" + port;
-    }
-
-    public static void setDB(String address, int port) {
         DAL_InterfaceImpl.address = address;
         DAL_InterfaceImpl.port = port;
-    }
-
-    public static DAL_Interface getInstance()
-    {
-        if(single_instance  == null)
-        {
-            single_instance  = new DAL_InterfaceImpl(address, port);
-        }
-        return single_instance ;
+        myUrl = "http://" + address + ":" + port;
     }
 
     private int Send(String document){
@@ -177,7 +161,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             status = connection.getResponseCode();
             if (status == 200) {
                 InputStream response = connection.getInputStream();
-                System.out.println("hereeee+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response));
                 StringBuilder out = new StringBuilder();
                 String line;
@@ -255,7 +239,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             status = connection.getResponseCode();
             if (status == 200) {
                 InputStream response = connection.getInputStream();
-                System.out.println("hereeee+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response));
                 StringBuilder out = new StringBuilder();
                 String line;
@@ -290,7 +274,7 @@ public class DAL_InterfaceImpl implements DAL_Interface {
             status = connection.getResponseCode();
             if (status == 200) {
                 InputStream response = connection.getInputStream();
-                System.out.println("hereeee+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response));
                 StringBuilder out = new StringBuilder();
                 String line;

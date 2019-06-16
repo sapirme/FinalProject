@@ -30,10 +30,15 @@ public class NextObjectsServlet extends HttpServlet {
 
 	//private static Thread thread;
 
+	private BLManager BPM;
+	public NextObjectsServlet(BLManager bpm){
+		this.BPM=bpm;
+	}
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BLManager BPM = BLManagerImpl.getInstance();
+		//BLManager BPM = BLManagerImpl.getInstance();
 		List<Integer> lst = BPM.getNextObjects();
 		if (lst == null){
 			response.setStatus(20);

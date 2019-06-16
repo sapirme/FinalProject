@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BLManagerImplTest {
-    private BLManager blmi = BLManagerImpl.getInstance();
+    private BLManager blmi = new BLManagerImpl("132.72.23.63",0);
 
     @Test
     public void removeDuplicatesTest(){

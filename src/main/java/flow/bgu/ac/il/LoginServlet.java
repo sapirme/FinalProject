@@ -27,6 +27,11 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 @WebServlet(urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
+    private BLManager BPM;
+    public LoginServlet(BLManager bpm){
+        this.BPM=bpm;
+    }
+
     @Override
     protected void doPost (HttpServletRequest req,
                            HttpServletResponse resp)
@@ -41,7 +46,7 @@ public class LoginServlet extends HttpServlet {
             String email = payLoad.getEmail();
 
 
-            BLManager BPM = BLManagerImpl.getInstance();
+            //BLManager BPM = BLManagerImpl.getInstance();
             BPM.login(idToken,email);
 
         } catch (Exception e) { // cant verify
@@ -52,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-		BLManager BPM = BLManagerImpl.getInstance();
+		//BLManager BPM = BLManagerImpl.getInstance();
 		BPM.logout();
     }
 }

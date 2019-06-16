@@ -31,6 +31,11 @@ public class AllSimilarServlet extends HttpServlet {
 
 	//private static Thread thread;
 
+	private BLManager BPM;
+	public AllSimilarServlet(BLManager bpm){
+		this.BPM=bpm;
+	}
+
 	/**
 	 * Handles save request and prints XML.
 	 */
@@ -45,7 +50,7 @@ public class AllSimilarServlet extends HttpServlet {
 		String xml = l.get(0);
 		String svg = l.get(1);
 
-		BLManager BPM = BLManagerImpl.getInstance();
+		//BLManager BPM = BLManagerImpl.getInstance();
 		List<Integer> lst = BPM.getSimilarObjects(xml,svg);
 		if (lst == null){
 			response.setStatus(20);

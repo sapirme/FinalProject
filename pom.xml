@@ -203,7 +203,7 @@
 					<archive>
 						<manifest>
 							<!-- Jar file entry point -->
-							<mainClass>flow.bgu.ac.il.BPServer</mainClass>
+							<mainClass>flow.bgu.ac.il.IllusionServer</mainClass>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>dependency-jars/</classpathPrefix>
 						</manifest>

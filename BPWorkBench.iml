@@ -7,9 +7,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/BusinessLayer" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Tests/UnitTests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/Tests/UseCaseTests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/DAL" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class AllObjectsServlet extends HttpServlet {
-
 	//final static Logger LOG = LoggerFactory.getLogger(AllObjectsServlet.class);
 
 	/**
@@ -28,6 +27,10 @@ public class AllObjectsServlet extends HttpServlet {
 	//public static BProgramRunner rnr;
 
 	//private static Thread thread;
+	private BLManager BPM;
+	public AllObjectsServlet(BLManager bpm){
+		this.BPM=bpm;
+	}
 
 	/**
 	 * Handles save request and prints XML.
@@ -38,8 +41,8 @@ public class AllObjectsServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BLManager BPM = BLManagerImpl.getInstance();
-		List<Integer> lst = BPM.getAllobjects();
+		//BLManager BPM = BLManagerImpl.getInstance();
+		List<Integer> lst = BPM.getAllObjects();
 		if (lst == null){
 			response.setStatus(20);
 		}

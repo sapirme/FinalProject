@@ -31,9 +31,15 @@ public class PrevObjectsServlet extends HttpServlet {
 	//private static Thread thread;
 
 
+	private BLManager BPM;
+	public PrevObjectsServlet(BLManager bpm){
+		this.BPM=bpm;
+	}
+
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BLManager BPM = BLManagerImpl.getInstance();
+		//BLManager BPM = BLManagerImpl.getInstance();
 		List<Integer> lst = BPM.getPrevObjects();
 
 		if (lst == null){
