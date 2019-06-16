@@ -17,23 +17,29 @@ import java.util.List;
 
 public class PrevObjectsServlet extends HttpServlet {
 
-	final static Logger LOG = LoggerFactory.getLogger(PrevObjectsServlet.class);
+	//final static Logger LOG = LoggerFactory.getLogger(PrevObjectsServlet.class);
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1598336877581962216L;
+	//private static final long serialVersionUID = -1598336877581962216L;
 
 	// A hack that only works if one program is running at a time!
-	public static BProgram bprog;
-	public static BProgramRunner rnr;
+	//public static BProgram bprog;
+	//public static BProgramRunner rnr;
 
-	private static Thread thread;
+	//private static Thread thread;
+
+
+	private BLManager BPM;
+	public PrevObjectsServlet(BLManager bpm){
+		this.BPM=bpm;
+	}
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BLManager BPM = BLManagerImpl.getInstance();
+		//BLManager BPM = BLManagerImpl.getInstance();
 		List<Integer> lst = BPM.getPrevObjects();
 
 		if (lst == null){

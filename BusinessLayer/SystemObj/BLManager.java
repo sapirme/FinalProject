@@ -7,7 +7,7 @@ import java.util.List;
 public interface BLManager {
     public Enums.checkingAns Decide(String xml,String svg);
     public boolean CreateObject ();
-    public List<Integer> getAllobjects();
+    public List<Integer> getAllObjects();
     public List<Integer> getNextObjects();
     public List<Integer> getPrevObjects();
     public String loadObject(int index);

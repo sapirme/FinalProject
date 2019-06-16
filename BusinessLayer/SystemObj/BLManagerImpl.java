@@ -14,24 +14,16 @@ import java.util.List;
 import java.util.Map;
 
 public class BLManagerImpl implements BLManager{
-    private static BLManager single_instance = null;
     private static IllusionObj illusionobj;
     private PoolObj pool = new PoolObj();
-    private DAL_Interface mydal = DAL_InterfaceImpl.getInstance();
+    private DAL_Interface mydal ;
     private UserObj user = new UserObj();
 
-    private BLManagerImpl(){
-
-    }
-
-    public static BLManager getInstance()
-    {
-        if(single_instance  == null)
-        {
-            single_instance  = new BLManagerImpl();
-            illusionobj = new IllusionObj();
-        }
-        return single_instance ;
+    public BLManagerImpl(String address, int port){
+        illusionobj = new IllusionObj();
+        if (address!=null && address!="")
+            mydal = new DAL_InterfaceImpl(address,port);
+        else mydal =null;
     }
 
     public boolean isConnected(){
@@ -51,8 +43,8 @@ public class BLManagerImpl implements BLManager{
         String D3 = illusionobj.createObject();
         ViewPoint v1 = illusionobj.getViewPoint1();
         ViewPoint v2 = illusionobj.getViewPoint2();
-        boolean connected = true;
-        if (user.getEmail() != null ) {
+        boolean connected = false;
+        if (user.getEmail() != null && mydal!=null) {
             connected = mydal.InsertObject(D3, illusionobj.getSvgObj().getSvg(), illusionobj.getSvgObj().getXml(),
                     v1.getCircleNum(), v1.getLineNum(),
                     v2.getCircleNum(), v2.getLineNum(),
@@ -80,7 +72,8 @@ public class BLManagerImpl implements BLManager{
         return connected;
     }
 
-    public List<Integer> getAllobjects(){
+    public List<Integer> getAllObjects(){
+        if (mydal == null) return null;
         List<String> ids = mydal.getAllIDs();
         if (ids == null) return null;
         System.out.println(ids.toString());
@@ -93,6 +86,7 @@ public class BLManagerImpl implements BLManager{
     }
 
     public List<Integer> getNextObjects(){
+        if (mydal == null) return null;
         List<String> next8 = pool.next8();
         List<String> files = mydal.getNext8(next8);
         if (files == null) return null;
@@ -101,6 +95,7 @@ public class BLManagerImpl implements BLManager{
     }
 
     public List<Integer> getPrevObjects(){
+        if (mydal == null) return null;
         List<String> prev8 = pool.prev8();
         List<String> files = mydal.getNext8(prev8);
         if (files == null) return null;
@@ -110,6 +105,7 @@ public class BLManagerImpl implements BLManager{
 
     @Override
     public String loadObject(int index) {
+        if (mydal == null) return null;
         String name = pool.getIndexName(index);
         if (name == null) return null;
         String xml = mydal.getObjectXml(name);
@@ -118,6 +114,7 @@ public class BLManagerImpl implements BLManager{
     }
 
     public List<Integer> getMyObjects(){
+        if (mydal == null) return null;
         String idToken = user.getToken();
         if (idToken==null) return null;
         List<String> myObjects = mydal.getMyIDs(idToken);
@@ -134,6 +131,7 @@ public class BLManagerImpl implements BLManager{
 
     @Override
     public List<Integer> getSimilarObjects(String xml,String svg){
+        if (mydal == null) return null;
         illusionobj.Decide(xml,svg);
         Map<String, Pair<Integer, Integer>> viewPoints = mydal.getAllViewPoints();
         List<String> similarVP = illusionobj.similarObj(viewPoints);

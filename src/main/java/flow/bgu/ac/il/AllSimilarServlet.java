@@ -18,7 +18,7 @@ import java.util.List;
 
 public class AllSimilarServlet extends HttpServlet {
 
-	final static Logger LOG = LoggerFactory.getLogger(AllSimilarServlet.class);
+	//final static Logger LOG = LoggerFactory.getLogger(AllSimilarServlet.class);
 
 	/**
 	 * 
@@ -26,10 +26,15 @@ public class AllSimilarServlet extends HttpServlet {
 	private static final long serialVersionUID = -1598336877581962216L;
 
 	// A hack that only works if one program is running at a time!
-	public static BProgram bprog;
-	public static BProgramRunner rnr;
+	//public static BProgram bprog;
+	//public static BProgramRunner rnr;
 
-	private static Thread thread;
+	//private static Thread thread;
+
+	private BLManager BPM;
+	public AllSimilarServlet(BLManager bpm){
+		this.BPM=bpm;
+	}
 
 	/**
 	 * Handles save request and prints XML.
@@ -45,7 +50,7 @@ public class AllSimilarServlet extends HttpServlet {
 		String xml = l.get(0);
 		String svg = l.get(1);
 
-		BLManager BPM = BLManagerImpl.getInstance();
+		//BLManager BPM = BLManagerImpl.getInstance();
 		List<Integer> lst = BPM.getSimilarObjects(xml,svg);
 		if (lst == null){
 			response.setStatus(20);
@@ -61,20 +66,6 @@ public class AllSimilarServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/*BLManager BPM = BLManagerImpl.getInstance();
-		List<Integer> lst = BPM.getAllobjects();
-		if (lst == null){
-			response.setStatus(20);
-		}
-		else{
-			String ans = new Gson().toJson(lst);
-
-			response.setContentType("text/plain");
-			response.getWriter().println(ans);
-			response.setStatus(HttpServletResponse.SC_OK);
-		}*/
-
-
 
 	}
 
