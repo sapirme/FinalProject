@@ -117,13 +117,13 @@ public class CreationAlgorithmTest {
         } catch ( IOException e ) {
             e.printStackTrace();
         } finally {
-            //if ( output != null ) {
+            if ( output != null ) {
                 try {
                     output.close();
                 } catch ( IOException e ) {
                     e.printStackTrace();
                 }
-            //}
+            }
         }
         //System.out.println(ca.createObject(g1,g2));// 2 lines
         //System.out.println(ca.createObject(g3,g4));// Diamond and circle
