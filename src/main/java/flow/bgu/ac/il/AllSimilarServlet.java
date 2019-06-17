@@ -41,26 +41,28 @@ public class AllSimilarServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		try {
+			BufferedReader br = request.getReader();
+			String gsonAns = IOUtils.toString(br);
+			Gson gson = new Gson();
+			List<String> l = gson.fromJson(gsonAns, List.class);
+			if (l == null || l.size() != 2) return;
+			String xml = l.get(0);
+			String svg = l.get(1);
 
-		BufferedReader br = request.getReader();
-		String gsonAns = IOUtils.toString(br);
-		Gson gson = new Gson();
-		List<String> l= gson.fromJson(gsonAns, List.class);
-		if (l==null || l.size()!=2) return;
-		String xml = l.get(0);
-		String svg = l.get(1);
+			//BLManager BPM = BLManagerImpl.getInstance();
+			List<Integer> lst = BPM.getSimilarObjects(xml, svg);
+			if (lst == null) {
+				response.setStatus(20);
+			} else {
+				String ans = new Gson().toJson(lst);
 
-		//BLManager BPM = BLManagerImpl.getInstance();
-		List<Integer> lst = BPM.getSimilarObjects(xml,svg);
-		if (lst == null){
-			response.setStatus(20);
-		}
-		else{
-			String ans = new Gson().toJson(lst);
-
-			response.setContentType("text/plain");
-			response.getWriter().println(ans);
-			response.setStatus(HttpServletResponse.SC_OK);
+				response.setContentType("text/plain");
+				response.getWriter().println(ans);
+				response.setStatus(HttpServletResponse.SC_OK);
+			}
+		}catch (Exception e){
+			response.setStatus(500);
 		}
 	}
 

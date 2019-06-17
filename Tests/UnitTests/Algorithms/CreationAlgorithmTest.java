@@ -125,13 +125,6 @@ public class CreationAlgorithmTest {
                 }
             }
         }
-        //System.out.println(ca.createObject(g1,g2));// 2 lines
-        //System.out.println(ca.createObject(g3,g4));// Diamond and circle
-        //System.out.println(ca.createObject(g4,g4));// 2 circle
-        //System.out.println(ca.createObject(g3,g3));// 2 Diamond
-        //ca.createObject(g4,g4);
-
-       // Assert.assertEquals("12", ca.createObject(g1,g2));
 
     }
 

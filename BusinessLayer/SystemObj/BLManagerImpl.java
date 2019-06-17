@@ -43,7 +43,8 @@ public class BLManagerImpl implements BLManager{
         String D3 = illusionobj.createObject();
         ViewPoint v1 = illusionobj.getViewPoint1();
         ViewPoint v2 = illusionobj.getViewPoint2();
-        boolean connected = false;
+        boolean connected = true;
+        if (mydal == null)  connected = false;
         if (user.getEmail() != null && mydal!=null) {
             connected = mydal.InsertObject(D3, illusionobj.getSvgObj().getSvg(), illusionobj.getSvgObj().getXml(),
                     v1.getCircleNum(), v1.getLineNum(),

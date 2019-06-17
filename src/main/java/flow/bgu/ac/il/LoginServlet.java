@@ -45,11 +45,12 @@ public class LoginServlet extends HttpServlet {
             GoogleIdToken.Payload payLoad = IdTokenVerifierAndParser.getPayload(idToken);
             String email = payLoad.getEmail();
 
-
-            //BLManager BPM = BLManagerImpl.getInstance();
-            BPM.login(idToken,email);
+            if (BPM.login(idToken,email))
+                resp.setStatus(HttpServletResponse.SC_OK);
+            else resp.setStatus(500);
 
         } catch (Exception e) { // cant verify
+            resp.setStatus(500);
             System.out.println("not verify");
 
         }
@@ -58,6 +59,11 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 		//BLManager BPM = BLManagerImpl.getInstance();
-		BPM.logout();
+		if (BPM.logout()){
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        else{
+            response.setStatus(500);
+        }
     }
 }

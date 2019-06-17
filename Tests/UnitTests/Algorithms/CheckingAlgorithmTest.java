@@ -1,7 +1,8 @@
-package Algorithms;
+package UnitTests.Algorithms;
 import Graph.*;
 import org.junit.*;
 import Shapes.*;
+import Algorithms.*;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.HashSet;

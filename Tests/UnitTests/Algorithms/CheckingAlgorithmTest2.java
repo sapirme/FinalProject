@@ -1,12 +1,9 @@
-package Algorithms;
+package UnitTests.Algorithms;
 
-import Graph.Edge;
-import Graph.Graph;
-import Graph.Pair;
-import Graph.Vertex;
-import Shapes.Circle;
-import Shapes.Line;
-import Shapes.Shape;
+import Graph.*;
+import Algorithms.*;
+import Shapes.*;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -333,6 +330,63 @@ public class CheckingAlgorithmTest2 {
         path2.add(e2);
 
         Assert.assertTrue(CheckingAlgorithm.isPathIntersect(path1,path2));
+
+
+    }
+
+
+    @Test
+    public void isBadCombinationTest(){
+        setUp();
+
+        LinkedList<List<Edge>> toCheck = new LinkedList<List<Edge>>();
+        List<Edge> path = new LinkedList<Edge>();
+        path.add(e1);
+        path.add(e2);
+        path.add(e3);
+        toCheck.add(path);
+        List<LinkedList<List<Edge>>> badPaths = new LinkedList<LinkedList<List<Edge>>>();
+        Assert.assertFalse(CheckingAlgorithm.isBadCombination(badPaths,toCheck));
+
+        LinkedList<List<Edge>> toadd1 = new LinkedList<List<Edge>>();
+        List<Edge> path1 = new LinkedList<Edge>();
+        path1.add(e1);
+        path1.add(e2);
+        path1.add(e6);
+        List<Edge> path2 = new LinkedList<Edge>();
+        path2.add(e3);
+        path2.add(e4);
+        toadd1.add(path1);
+        toadd1.add(path2);
+
+        LinkedList<List<Edge>> toadd2 = new LinkedList<List<Edge>>();
+        path1 = new LinkedList<Edge>();
+        path1.add(e2);
+        path1.add(e5);
+        path1.add(e6);
+        path2 = new LinkedList<Edge>();
+        path2.add(e1);
+        path2.add(e2);
+        path2.add(e3);
+        toadd2.add(path1);
+        toadd2.add(path2);
+
+        badPaths.add(toadd1);
+        badPaths.add(toadd2);
+
+        Assert.assertFalse(CheckingAlgorithm.isBadCombination(badPaths,toCheck));
+
+        LinkedList<List<Edge>> toadd3 = new LinkedList<List<Edge>>();
+        path2 = new LinkedList<Edge>();
+        path2.add(e1);
+        path2.add(e2);
+        path2.add(e3);
+        toadd3.add(path2);
+
+
+        badPaths.add(toadd3);
+
+        Assert.assertTrue(CheckingAlgorithm.isBadCombination(badPaths,toCheck));
 
 
     }

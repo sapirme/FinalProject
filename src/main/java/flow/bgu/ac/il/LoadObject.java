@@ -38,7 +38,6 @@ public class LoadObject extends HttpServlet {
 		this.BPM=bpm;
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// Extract the XML fro the message
@@ -51,7 +50,7 @@ public class LoadObject extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
-		//BLManager BPM = BLManagerImpl.getInstance();
+
 		String xml = BPM.loadObject(index);
 
 		if (xml == null){
