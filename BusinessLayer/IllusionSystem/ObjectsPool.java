@@ -1,4 +1,4 @@
-package SystemObj;
+package IllusionSystem;
 
 
 import java.io.BufferedWriter;
@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PoolObj {
+public class ObjectsPool {
     private int indexStart = 0; //include
     private int indexEnd = 0; //not include
     private List<String> allID;

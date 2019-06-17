@@ -1,17 +1,16 @@
-package SystemObj;
+package UnitTests.SystemObj;
+import IllusionSystem.*;
 
-import Shapes.Circle;
-import Shapes.Line;
+import Illusion.IllusionObject;
 import Shapes.Shape;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class IllusionObjTest {
 
-    IllusionObj ill = new IllusionObj();
+    IllusionObject ill = new IllusionObject();
     List<Shape> s1;
     List<Shape> s2;
 

@@ -1,4 +1,4 @@
-package SystemObj;
+package Illusion;
 
 import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.canvas.mxSvgCanvas;
@@ -14,7 +14,7 @@ import org.w3c.dom.Document;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SvgObj {
+public class Svg {
 
     private mxStylesheet stylesheet = new mxStylesheet();
     private mxGraph graph;
@@ -54,7 +54,7 @@ public class SvgObj {
 
 
 
-    public SvgObj(){
+    public Svg(){
         figures();
         lines();
         Map<String, Map<String, Object>> styles = stylesheet.getStyles();

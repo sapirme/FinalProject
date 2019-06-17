@@ -1,4 +1,4 @@
-package SystemObj;
+package Illusion;
 import Shapes.*;
 import Graph.*;
 import java.util.List;

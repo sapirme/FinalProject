@@ -1,5 +1,6 @@
-package Algorithms;
+package UnitTests.Algorithms;
 import Graph.*;
+import Algorithms.*;
 import Object3D.Stl3DFile;
 import Shapes.*;
 import javafx.geometry.Point3D;

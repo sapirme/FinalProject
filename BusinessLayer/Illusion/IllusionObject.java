@@ -1,4 +1,4 @@
-package SystemObj;
+package Illusion;
 
 import Algorithms.CreationAlgorithm;
 import Algorithms.Enums;
@@ -12,17 +12,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class IllusionObj {
+public class IllusionObject {
 
     private  ViewPoint v1;
     private  ViewPoint v2;
-    private SvgObj svgObj;
+    private Svg svg;
     private ObjectInteface model3D;
 
-    public IllusionObj(){
+    public IllusionObject(){
         v1 = new ViewPoint();
         v2 = new ViewPoint();
-        svgObj = new SvgObj();
+        svg = new Svg();
         model3D = new Stl3DFile();//Obj3DFile();
     }
 
@@ -32,13 +32,13 @@ public class IllusionObj {
 
     public ViewPoint getViewPoint2(){return v2;}
 
-    public SvgObj getSvgObj(){return svgObj;}
+    public Svg getSvg(){return svg;}
 
     public ObjectInteface getObjectInteface(){return model3D;}
 
     public Enums.checkingAns Decide(String xml,String svg){
-        this.svgObj.setSvg(svg);
-        this.svgObj.setXml(xml);
+        this.svg.setSvg(svg);
+        this.svg.setXml(xml);
         return SVGParser.decide(svg,v1,v2);
     }
 

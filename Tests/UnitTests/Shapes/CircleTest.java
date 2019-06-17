@@ -1,5 +1,6 @@
-package Shapes;
+package UnitTests.Shapes;
 import Graph.*;
+import Shapes.*;
 import org.junit.*;
 import org.junit.Before;
 import org.junit.Test;

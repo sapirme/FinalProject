@@ -1,17 +1,15 @@
-package SystemObj;
+package UnitTests.SystemObj;
 
-import Shapes.Circle;
-import Shapes.Line;
-import Shapes.Shape;
 import org.junit.Assert;
 import org.junit.Test;
+import IllusionSystem.*;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class PoolObjTest {
+public class ObjectsPoolTest {
 
-    PoolObj pool = new PoolObj();
+    ObjectsPool pool = new ObjectsPool();
     List<String> allID = new LinkedList<String>();
 
     public void setUp(int size){

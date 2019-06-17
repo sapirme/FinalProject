@@ -1,4 +1,4 @@
-package SystemObj;
+package IllusionSystem;
 
 import Algorithms.Enums;
 

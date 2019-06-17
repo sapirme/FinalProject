@@ -6,7 +6,7 @@ import Graph.Pair;
 import Shapes.Circle;
 import Shapes.Line;
 import Shapes.Shape;
-import SystemObj.ViewPoint;
+import Illusion.ViewPoint;
 
 import java.util.LinkedList;
 import java.util.List;

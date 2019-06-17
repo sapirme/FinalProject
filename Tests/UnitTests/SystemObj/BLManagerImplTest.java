@@ -1,4 +1,5 @@
-package SystemObj;
+package UnitTests.SystemObj;
+import IllusionSystem.*;
 
 import org.junit.Assert;
 import org.junit.Test;

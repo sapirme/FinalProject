@@ -1,10 +1,10 @@
-package SystemObj;
+package IllusionSystem;
 
-public class UserObj {
+public class User {
     private String email ;
     private String id_token ;
 
-    public UserObj(){
+    public User(){
         email = null;
         id_token = null;
     }

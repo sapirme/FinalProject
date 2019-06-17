@@ -1,5 +1,6 @@
-package Graph;
+package UnitTests.Graph;
 
+import Graph.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

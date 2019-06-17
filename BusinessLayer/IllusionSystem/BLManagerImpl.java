@@ -1,9 +1,11 @@
-package SystemObj;
+package IllusionSystem;
 
 import Algorithms.Enums;
 import DAL.DAL_Interface;
 import DAL.DAL_InterfaceImpl;
 import Graph.Pair;
+import Illusion.IllusionObject;
+import Illusion.ViewPoint;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,13 +16,13 @@ import java.util.List;
 import java.util.Map;
 
 public class BLManagerImpl implements BLManager{
-    private static IllusionObj illusionobj;
-    private PoolObj pool = new PoolObj();
+    private static IllusionObject illusionobj;
+    private ObjectsPool pool = new ObjectsPool();
     private DAL_Interface mydal ;
-    private UserObj user = new UserObj();
+    private User user = new User();
 
     public BLManagerImpl(String address, int port){
-        illusionobj = new IllusionObj();
+        illusionobj = new IllusionObject();
         if (address!=null && address!="")
             mydal = new DAL_InterfaceImpl(address,port);
         else mydal =null;
@@ -46,7 +48,7 @@ public class BLManagerImpl implements BLManager{
         boolean connected = true;
         if (mydal == null)  connected = false;
         if (user.getEmail() != null && mydal!=null) {
-            connected = mydal.InsertObject(D3, illusionobj.getSvgObj().getSvg(), illusionobj.getSvgObj().getXml(),
+            connected = mydal.InsertObject(D3, illusionobj.getSvg().getSvg(), illusionobj.getSvg().getXml(),
                     v1.getCircleNum(), v1.getLineNum(),
                     v2.getCircleNum(), v2.getLineNum(),
                     user.getToken()

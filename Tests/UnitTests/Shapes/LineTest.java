@@ -1,4 +1,5 @@
-package Shapes;
+package UnitTests.Shapes;
+import Shapes.*;
 
 import org.junit.Assert;
 import org.junit.Before;

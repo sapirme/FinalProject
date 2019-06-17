@@ -1,7 +1,7 @@
 package flow.bgu.ac.il;
 
-import SystemObj.BLManager;
-import SystemObj.BLManagerImpl;
+import IllusionSystem.BLManager;
+import IllusionSystem.BLManagerImpl;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;

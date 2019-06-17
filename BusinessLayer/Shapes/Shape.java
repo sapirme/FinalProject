@@ -9,11 +9,11 @@ import java.util.Set;
 
 public abstract class Shape {
 
-    abstract List<Point2D.Double> getIntersections_accept(Shape s);//accept function
+    public abstract List<Point2D.Double> getIntersections_accept(Shape s);//accept function
 
-    abstract List<Point2D.Double> getIntersections_visit(Circle s);//visit function
+    public abstract List<Point2D.Double> getIntersections_visit(Circle s);//visit function
 
-    abstract List<Point2D.Double> getIntersections_visit(Line s);//visit function
+    public abstract List<Point2D.Double> getIntersections_visit(Line s);//visit function
 
     public abstract double getYbyX(double x, double yFrom, double yTo);
 

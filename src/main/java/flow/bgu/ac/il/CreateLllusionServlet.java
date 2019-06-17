@@ -1,8 +1,7 @@
 package flow.bgu.ac.il;
 
 import Algorithms.Enums;
-import SystemObj.BLManager;
-import SystemObj.BLManagerImpl;
+import IllusionSystem.BLManager;
 import il.ac.bgu.cs.bp.bpjs.execution.BProgramRunner;
 import il.ac.bgu.cs.bp.bpjs.model.BProgram;
 import org.apache.commons.io.IOUtils;
