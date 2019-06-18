@@ -31,9 +31,17 @@ public class IllusionServer {
             blManager = new BLManagerImpl(p.getProperty("db.address"), Integer.parseInt(p.getProperty("db.port")));
         }
         else {
-            localPort = Integer.parseInt(arguments[0]);
-            blManager = new BLManagerImpl(arguments[1], Integer.parseInt(arguments[2]));
+            try {
+                localPort = Integer.parseInt(arguments[0]);
+                blManager = new BLManagerImpl(arguments[1], Integer.parseInt(arguments[2]));
+            }catch (Exception e){
+                java.io.InputStream is = this.getClass().getResourceAsStream("program.properties");
+                java.util.Properties p = new Properties();
+                p.load(is);
+                localPort = Integer.parseInt(p.getProperty("local.port"));
 
+                blManager = new BLManagerImpl(p.getProperty("db.address"), Integer.parseInt(p.getProperty("db.port")));
+            }
         }
 
         //DAL_InterfaceImpl.setDB(p.getProperty("db.address"), Integer.parseInt(p.getProperty("db.port")));
@@ -83,7 +91,9 @@ public class IllusionServer {
     }
 
     public void start() throws Exception {
+
         server.start();
+
     }
 
     public void stop() throws Exception {
@@ -102,14 +112,21 @@ public class IllusionServer {
      * Point your browser to the displayed URL
      */
     public static void main(String[] args) throws Exception {
-        IllusionServer server = new IllusionServer();
-        server.init(args);
-        server.start();
-        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-            Desktop.getDesktop().browse(new URI("http://localhost:8090/mxgraph/javascript/examples/grapheditor/www/index.html"));
+        IllusionServer myServer = new IllusionServer();
+        myServer.init(args);
+        try {
+            myServer.start();
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                Desktop.getDesktop().browse(new URI("http://localhost:8090/mxgraph/javascript/examples/grapheditor/www/index.html"));
+            }
+            myServer.join();
+            myServer.stop();
+        }catch (Exception e){
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                Desktop.getDesktop().browse(new URI("http://localhost:8090/mxgraph/javascript/examples/grapheditor/www/index.html"));
+            }
         }
 
-        server.join();
-        server.stop();
+
     }
 }

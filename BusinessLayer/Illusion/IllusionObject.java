@@ -68,19 +68,19 @@ public class IllusionObject {
                 TopIDs.add(vp.getKey());
         }
 
-        if(TopIDs.size() < 5){
+        //if(TopIDs.size() < 5){
             for (Map.Entry<String, Double> vp :allVPimaginationPercentage.entrySet()) {
                 if(vp.getValue() < 80 && vp.getValue() >= 60)
                     TopIDs.add(vp.getKey());
             }
-        }
+        //}
 
-        if(TopIDs.size() < 5){
+        //if(TopIDs.size() < 5){
             for (Map.Entry<String, Double> vp :allVPimaginationPercentage.entrySet()) {
                 if(vp.getValue() < 60 && vp.getValue() >= 40)
                     TopIDs.add(vp.getKey());
             }
-        }
+        //}
 
         return TopIDs;
     }

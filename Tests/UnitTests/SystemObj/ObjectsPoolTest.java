@@ -20,7 +20,7 @@ public class ObjectsPoolTest {
     }
 
     @Test
-    public void test1() {
+    public void objectsPoolTest1() {
         setUp(9);
         List<String> expected = new LinkedList<String>();
         Assert.assertEquals(expected,pool.prev8());
@@ -46,7 +46,7 @@ public class ObjectsPoolTest {
     }
 
     @Test
-    public void test2() {
+    public void objectsPoolTest2() {
         setUp(16);
         List<String> expected = new LinkedList<String>();
         Assert.assertEquals(expected,pool.prev8());
