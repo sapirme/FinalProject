@@ -109,7 +109,7 @@ public class GraphTest {
 
     @Test
     public void allPathsTest() {
-        Set<List<Edge>> allPathsTrue = new HashSet<List<Edge>>();
+        List<List<Edge>> allPathsTrue = new LinkedList<List<Edge>>();
         List<Edge> path1 = new LinkedList<Edge>();
         path1.add(e1);
         path1.add(e2);
@@ -145,14 +145,15 @@ public class GraphTest {
         path5.add(e4);
         path5.add(e5);
         allPathsTrue.add(path5);
-        Set<List<Edge>> allPaths = g1.allPaths(v1, v6);
-        Assert.assertEquals(allPathsTrue, allPaths);
+        List<List<Edge>> allPaths = g1.allPaths(v1, v6);
+        Assert.assertTrue(allPathsTrue.containsAll(allPaths));
+        Assert.assertTrue(allPaths.containsAll(allPathsTrue));
     }
 
 
     @Test
     public void allPaths2Test(){ // more then 1 path between vertexs
-        Set<List<Edge>> allPathsTrue = new HashSet<List<Edge>>();
+        List<List<Edge>> allPathsTrue = new LinkedList<List<Edge>>();
         List<Edge> path1 = new LinkedList<Edge>();
         path1.add(e21);
         path1.add(e23);
@@ -169,7 +170,22 @@ public class GraphTest {
         path4.add(e22);
         path4.add(e24);
         allPathsTrue.add(path4);
-        Set<List<Edge>> allPaths = g2.allPaths(v21, v23);
-        Assert.assertEquals(allPathsTrue, allPaths);
+        List<List<Edge>> allPaths = g2.allPaths(v21, v23);
+        Assert.assertTrue(allPathsTrue.containsAll(allPaths));
+        Assert.assertTrue(allPaths.containsAll(allPathsTrue));
+    }
+    @Test
+    public void removeAllEdes(){
+        Graph g =new Graph(new HashSet<Vertex>(),new HashSet<Edge>());
+        Edge ed1=new Edge(null,new Vertex(0,0),new Vertex(1,1));
+        Edge ed2=new Edge(null,new Vertex(0,0),new Vertex(1,1));
+        g.addEdge(ed1,true);
+        g.addEdge(ed1,true);
+        List<Edge> l= new LinkedList<Edge>();
+        l.add(ed1);
+        System.out.println(g.getEdges());
+        g.removeEdges(l);
+        System.out.println(g.getEdges());
+
     }
 }

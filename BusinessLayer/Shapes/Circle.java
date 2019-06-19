@@ -99,10 +99,10 @@ public class Circle extends Shape{
         else down=v;
 
 
-        g.addEdge(new Edge(this,left,up));
-        g.addEdge(new Edge(this,left,down));
-        g.addEdge(new Edge(this,up,right));
-        g.addEdge(new Edge(this,down,right));
+        g.addEdge(new Edge(this,left,up),false);
+        g.addEdge(new Edge(this,left,down),false);
+        g.addEdge(new Edge(this,up,right),false);
+        g.addEdge(new Edge(this,down,right),false);
         this.splitEdges(g,points);
     }
 

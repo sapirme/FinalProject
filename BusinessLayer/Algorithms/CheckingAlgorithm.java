@@ -10,7 +10,9 @@ import Shapes.Shape;
 import java.util.*;
 public class CheckingAlgorithm {
 
-    private static int iter = 0;
+    private static final int TimeToWait = 3 * 60 * 1000;
+    private static long timeStmp = System.currentTimeMillis();
+
 
     public static Pair<List<Vertex>,List<Edge>> createGraphForMatch (List<Vertex> l1, List<Vertex> l2){
         List<Vertex> vertex = new LinkedList<Vertex>();
@@ -321,24 +323,37 @@ public class CheckingAlgorithm {
         return false;
     }
 
-    public static int addSortedListPath ( LinkedList<List<Edge>> pathsList, List<Edge> path){
+    public static int[] addSortedListPath ( LinkedList<List<Edge>> pathsList, List<Edge> path){
         if (pathsList.size()==0) {
             pathsList.add(path);
-            return 0;
+            int[] ans = {0};
+            return ans;
         }
         int i=0;
         for (List<Edge> p : pathsList){
-            if (isP1BiggerThenP2(path,p)){
+            int ans = isP1BiggerThenP2(path,p);
+            if (ans>0){
                 pathsList.add(i,path);
-                return i;
+                int[] ansArray = {i};
+                return ansArray;
+                //return i;
+            }
+            if (ans==0){
+                pathsList.add(i,path);
+                int[] ansArray = {i,i+1};
+                return ansArray;
+                //return i;
+                //i,i+1
             }
             i++;
         }
         pathsList.addLast(path);
-        return pathsList.size()-1;
+        int[] ansArray = {pathsList.size()-1};
+        return ansArray;
+        //return pathsList.size()-1;
     }
 
-    public static boolean isP1BiggerThenP2 (List<Edge> p1,List<Edge> p2){
+    public static int isP1BiggerThenP2 (List<Edge> p1,List<Edge> p2){
         for (Edge e1 : p1){
             for (Edge e2 :p2){
                 if (e1.getFrom().getX() >= e2.getTo().getX() - 1) continue;
@@ -370,11 +385,15 @@ public class CheckingAlgorithm {
                 double x = (xEnd - xStart)/2 + xStart;
                 double yE1 = e1.getF().getYbyX(x,e1.getFrom().getY(),e1.getTo().getY());
                 double yE2 = e2.getF().getYbyX(x,e2.getFrom().getY(),e2.getTo().getY());
-                if (yE1 > yE2) return true;
-                else return false;
+                if (yE1 > yE2) return 1;
+                if (yE1 == yE2) {
+                    //if ()
+                    return 0;
+                }
+                else return -1;
             }
         }
-        return false;
+        return -1;
     }
 
     public static boolean isPathChecked(LinkedList<List<Edge>> pathsChecked,List<Edge> path){
@@ -405,6 +424,15 @@ public class CheckingAlgorithm {
         return false;
     }
 
+    public static void switchIndex( LinkedList<List<Edge>> pathsList,int i,int j){
+        List<Edge> iPlace = pathsList.get(i);
+        List<Edge> jPlace = pathsList.get(j);
+        pathsList.remove(i);
+        pathsList.add(i,jPlace);
+        pathsList.remove(j);
+        pathsList.add(j,iPlace);
+    }
+
     public static  List<LinkedList<List<Edge>>> copyList( List<LinkedList<List<Edge>>> toCopy){
         List<LinkedList<List<Edge>>> ans = new LinkedList<LinkedList<List<Edge>>>();
         for (LinkedList<List<Edge>> l : toCopy){
@@ -424,32 +452,27 @@ public class CheckingAlgorithm {
             return false;
         }
 
-        //LinkedList<List<Edge>> pathsCheckedLocalG1 = new LinkedList<List<Edge>>(pathsChecked.getFirst());
+        if (System.currentTimeMillis() - timeStmp > TimeToWait) return false;
 
         for (Pair<Vertex,Vertex> p1 : matchVertex) {
-            //LinkedList<List<Edge>> pathsCheckedLocalG2 = new LinkedList<List<Edge>>(pathsChecked.getSecond());
             for (Pair<Vertex,Vertex> p2 : matchVertex) {
                 if (p1.equals(p2)) continue;
-                Set<List<Edge>> paths1 = g1.allPaths(p1.getFirst(),p2.getFirst());
-                Set<List<Edge>> paths2 = g2.allPaths(p1.getSecond(),p2.getSecond());
+                List<List<Edge>> paths1 = g1.allPaths(p1.getFirst(),p2.getFirst());
+                List<List<Edge>> paths2 = g2.allPaths(p1.getSecond(),p2.getSecond());
                 if (paths1.size()==0 || paths2.size()==0) continue;
 
                 for (List<Edge> path1 : paths1) {
-                    ///////////////////////////
-                    /*if (isPathChecked(pathsCheckedLocalG1,path1))////
-                    {
-                        continue;
-                    }
-                    pathsCheckedLocalG1.add(path1);*/
-
                     ///////////////////////////////
 
                     if (isPathsIntersect(pathsListG1,path1)) {
+                        LinkedList<List<Edge>> l=new  LinkedList<List<Edge>> (pathsListG1);
+                        l.add(path1);
+                        BadCombinationG1.add(l);
                         continue;
                     }
 
                     g1.removeEdges(path1);
-                    int locP1=addSortedListPath(pathsListG1,path1);
+                    int[] locP1=addSortedListPath(pathsListG1,path1);
 
                     ///////////////////////////////
                     //checkBadComb
@@ -458,40 +481,72 @@ public class CheckingAlgorithm {
                         g1.addEdges(path1);
                         continue;
                     }
-                    BadCombinationG1.add(new  LinkedList<List<Edge>> (pathsListG1));
+                    //BadCombinationG1.add(new  LinkedList<List<Edge>> (pathsListG1));
                     ///////////////////////////////
 
-                    //pathsCheckedLocalG2 = new LinkedList<List<Edge>>(pathsChecked.getSecond());
                     for (List<Edge> path2 : paths2) {
-                        ///////////////////////////
-                        /*if (isPathChecked(pathsCheckedLocalG2,path2))////
-                        {
-                            continue;
-                        }
-                        pathsCheckedLocalG2.add(path2);*/
+
                         ///////////////////////////////
 
                         if (isPathsIntersect(pathsListG2,path2)) {
+                            LinkedList<List<Edge>> l=new  LinkedList<List<Edge>> (pathsListG2);
+                            l.add(path2);
+                            BadCombinationG2.add(l);
                             continue;
                         }
-                        int locP2=addSortedListPath(pathsListG2,path2);
-                        if (locP1!=locP2){
+                        int locP2[]=addSortedListPath(pathsListG2,path2);
+                        if (locP1[0]!=locP2[0]){
+                            if (locP1.length>1 && locP2.length>1){
+                                if (locP1[0]!=locP2[1] && locP1[1]!=locP2[0] && locP1[1]!=locP2[1]){
+                                    pathsListG2.remove(path2);
+                                    continue;
+                                }
+                                if (locP1[1]==locP2[1]) {}
+                                else {
+                                    switchIndex(pathsListG2,locP2[0],locP2[1]);
+                                }
+                            }
+                            else if (locP1.length>1){
+                                if (locP1[1]!=locP2[0]){
+                                    pathsListG2.remove(path2);
+                                    continue;
+                                }
+                                else{
+                                    switchIndex(pathsListG1,locP1[0],locP1[1]);
+                                }
+                            }
+                            else if (locP2.length>1){
+                                if (locP2[1]!=locP1[0] ){
+                                    pathsListG2.remove(path2);
+                                    continue;
+                                }
+                                else{
+                                    switchIndex(pathsListG2,locP2[0],locP2[1]);
+                                }
+                            }
+                            else {
+                                pathsListG2.remove(path2);
+                                continue;
+                            }
+                        }
+
+
+                        /*if (locP1!=locP2){
                             pathsListG2.remove(path2);
                             continue;
-                        }
+                        }*/
                         ///////////////////////////////
                         //checkBadComb
                         if (isBadCombination(BadCombinationG2,pathsListG2)){
                             pathsListG2.remove(path2);
                             continue;
                         }
-                        BadCombinationG2.add(new  LinkedList<List<Edge>> (pathsListG2));
+                        //BadCombinationG2.add(new  LinkedList<List<Edge>> (pathsListG2));
                         ///////////////////////////////
 
                         g2.removeEdges(path2);
-                        //Pair<LinkedList<List<Edge>>,LinkedList<List<Edge>>> pathsCheckedLocal = new Pair<LinkedList<List<Edge>>, LinkedList<List<Edge>>>
-                        //        (pathsCheckedLocalG1,pathsCheckedLocalG2);
-                        if (checkAlgorithem(g1,g2,matchVertex,pathsListG1,pathsListG2,/*pathsCheckedLocal*/pathsChecked,BadCombinationG1,BadCombinationG2)) {
+
+                        if (checkAlgorithem(g1,g2,matchVertex,pathsListG1,pathsListG2,pathsChecked,BadCombinationG1,BadCombinationG2)) {
                             return true;
                         }
 
@@ -507,6 +562,7 @@ public class CheckingAlgorithm {
                 }
             }
         }
+
         return false;
     }
 
@@ -538,8 +594,8 @@ public class CheckingAlgorithm {
         List<List<Pair<Vertex,Vertex>>> matchVertex = findMatch(g1,g2);
         if (matchVertex.isEmpty()) return null;
 
+        timeStmp = System.currentTimeMillis();
         for (List<Pair<Vertex,Vertex>> match : matchVertex){
-            iter = 0;
             /*Pair<Vertex,Vertex>[] l1 = new Pair[match.size()];
             match.toArray(l1); // fill the array
             sortMatch(l1);

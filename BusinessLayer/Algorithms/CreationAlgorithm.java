@@ -102,6 +102,8 @@ public class CreationAlgorithm {
     private static double findPoint(List<List<Edge>> pathsG1, List<List<Edge>> pathsG2,List<LinkedList<Point3D>> allLists){
         double min = 0;
         boolean first =true ;
+        System.out.println("p1:"+pathsG1.size());
+        System.out.println("p2:"+pathsG2.size());
         for (int i=0; i<pathsG1.size(); i++){
             for (int j=0; j<pathsG2.size(); j++){
                 if (i!=j) continue;

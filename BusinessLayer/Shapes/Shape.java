@@ -48,8 +48,8 @@ public abstract class Shape {
                 if (e.getF().equals(this) && v.isBetween(e.getFrom(),e.getTo())){
                     //isBetween(e.getFrom(),e.getTo(), v)) {
                     g.removeEdge(e);
-                    g.addEdge(new Edge(this,e.getFrom(),v));
-                    g.addEdge(new Edge(this,v,e.getTo()));
+                    g.addEdge(new Edge(this,e.getFrom(),v),false);
+                    g.addEdge(new Edge(this,v,e.getTo()),false);
 
                 }
             }

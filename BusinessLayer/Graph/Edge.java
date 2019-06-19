@@ -80,6 +80,12 @@ public class Edge implements Comparable<Edge>{
             return false;
         }
         Edge other = (Edge) o;
+        /*if (this.f == null || other.getF()==null){
+            return this.to.equals(other.getTo()) && this.from.equals(other.getFrom());
+        }
+        else{
+            return this.to.equals(other.getTo()) && this.from.equals(other.getFrom()) && this.f.equals(other.getF());
+        }*/
 
         boolean ans = true;
 

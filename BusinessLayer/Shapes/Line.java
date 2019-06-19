@@ -81,7 +81,7 @@ public class Line  extends Shape {
         if (v==null) g.addVertex(end);
         else end=v;
 
-        g.addEdge(new Edge(this,start,end));
+        g.addEdge(new Edge(this,start,end),true);
 
         this.splitEdges(g,points);
     }

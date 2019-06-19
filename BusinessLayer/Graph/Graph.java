@@ -71,8 +71,9 @@ public class Graph {
         }
     }
 
-    public void addEdge(Edge e) {
-        if (!edges.contains(e)) {
+    public void addEdge(Edge e,boolean addIfExist) {
+
+        if (addIfExist || !edges.contains(e)) {
             int index = 0;
             boolean insert = false;
             for (Edge e1: edges){
@@ -181,8 +182,8 @@ public class Graph {
      * @param v
      * @return
      */
-    public Set<Edge> allEdegsFromV(Vertex v){
-        Set<Edge> ans = new HashSet<Edge>();
+    public List<Edge> allEdegsFromV(Vertex v){
+        List<Edge> ans = new LinkedList<Edge>();
         for(Edge e : edges){
             if(e.getFrom().equals(v)){
                 ans.add(e);
@@ -199,8 +200,8 @@ public class Graph {
      * @param path
      * @param paths
      */
-    private void allPathsRecurs(Vertex from, Vertex to, Set<Vertex> visited, List<Edge> path, Set<List<Edge>> paths){
-        Set<Edge> allEdegsFrom = allEdegsFromV(from);
+    private void allPathsRecurs(Vertex from, Vertex to, Set<Vertex> visited, List<Edge> path, List<List<Edge>> paths){
+        List<Edge> allEdegsFrom = allEdegsFromV(from);
         visited.add(from);
         List<Edge> localPath = new LinkedList<Edge>();
         for (Edge e : path)
@@ -226,8 +227,8 @@ public class Graph {
      * @param to
      * @return
      */
-    public Set<List<Edge>> allPaths(Vertex from, Vertex to){
-        Set<List<Edge>> paths = new HashSet<List<Edge>>();
+    public List<List<Edge>> allPaths(Vertex from, Vertex to){
+        List<List<Edge>> paths = new LinkedList<List<Edge>>();
         List<Edge> path = new LinkedList<Edge>();
         Set<Vertex> visited = new HashSet<Vertex>();
         allPathsRecurs(from,to,visited,path,paths);
@@ -235,7 +236,17 @@ public class Graph {
     }
 
     public void removeEdges(List<Edge> path) {
-        edges.removeAll(path);
+        for (Edge e: path) {
+            Iterator itr = edges.iterator();
+            while (itr.hasNext()) {
+                Edge x = (Edge) itr.next();
+                if (x.equals(e)){
+                    itr.remove();
+                    break;
+                }
+            }
+        }
+
     }
 
     public void addEdges(List<Edge> path) {
