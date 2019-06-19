@@ -628,9 +628,6 @@ Actions.prototype.init = function()
         getAllSimilarObjects(xml,svg,editor,mxUtils,true);
 	}, null, null);
 
-	this.addAction('google', function() {
-		handleSignIn();
-	}, null, null);
 
     // View actions
 	this.addAction('resetView', function()

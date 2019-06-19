@@ -136,20 +136,25 @@ public class BLManagerImpl implements BLManager{
     public List<Integer> getSimilarObjects(String xml,String svg){
         if (mydal == null) return null;
         illusionobj.Decide(xml,svg);
-        Map<String, Pair<Integer, Integer>> viewPoints = mydal.getAllViewPoints();
-        List<String> similarVP = illusionobj.similarObj(viewPoints);
+        try {
+            Map<String, Pair<Integer, Integer>> viewPoints = mydal.getAllViewPoints();
+            List<String> similarVP = illusionobj.similarObj(viewPoints);
 
-        List<String> ids=mydal.getObjIDByViewPointID(similarVP);
-        ids = removeDuplicates ( ids);
+            List<String> ids=mydal.getObjIDByViewPointID(similarVP);
+            ids = removeDuplicates ( ids);
 
-        if (ids == null) return null;
-        pool.setAllID(ids);
+            if (ids == null) return null;
+            pool.setAllID(ids);
 
-        List<String> next8 = pool.next8();
-        List<String> files = mydal.getNext8(next8);
-        if (files == null) return null;
-        List<Integer> index = pool.saveFiles(files);
-        return index;
+            List<String> next8 = pool.next8();
+            List<String> files = mydal.getNext8(next8);
+            if (files == null) return null;
+            List<Integer> index = pool.saveFiles(files);
+            return index;
+        }catch (Exception e){
+            return null;
+        }
+
     }
 
     public boolean login (String id_token,String email){
