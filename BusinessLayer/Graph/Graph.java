@@ -1,30 +1,31 @@
 package Graph;
 
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Graph {
 
-    private Set<Vertex> vertex;
-    private Set<Edge> edges;
+    /*private Set<Vertex> vertexSet;
+    private Set<Edge> edgesSet;*/
+    private List<Vertex> vertex;
+    private List<Edge> edges;
 
     public Graph (Set<Vertex> vertex, Set<Edge> edges){
-        this.vertex = new HashSet<Vertex>(vertex);
-        this.edges = new HashSet<Edge>(edges);
+        this.vertex = sortedVer(vertex);//(vertex);
+        this.edges = getEdgesSorted(edges);//new HashSet<Edge>(edges);
     }
 
     public Graph (Graph g){
-        this.vertex = new HashSet<Vertex>();
+        this.vertex=new LinkedList<Vertex>(g.getVertex());
+        this.edges=new LinkedList<Edge>(g.getEdges());
+        /*this.vertex = new HashSet<Vertex>();
         for (Vertex v : g.getVertex()){
             vertex.add(new Vertex(v));
         }
         this.edges = new HashSet<Edge>();
         for (Edge e : g.getEdges()){
             edges.add(new Edge(e));
-        }
+        }*/
     }
 
     public Vertex isVertexExist(Vertex v) {
@@ -54,22 +55,124 @@ public class Graph {
     }
 
     public void addVertex(Vertex v) {
-        vertex.add(v);
+        if (!vertex.contains(v)) {
+            int index = 0;
+            boolean insert = false;
+            for (Vertex v1: vertex){
+                if (v1.compareTo(v)>0){
+                    vertex.add(index,v);
+                    insert = true;
+                    break;
+                }
+                index++;
+            }
+            if (!insert)
+                vertex.add(index,v);
+        }
     }
 
     public void addEdge(Edge e) {
-        edges.add(e);
+        if (!edges.contains(e)) {
+            int index = 0;
+            boolean insert = false;
+            for (Edge e1: edges){
+                if (e1.compareTo(e)>0){
+                    edges.add(index,e);
+                    insert = true;
+                    break;
+                }
+                index++;
+            }
+            if (!insert)
+                edges.add(index,e);
+        }
     }
 
     public void removeEdge(Edge e) {
         edges.remove(e);
     }
 
-    public Set<Vertex> getVertex(){
+    /*public Set<Vertex> getVertex(){
+        return this.vertex;
+    }*/
+    public List<Vertex> getVertex(){
         return this.vertex;
     }
 
-    public Set<Edge> getEdges(){
+
+    private void bubbleSort(Vertex[] array) {
+        boolean swapped = true;
+        int j = 0;
+        Vertex tmp;
+        while (swapped) {
+            swapped = false;
+            j++;
+            for (int i = 0; i < array.length - j; i++) {
+                if (array[i].compareTo(array[i + 1])>0) {
+                    tmp = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = tmp;
+                    swapped = true;
+                }
+            }
+        }
+    }
+
+    public List<Vertex> sortedVer(Set<Vertex> vertex){
+        int i=0;
+        Vertex[] ver = new Vertex[vertex.size()];
+        for (Vertex v : vertex){
+            ver[i] = v;
+            i++;
+        }
+        bubbleSort(ver);
+        //List<Vertex> list = Arrays.asList(ver);
+        List<Vertex> list = new LinkedList<Vertex>();
+        for (i=0; i<ver.length; i++){
+            list.add(ver[i]);
+        }
+        return list;
+    }
+
+    private void bubbleSort(Edge[] array) {
+        boolean swapped = true;
+        int j = 0;
+        Edge tmp;
+        while (swapped) {
+            swapped = false;
+            j++;
+            for (int i = 0; i < array.length - j; i++) {
+                if (array[i].compareTo(array[i + 1])>0) {
+                    tmp = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = tmp;
+                    swapped = true;
+                }
+            }
+        }
+    }
+
+    public List<Edge> getEdgesSorted(Set<Edge> edges){
+        int i=0;
+        Edge[] ed = new Edge[edges.size()];
+        for (Edge v : edges){
+            ed[i] = v;
+            i++;
+        }
+        bubbleSort(ed);
+        List<Edge> list = new LinkedList<Edge>();
+        for (i=0; i<ed.length; i++){
+            list.add(ed[i]);
+        }
+        //List<Edge> list = Arrays.asList(ver);
+        return list;
+    }
+
+    /*public Set<Edge> getEdges(){
+        return this.edges;
+    }*/
+
+    public List<Edge> getEdges(){
         return this.edges;
     }
 

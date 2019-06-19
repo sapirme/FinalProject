@@ -19,28 +19,29 @@ import java.util.Properties;
 public class IllusionServer {
     private Server server;
     public BLManager blManager;
+    public String url;
+
+    private int useDefult()throws Exception {
+        java.io.InputStream is = this.getClass().getResourceAsStream("program.properties");
+        java.util.Properties p = new Properties();
+        p.load(is);
+        int localPort = Integer.parseInt(p.getProperty("local.port"));
+
+        blManager = new BLManagerImpl(p.getProperty("db.address"), Integer.parseInt(p.getProperty("db.port")));
+        return localPort;
+    }
 
     public void init(String[] arguments) throws Exception {
         int localPort;
         if(arguments.length != 3) {
-            java.io.InputStream is = this.getClass().getResourceAsStream("program.properties");
-            java.util.Properties p = new Properties();
-            p.load(is);
-            localPort = Integer.parseInt(p.getProperty("local.port"));
-
-            blManager = new BLManagerImpl(p.getProperty("db.address"), Integer.parseInt(p.getProperty("db.port")));
+            localPort = useDefult();
         }
         else {
             try {
                 localPort = Integer.parseInt(arguments[0]);
                 blManager = new BLManagerImpl(arguments[1], Integer.parseInt(arguments[2]));
             }catch (Exception e){
-                java.io.InputStream is = this.getClass().getResourceAsStream("program.properties");
-                java.util.Properties p = new Properties();
-                p.load(is);
-                localPort = Integer.parseInt(p.getProperty("local.port"));
-
-                blManager = new BLManagerImpl(p.getProperty("db.address"), Integer.parseInt(p.getProperty("db.port")));
+                localPort = useDefult();
             }
         }
 
@@ -86,8 +87,10 @@ public class IllusionServer {
 
         handlers.setHandlers(new Handler[]{fileHandler, context});
         server.setHandler(handlers);
-
-        System.out.println(">> Go to http://localhost:" + localPort + "/mxgraph/javascript/examples/grapheditor/www/index.html");
+        url ="http://localhost:" + localPort + "/mxgraph/javascript/examples/grapheditor/www/index.html";
+        System.out.println();
+        System.out.println(">> Go to "+url);
+        System.out.println();
     }
 
     public void start() throws Exception {
@@ -108,6 +111,12 @@ public class IllusionServer {
 
     }
 
+    public static void Openwin(String uri) throws Exception{
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            Desktop.getDesktop().browse(new URI("http://localhost:8090/mxgraph/javascript/examples/grapheditor/www/index.html"));
+        }
+    }
+
     /**
      * Point your browser to the displayed URL
      */
@@ -116,15 +125,11 @@ public class IllusionServer {
         myServer.init(args);
         try {
             myServer.start();
-            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                Desktop.getDesktop().browse(new URI("http://localhost:8090/mxgraph/javascript/examples/grapheditor/www/index.html"));
-            }
+            Openwin(myServer.url);
             myServer.join();
             myServer.stop();
         }catch (Exception e){
-            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                Desktop.getDesktop().browse(new URI("http://localhost:8090/mxgraph/javascript/examples/grapheditor/www/index.html"));
-            }
+            Openwin(myServer.url);
         }
 
 

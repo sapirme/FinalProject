@@ -1,7 +1,7 @@
 package Graph;
 import Shapes.*;
 
-public class Edge {
+public class Edge implements Comparable<Edge>{
     private Shape f;
     private Vertex from;
     private Vertex to;
@@ -16,6 +16,35 @@ public class Edge {
         this.f = other.getF();
         this.from = other.getFrom();
         this.to = other.getTo();
+    }
+
+    @Override
+    public int compareTo(Edge e) {
+        if (f!=null && e.getF()!=null){
+            if (e.getFrom().compareTo(this.from) == 0 && e.getTo().compareTo(this.to) == 0)
+                return 0;
+            if (e.getFrom().compareTo(this.from) == 0 && this.to.compareTo(e.getTo()) > 0)
+                return 1;
+            if (e.getFrom().compareTo(this.from) == 0 && this.to.compareTo(e.getTo()) < 0)
+                return -1;
+            if (this.from.compareTo(e.getFrom()) > 0)
+                return 1;
+            else
+                return -1;
+        }
+        else {
+            if (e.getFrom().compareTo(this.from) == 0 && e.getTo().compareTo(this.to) == 0)
+                return 0;
+            if (e.getFrom().compareTo(this.from) == 0 && this.to.compareTo(e.getTo()) > 0)
+                return 1;
+            if (e.getFrom().compareTo(this.from) == 0 && this.to.compareTo(e.getTo()) < 0)
+                return -1;
+            if (this.from.compareTo(e.getFrom()) > 0)
+                return 1;
+            else
+                return -1;
+        }
+
     }
 
     public void setF(Shape f){

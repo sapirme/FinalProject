@@ -175,12 +175,14 @@ public class CheckingAlgorithmTest {
 
     }
 
+
     @Test
     public void createGraphTest() {
         List<Shape> shapes = new LinkedList<>();
         shapes.add(c1G1);
         shapes.add(c2G1);
         Graph g = CheckingAlgorithm.createGraph(shapes);
+
         Assert.assertEquals(G1.getVertex().size(),g.getVertex().size());
         Assert.assertEquals(G1.getEdges().size(),g.getEdges().size());
     }

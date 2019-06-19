@@ -1,6 +1,6 @@
 package Graph;
 
-public class Vertex {
+public class Vertex implements Comparable<Vertex>{
     private double x;
     private double y;
 
@@ -12,6 +12,20 @@ public class Vertex {
     public Vertex (Vertex v){
         this.x = v.getX();
         this.y = v.getY();
+    }
+
+    @Override
+    public int compareTo(Vertex v) {
+        if (Math.abs(v.getX()-this.x)<1 && Math.abs(v.getY()-this.y)<1)
+            return 0;
+        if (Math.abs(v.getX()-this.x)<1 && v.getY()<this.y)
+            return 1;
+        if (Math.abs(v.getX()-this.x)<1 && v.getY()>this.y)
+            return -1;
+        if (v.getX()<this.x)
+            return 1;
+        else
+            return -1;
     }
 
     public void setX(int x){

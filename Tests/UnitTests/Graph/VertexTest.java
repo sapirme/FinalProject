@@ -85,4 +85,19 @@ public class VertexTest {
         Assert.assertEquals(false, ver3.isBetween(ver1,ver2));
     }
 
+    @Test
+    public void compareToTest() {
+        Vertex ver1 = new Vertex(40,40);
+        Vertex ver2 = new Vertex(80,80);
+        Assert.assertTrue(ver1.compareTo(ver2)<0);
+        Assert.assertTrue(ver2.compareTo(ver1)>0);
+
+        ver2 = new Vertex(40,40);
+        Assert.assertTrue(ver1.compareTo(ver2)==0);
+
+        ver2 = new Vertex(40,80);
+        Assert.assertTrue(ver1.compareTo(ver2)<0);
+        Assert.assertTrue(ver2.compareTo(ver1)>0);
+    }
+
 }

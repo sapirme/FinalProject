@@ -544,7 +544,7 @@ public class CheckingAlgorithm {
             match.toArray(l1); // fill the array
             sortMatch(l1);
             System.out.println("cheacking match: "+Arrays.asList(l1));*/
-            //System.out.println(match);
+            System.out.println(match);
             LinkedList<List<Edge>> pathsListG1=new LinkedList<List<Edge>>();
             LinkedList<List<Edge>> pathsListG2=new LinkedList<List<Edge>> ();
             Pair<LinkedList<List<Edge>>, LinkedList<List<Edge>>> p = new Pair<LinkedList<List<Edge>>, LinkedList<List<Edge>>>
