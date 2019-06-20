@@ -1,4 +1,3 @@
-//import { ServletFactory } from './ServletFactory.js';
 
 
 /**
@@ -610,22 +609,21 @@ Actions.prototype.init = function()
 	//Illusions actions
 
     this.addAction('createIllusion', function() {
-    	console.log("sapppppppppppppppppppppppppp");
         var code = mxUtils.getPrettyXml(ui.editor.getGraphXml());
         //mxUtils.getXml(graph.getSvg(bg, s, b))
         var svg = mxUtils.getXml(graph.getSvg(null, 1, 0));
         console.log(svg);
-        createIllusion(code,svg,true);
+        createIllusion(code,svg);
     }, null, null);
 
     this.addAction('allObjects', function() {
-    	getAllObjects(editor,mxUtils,true);
+    	getAllObjects(editor,mxUtils);
         }, null, null);
 
     this.addAction('similarObjects', function() {
         var xml = mxUtils.getPrettyXml(ui.editor.getGraphXml());
         var svg = mxUtils.getXml(graph.getSvg(null, 1, 0));
-        getAllSimilarObjects(xml,svg,editor,mxUtils,true);
+        getAllSimilarObjects(xml,svg,editor,mxUtils);
 	}, null, null);
 
 
